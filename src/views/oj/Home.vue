@@ -2,32 +2,6 @@
   <div>
     <el-row :gutter="30">
       <el-col :md="15" :sm="24">
-        <!--        <el-card>-->
-        <!--          <div slot="header" class="content-center">-->
-        <!--            <span class="panel-title home-title welcome-title"-->
-        <!--              >{{ $t('m.Welcome_to')-->
-        <!--              }}{{ toUpper(websiteConfig.shortName) }}</span-->
-        <!--            >-->
-        <!--          </div>-->
-        <!--          <el-carousel-->
-        <!--            :interval="interval"-->
-        <!--            :height="srcHight"-->
-        <!--            class="img-carousel"-->
-        <!--            arrow="always"-->
-        <!--            indicator-position="outside"-->
-        <!--          >-->
-        <!--            <el-carousel-item-->
-        <!--              v-for="(item, index) in carouselImgList"-->
-        <!--              :key="index"-->
-        <!--            >-->
-        <!--              <el-image :src="item.url" fit="fill">-->
-        <!--                <div slot="error" class="image-slot">-->
-        <!--                  <i class="el-icon-picture-outline"></i>-->
-        <!--                </div>-->
-        <!--              </el-image>-->
-        <!--            </el-carousel-item>-->
-        <!--          </el-carousel>-->
-        <!--        </el-card>-->
         <el-card>
           <div slot="header" class="clearfix title content-center">
             <div class="home-title home-contest">
@@ -244,48 +218,6 @@
 
         </el-card>
         <Announcements class="card-top"></Announcements>
-        <!--        <el-card class="card-top">-->
-        <!--          <div slot="header" class="clearfix">-->
-        <!--            <span class="panel-title home-title">{{-->
-        <!--              $t('m.Other_OJ_Contest')-->
-        <!--            }}</span>-->
-        <!--          </div>-->
-        <!--          <vxe-table-->
-        <!--            border="inner"-->
-        <!--            highlight-hover-row-->
-        <!--            stripe-->
-        <!--            :loading="loading.recentOtherContestsLoading"-->
-        <!--            auto-resize-->
-        <!--            :data="otherContests"-->
-        <!--            @cell-click="goOtherOJContest"-->
-        <!--          >-->
-        <!--            <vxe-table-column-->
-        <!--              field="oj"-->
-        <!--              :title="$t('m.Recent_Contest')"-->
-        <!--              min-width="150"-->
-        <!--              show-overflow-->
-        <!--              header-align="center"-->
-        <!--            >-->
-        <!--              <template v-slot="{ row }">-->
-        <!--                <span>[{{ row.oj }}] {{ row.title }}</span>-->
-        <!--              </template>-->
-        <!--            </vxe-table-column>-->
-        <!--            <vxe-table-column-->
-        <!--              field="beginTime"-->
-        <!--              :title="$t('m.Contest_Time')"-->
-        <!--              show-overflow-->
-        <!--              min-width="150"-->
-        <!--              align="center"-->
-        <!--            >-->
-        <!--              <template v-slot="{ row }">-->
-        <!--                <span-->
-        <!--                  >{{ row.beginTime | localtime }} ~-->
-        <!--                  {{ row.endTime | localtime }}</span-->
-        <!--                >-->
-        <!--              </template>-->
-        <!--            </vxe-table-column>-->
-        <!--          </vxe-table>-->
-        <!--        </el-card>-->
       </el-col>
       <el-col :md="9" :sm="24" class="phone-margin">
         <el-card>

@@ -276,7 +276,6 @@ export const m = {
   Private_Training: '私有训练',
   Training_Password: '训练密码',
   Edit_Training: '编辑训练',
-  Create_Training: '创建训练',
   Redirect_To_Category: '当前训练的分类列表为空，请先前往创建分类！',
   Redirect: '重定向',
 
@@ -289,9 +288,6 @@ export const m = {
   // /views/admin/training/Category.vue
   Add_Category: '添加分类',
   Update_Category: '修改分类',
-  To_Add: '添加',
-  To_Update: '更新',
-  Create_Training: '创建训练',
   Category_Name: '分类名称',
   Category_Color: '分类颜色',
   Delete_Category_Tips: '你是否确定删除该分类？',
@@ -329,9 +325,8 @@ export const m = {
   Real_Rank_After_Contest: '比赛完取消封榜',
   Seal_Rank_After_Contest: '比赛完继续封榜',
   Edit_Contest: '编辑比赛',
-  Create_Contest: '创建比赛',
   Contest_Duration_Check: '比赛时长不能小于0',
-  Contets_Time_Check: '开始时间应该早于结束时间',
+  Contest_Time_Check: '开始时间应该早于结束时间',
   Print_Func: '打印功能',
   Not_Support_Print: '不支持打印',
   Support_Offline_Print: '支持线下打印',

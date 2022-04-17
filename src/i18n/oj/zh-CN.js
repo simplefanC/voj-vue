@@ -378,7 +378,6 @@ export const m = {
 
   // /views/oj/contest/children/ContestRejudgeAdmin.vue
   Contest_Rejudge: '比赛重新评测',
-  ID: 'ID',
   Rejudge_All: '重测',
   Contest_Rejudge_Tips: '您确定重测所有提交记录?',
   Rejudge_successfully: '重测成功',

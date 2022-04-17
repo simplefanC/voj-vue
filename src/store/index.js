@@ -19,7 +19,14 @@ const rootState = {
     projectName: 'VOJ',
     shortName: 'OJ',
     recordUrl: '#',
-    projectUrl: '#'
+    projectUrl: '#',
+    problem: true,
+    training: true,
+    contest: true,
+    status: true,
+    rank: true,
+    discussion: true,
+    introduction: true
   },
   registerTimeOut: 60,
   resetTimeOut: 90,

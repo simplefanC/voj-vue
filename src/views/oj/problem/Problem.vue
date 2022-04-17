@@ -448,41 +448,41 @@
             </el-tab-pane>
           </el-tabs>
         </el-col>
-        <div
-            :title="$t('m.Shrink_Sidebar')"
-            class="problem-resize hidden-md-and-down"
-        >
-          <span>⋮</span>
-          <el-tooltip
-              :content="
-              toWatchProblem
-                ? $t('m.View_Problem_Content')
-                : $t('m.Only_View_Problem')
-            "
-              placement="right"
-          >
-            <el-button
-                circle
-                class="right-fold fold"
-                icon="el-icon-caret-right"
-                size="mini"
-                @click.native="onlyWatchProblem"
-            ></el-button>
-          </el-tooltip>
-          <el-tooltip
-              :content="$t('m.Put_away_the_full_screen_and_write_the_code')"
-              placement="left"
-          >
-            <el-button
-                v-show="toResetWatch"
-                circle
-                class="left-fold fold"
-                icon="el-icon-caret-left"
-                size="mini"
-                @click.native="resetWatch(false)"
-            ></el-button>
-          </el-tooltip>
-        </div>
+<!--        <div-->
+<!--            :title="$t('m.Shrink_Sidebar')"-->
+<!--            class="problem-resize hidden-md-and-down"-->
+<!--        >-->
+<!--          <span>⋮</span>-->
+<!--          <el-tooltip-->
+<!--              :content="-->
+<!--              toWatchProblem-->
+<!--                ? $t('m.View_Problem_Content')-->
+<!--                : $t('m.Only_View_Problem')-->
+<!--            "-->
+<!--              placement="right"-->
+<!--          >-->
+<!--            <el-button-->
+<!--                circle-->
+<!--                class="right-fold fold"-->
+<!--                icon="el-icon-caret-right"-->
+<!--                size="mini"-->
+<!--                @click.native="onlyWatchProblem"-->
+<!--            ></el-button>-->
+<!--          </el-tooltip>-->
+<!--          <el-tooltip-->
+<!--              :content="$t('m.Put_away_the_full_screen_and_write_the_code')"-->
+<!--              placement="left"-->
+<!--          >-->
+<!--            <el-button-->
+<!--                v-show="toResetWatch"-->
+<!--                circle-->
+<!--                class="left-fold fold"-->
+<!--                icon="el-icon-caret-left"-->
+<!--                size="mini"-->
+<!--                @click.native="resetWatch(false)"-->
+<!--            ></el-button>-->
+<!--          </el-tooltip>-->
+<!--        </div>-->
         <el-col :lg="12" :md="24" :sm="24" class="problem-right">
           <el-card
               id="submit-code"
@@ -807,7 +807,7 @@ export default {
   },
   mounted() {
     this.init();
-    this.dragControllerDiv();
+    // this.dragControllerDiv();
   },
   methods: {
     ...mapActions(['changeDomTitle']),
@@ -1529,8 +1529,9 @@ a {
 
 @media screen and (min-width: 768px) {
   .problem-detail {
-    height: 700px !important;
-    overflow-y: auto;
+    height: 100%;
+    /*height: 700px !important;*/
+    /*overflow-y: auto;*/
   }
 
   .submit-detail {
@@ -1563,7 +1564,8 @@ a {
   }
 
   .problem-left {
-    width: calc(50% - 10px); /*左侧初始化宽度*/
+    /*width: calc(50% - 10px); !*左侧初始化宽度*!*/
+    width: 100%; /*左侧初始化宽度*/
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -1634,7 +1636,8 @@ a {
   .problem-right {
     height: 100%;
     float: left;
-    width: 50%;
+    /*width: 50%;*/
+    width: 100%;
   }
 }
 

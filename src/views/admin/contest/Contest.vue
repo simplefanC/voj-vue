@@ -561,7 +561,7 @@ export default {
       let end = this.contest.endTime;
       let durationMS = time.durationMs(start, end);
       if (durationMS < 0) {
-        this.durationText = this.$i18n.t('m.Contets_Time_Check');
+        this.durationText = this.$i18n.t('m.Contest_Time_Check');
         this.contest.duration = 0;
         return;
       }
