@@ -151,20 +151,20 @@
               </el-button>
             </el-tooltip>
 
-            <el-tooltip
-                v-if="isSuperAdmin || isProblemAdmin"
-                :content="$t('m.Delete')"
-                effect="dark"
-                placement="top"
-            >
-              <el-button
-                  icon="el-icon-delete-solid"
-                  size="mini"
-                  type="danger"
-                  @click.native="deleteProblem(row.id)"
-              >
-              </el-button>
-            </el-tooltip>
+<!--            <el-tooltip-->
+<!--                v-if="isSuperAdmin || isProblemAdmin"-->
+<!--                :content="$t('m.Delete')"-->
+<!--                effect="dark"-->
+<!--                placement="top"-->
+<!--            >-->
+<!--              <el-button-->
+<!--                  icon="el-icon-delete-solid"-->
+<!--                  size="mini"-->
+<!--                  type="danger"-->
+<!--                  @click.native="deleteProblem(row.id)"-->
+<!--              >-->
+<!--              </el-button>-->
+<!--            </el-tooltip>-->
           </template>
         </vxe-table-column>
       </vxe-table>

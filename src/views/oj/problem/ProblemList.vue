@@ -62,11 +62,11 @@
               >
               <el-tag
                   :effect="
-                  query.oj === 'Mine' || query.oj === '' ? 'dark' : 'plain'
+                  query.oj === 'LOCAL' || query.oj === '' ? 'dark' : 'plain'
                 "
                   class="filter-item"
                   size="medium"
-                  @click="filterByOJ('Mine')"
+                  @click="filterByOJ('LOCAL')"
               >{{ $t('m.My_OJ') }}
               </el-tag
               >
@@ -400,13 +400,12 @@ export default {
       {status: 4, count: 100},
     ];
     this.getTagList(this.query.oj);
-    this.loadings.table = true;
-    setTimeout(() => {
-      // 将指定列设置为隐藏状态
-      this.$refs.problemList.getColumnByField('tag').visible = false;
-      this.$refs.problemList.refreshColumn();
-      this.loadings.table = false;
-    }, 200);
+    // this.loadings.table = true;
+    // setTimeout(() => {
+    //   // 将指定列设置为隐藏状态
+    //   this.changeTagVisible(false);
+    //   this.loadings.table = false;
+    // }, 200);
     this.getData();
   },
   methods: {
@@ -414,7 +413,7 @@ export default {
       this.routeName = this.$route.name;
       let query = this.$route.query;
       this.query.difficulty = query.difficulty || '';
-      this.query.oj = query.oj || 'Mine';
+      this.query.oj = query.oj || 'LOCAL';
       this.query.keyword = query.keyword || '';
       try {
         this.query.tagId = JSON.parse(query.tagId);
@@ -497,7 +496,7 @@ export default {
       if (queryParams.oj == 'All') {
         queryParams.oj = '';
       } else if (!queryParams.oj) {
-        queryParams.oj = 'Mine';
+        queryParams.oj = 'LOCAL';
       }
       queryParams.tagId = queryParams.tagId + '';
       this.loadings.table = true;
@@ -539,9 +538,6 @@ export default {
       );
     },
     getTagList(oj) {
-      if (oj == 'Mine') {
-        oj = 'ME';
-      }
       this.loadings.tag = true;
       api.getProblemTagList(oj).then(
           (res) => {
@@ -659,7 +655,7 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated']),
     OJName() {
-      if (this.query.oj == 'Mine' || !this.$route.query.oj) {
+      if (this.query.oj == 'LOCAL' || !this.$route.query.oj) {
         return this.$i18n.t('m.My_OJ');
       } else if (this.query.oj == 'All') {
         return this.$i18n.t('m.All');

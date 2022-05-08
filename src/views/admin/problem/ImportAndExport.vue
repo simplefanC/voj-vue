@@ -237,7 +237,7 @@ export default {
         keyword: this.keyword,
         currentPage: page,
         limit: this.limit,
-        oj: 'Mine',
+        oj: 'LOCAL',
       };
       this.loadingProblems = true;
       api.admin_getProblemList(params).then((res) => {

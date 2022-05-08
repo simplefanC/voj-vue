@@ -43,7 +43,6 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-
           <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Contest_Duration')" required>
               <el-input v-model="durationText" disabled></el-input>
@@ -52,6 +51,7 @@
         </el-row>
 
         <el-row :gutter="20">
+          <!--比赛赛制-->
           <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Contest_Rule_Type')" required>
               <el-radio
@@ -74,7 +74,7 @@
               >
             </el-form-item>
           </el-col>
-
+          <!--OI排行榜得分类型-->
           <el-col :md="8" :xs="24">
             <el-form-item
                 v-show="contest.type == 1"
@@ -109,7 +109,6 @@
               </el-switch>
             </el-form-item>
           </el-col>
-
           <el-col v-else :md="24" :xs="24">
             <el-form-item :label="$t('m.Real_Time_Rank')" required>
               <el-switch
@@ -121,7 +120,6 @@
               </el-switch>
             </el-form-item>
           </el-col>
-
           <el-col :md="8" :xs="24">
             <el-form-item
                 v-show="contest.sealRank"
@@ -146,7 +144,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-
           <el-col :md="8" :xs="24">
             <el-form-item
                 v-show="contest.sealRank"
@@ -163,6 +160,7 @@
           </el-col>
         </el-row>
 
+        <!--赛外榜单-->
         <el-row :gutter="20">
           <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Contest_Outside_ScoreBoard')" required>
@@ -174,7 +172,6 @@
               </el-switch>
             </el-form-item>
           </el-col>
-
           <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Print_Func')" required>
               <el-switch
@@ -188,6 +185,7 @@
         </el-row>
 
         <el-row :gutter="20">
+          <!--榜单显示用户名称-->
           <el-col :span="24">
             <el-form-item :label="$t('m.Rank_Show_Name')" required>
               <el-radio-group v-model="contest.rankShowName">
@@ -206,7 +204,7 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
-
+          <!--打星用户-->
           <el-col>
             <el-form-item :label="$t('m.Star_User_UserName')" required>
               <el-tag
@@ -246,8 +244,11 @@
               </el-tooltip>
             </el-form-item>
           </el-col>
+        </el-row>
 
-          <el-col :md="8" :xs="24">
+        <el-row :gutter="20">
+          <!--1.比赛权限-->
+          <el-col :md="6" :xs="24">
             <el-form-item :label="$t('m.Contest_Auth')" required>
               <el-select v-model="contest.auth">
                 <el-option :label="$t('m.Public')" :value="0"></el-option>
@@ -256,18 +257,30 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :md="8" :xs="24">
+          <!--2.比赛密码-->
+          <el-col :md="4" :xs="24">
             <el-form-item
                 v-show="contest.auth != 0"
-                :label="$t('m.Contest_Password')"
+                :label="$t('m.Password_Limit')"
                 :required="contest.auth != 0"
+            >
+              <el-switch v-model="contest.openPwdLimit"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :md="6" :xs="24">
+            <el-form-item
+                v-show="contest.openPwdLimit"
+                :label="$t('m.Contest_Password')"
+                :required="contest.openPwdLimit"
             >
               <el-input
                   v-model="contest.pwd"
+                  style="width: 80%"
                   :placeholder="$t('m.Contest_Password')"
               ></el-input>
             </el-form-item>
           </el-col>
+          <!--3.账号限制-->
           <el-col :md="8" :xs="24">
             <el-form-item
                 v-show="contest.auth != 0"
@@ -277,7 +290,10 @@
               <el-switch v-model="contest.openAccountLimit"></el-switch>
             </el-form-item>
           </el-col>
+        </el-row>
 
+        <!--账号限制规则-->
+        <el-row :gutter="20">
           <template v-if="contest.openAccountLimit">
             <el-form :model="formRule">
               <el-col :md="6" :xs="24">
@@ -380,7 +396,7 @@ export default {
         startTime: '',
         endTime: '',
         duration: 0,
-        type: 0,
+        type: 1, // 0 ACM赛制; 1 OI赛制
         pwd: '',
         sealRank: false,
         sealRankTime: '', //封榜时间
@@ -388,10 +404,11 @@ export default {
         auth: 0,
         openPrint: false,
         rankShowName: 'username',
+        openPwdLimit: false,
         openAccountLimit: false,
         accountLimitRule: '',
         starAccount: [],
-        oiRankScoreType: 'Recent',
+        oiRankScoreType: 'Highest', // Recent; Highest
       },
       formRule: {
         prefix: '',
@@ -503,20 +520,26 @@ export default {
         myMessage.error(this.$i18n.t('m.Contest_Duration_Check'));
         return;
       }
-      if (this.contest.auth != 0 && !this.contest.pwd) {
-        myMessage.error(
-            this.$i18n.t('m.Contest_Password') +
-            ' ' +
-            this.$i18n.t('m.is_required')
-        );
-        return;
+      if (this.contest.auth != 0) {
+        if (!this.contest.openPwdLimit && !this.contest.openAccountLimit) {
+          myMessage.error(this.$i18n.t('m.Contest_Auth_Check_Tip'));
+          return;
+        }
+        if (this.contest.openPwdLimit && !this.contest.pwd) {
+          myMessage.error(
+              this.$i18n.t('m.Contest_Password') +
+              ' ' +
+              this.$i18n.t('m.is_required')
+          );
+          return;
+        }
+        if (this.contest.openAccountLimit) {
+          this.contest.accountLimitRule = this.changeAccountRuleToStr(
+              this.formRule
+          );
+        }
       }
 
-      if (this.contest.openAccountLimit) {
-        this.contest.accountLimitRule = this.changeAccountRuleToStr(
-            this.formRule
-        );
-      }
 
       let funcName =
           this.$route.name === 'admin-edit-contest'
@@ -556,6 +579,7 @@ export default {
           .catch(() => {
           });
     },
+
     changeDuration() {
       let start = this.contest.startTime;
       let end = this.contest.endTime;
@@ -570,6 +594,7 @@ export default {
         this.contest.duration = durationMS;
       }
     },
+
     changeAccountRuleToStr(formRule) {
       let result =
           '<prefix>' +
@@ -585,6 +610,7 @@ export default {
           '</extra>';
       return result;
     },
+
     changeStrToAccountRule(value) {
       let reg =
           '<prefix>([\\s\\S]*?)</prefix><suffix>([\\s\\S]*?)</suffix><start>([\\s\\S]*?)</start><end>([\\s\\S]*?)</end><extra>([\\s\\S]*?)</extra>';
@@ -641,6 +667,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .userPreview {
   padding-left: 10px;

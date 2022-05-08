@@ -131,10 +131,10 @@
             </div>
           </el-col>
           <el-col v-show="isAuthenticated" :span="4">
-            <i
-                class="fa fa-font katex-editor fa-size"
-                @click="katexVisible = true"
-            ></i>
+<!--            <i-->
+<!--                class="fa fa-font katex-editor fa-size"-->
+<!--                @click="katexVisible = true"-->
+<!--            ></i>-->
             <avatar
                 :inline="true"
                 :size="30"
@@ -174,11 +174,11 @@
               ? websiteConfig.shortName.toUpperCase() + ' ADMIN'
               : 'ADMIN'
         }}
-        <mu-menu v-show="isAuthenticated" slot="right">
-          <mu-button flat @click="katexVisible = true">
-            <i class="fa fa-font katex-editor"></i>
-          </mu-button>
-        </mu-menu>
+<!--        <mu-menu v-show="isAuthenticated" slot="right">-->
+<!--          <mu-button flat @click="katexVisible = true">-->
+<!--            <i class="fa fa-font katex-editor"></i>-->
+<!--          </mu-button>-->
+<!--        </mu-menu>-->
         <mu-menu
             v-show="isAuthenticated"
             slot="right"
@@ -523,9 +523,9 @@
       </div>
     </div>
 
-    <el-dialog :visible.sync="katexVisible" title="Latex Editor" width="350px">
-      <KatexEditor></KatexEditor>
-    </el-dialog>
+<!--    <el-dialog :visible.sync="katexVisible" @close-on-click-modal="false" title="Latex Editor" width="350px">-->
+<!--      <KatexEditor></KatexEditor>-->
+<!--    </el-dialog>-->
   </div>
 </template>
 
@@ -551,7 +551,7 @@ export default {
     return {
       openusermenu: false,
       openSideMenu: '',
-      katexVisible: false,
+      // katexVisible: false,
       opendrawer: false,
       mobileNar: false,
       currentPath: '',

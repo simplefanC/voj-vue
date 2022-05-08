@@ -24,7 +24,7 @@
                   :label="$t('m.All_Problem')"
                   :value="'ALL'"
               ></el-option>
-              <el-option :label="$t('m.My_OJ')" :value="'ME'"></el-option>
+              <el-option :label="$t('m.My_OJ')" :value="'LOCAL'"></el-option>
               <el-option
                   v-for="(remoteOj, index) in REMOTE_OJ"
                   :key="index"
@@ -75,7 +75,7 @@
 
         <el-form-item :label="$t('m.Tag_Attribution')" required="">
           <el-select v-model="tag.oj" size="small" style="width: 150px;">
-            <el-option :label="$t('m.My_OJ')" :value="'ME'"></el-option>
+            <el-option :label="$t('m.My_OJ')" :value="'LOCAL'"></el-option>
             <el-option
                 v-for="(remoteOj, index) in REMOTE_OJ"
                 :key="index"
@@ -105,7 +105,7 @@ import {REMOTE_OJ} from '@/common/constants';
 export default {
   data() {
     return {
-      tagOj: 'ME',
+      tagOj: 'LOCAL',
       REMOTE_OJ: {},
       getTagListLoading: false,
       tagList: [],
@@ -117,7 +117,7 @@ export default {
         id: null,
         name: null,
         color: null,
-        oj: 'ME',
+        oj: 'LOCAL',
       },
     };
   },

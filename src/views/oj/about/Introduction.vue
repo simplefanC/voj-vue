@@ -136,7 +136,7 @@ export default {
     utils.getLanguages(true).then((languages) => {
       next((vm) => {
         vm.languages = languages.filter(function (element, index, array) {
-          return element.oj == 'ME';
+          return element.oj == 'LOCAL';
         });
       });
     });

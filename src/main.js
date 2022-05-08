@@ -3,6 +3,7 @@ import App from './App.vue'
 import store from './store'
 import Element from 'element-ui'
 import i18n from '@/i18n'
+import router from './router'
 
 import "element-ui/lib/theme-chalk/index.css"
 import 'font-awesome/css/font-awesome.min.css'
@@ -10,13 +11,16 @@ import Message from 'vue-m-message'
 import 'vue-m-message/dist/index.css'
 import axios from 'axios'
 
-import Md_Katex from '@iktakahiro/markdown-it-katex'
-
 // 注释表示使用cdn引入
 import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
 
+// markdown编辑器
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css';
+// https://github.com/LIRUILONGS/Vue-markdown-katex
+import Md_Katex from '@iktakahiro/markdown-it-katex'
 import Katex from '@/common/katex'
 
 import VueClipboard from 'vue-clipboard2'
@@ -42,19 +46,14 @@ import VueECharts from 'vue-echarts';
 import VueParticles from 'vue-particles'
 import SlideVerify from 'vue-monoplasty-slide-verify'
 
-//  markdown编辑器
-import mavonEditor from 'mavon-editor' //引入markdown编辑器
-import 'mavon-editor/dist/css/index.css';
 import {AppBar, Button, Divider, Drawer, Icon, List, Menu} from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
 
 import VueDOMPurifyHTML from 'vue-dompurify-html'
-import router from './router'
 
 Vue.component('ECharts', ECharts)
 
 Vue.component('ECharts', VueECharts)
-
 
 Vue.use(mavonEditor)
 

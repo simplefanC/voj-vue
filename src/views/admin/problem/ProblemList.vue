@@ -55,7 +55,7 @@
                   :label="$t('m.All_Problem')"
                   :value="'All'"
               ></el-option>
-              <el-option :label="$t('m.My_OJ')" :value="'Mine'"></el-option>
+              <el-option :label="$t('m.My_OJ')" :value="'LOCAL'"></el-option>
               <el-option
                   v-for="(remoteOj, index) in REMOTE_OJ"
                   :key="index"

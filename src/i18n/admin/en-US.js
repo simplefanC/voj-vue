@@ -341,8 +341,10 @@ export const m = {
   Show_Username: 'Username',
   Show_Nickname: 'Nickname',
   Show_Realname: 'Real name',
+  Password_Limit: 'Password Limit',
   Account_Limit: 'Account Limit (Login Username)',
   The_allowed_account_will_be: 'The allowed username will be ',
+  Contest_Auth_Check_Tip: 'Password Limit and Account Limit require at least one',
 
   // /views/admin/discussion/Discussion.vue
   Discussion_ID: 'Discussion ID',

@@ -32,7 +32,7 @@ const getters = {
   },
   isContestAdmin: (state, getters, _, rootGetters) => {
     return rootGetters.isAuthenticated &&
-      (state.contest.author === rootGetters.userInfo.username || rootGetters.isSuperAdmin)
+        (state.contest.author === rootGetters.userInfo.username || rootGetters.isSuperAdmin)
   },
   canSubmit: (state, getters) => {
     return state.intoAccess || state.submitAccess || state.contest.auth === CONTEST_TYPE.PUBLIC || getters.isContestAdmin
@@ -72,9 +72,8 @@ const getters = {
     // 比赛结束不可交题
     if (getters.contestStatus === CONTEST_STATUS.ENDED) {
       return true
-
-      // 比赛未开始不可交题，除非是比赛管理者
     } else if (getters.contestStatus === CONTEST_STATUS.SCHEDULED) {
+      // 比赛未开始不可交题，除非是比赛管理者
       return !getters.isContestAdmin
     }
     // 未登录不可交题
@@ -83,7 +82,10 @@ const getters = {
   // 是否需要显示密码验证框
   passwordFormVisible: (state, getters) => {
     // 如果是公开赛，保护赛，或已注册过，管理员都不用再显示
-    return state.contest.auth !== CONTEST_TYPE.PUBLIC && state.contest.auth !== CONTEST_TYPE.PROTECTED && !state.intoAccess && !getters.isContestAdmin
+    return state.contest.auth !== CONTEST_TYPE.PUBLIC &&
+        state.contest.auth !== CONTEST_TYPE.PROTECTED &&
+        !state.intoAccess &&
+        !getters.isContestAdmin
   },
   contestStartTime: (state) => {
     return moment(state.contest.startTime)

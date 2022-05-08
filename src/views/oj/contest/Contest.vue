@@ -95,21 +95,12 @@
       </el-col>
     </el-row>
     <div class="sub-menu">
-      <!-- 判断是否需要密码验证 -->
       <el-tabs v-model="route_name" @tab-click="tabClick">
-        <el-tab-pane
-            :disabled="contestMenuDisabled"
-            lazy
-            name="ContestDetails"
-        >
-          <span slot="label"
-          ><i class="el-icon-s-home"></i>&nbsp;{{ $t('m.Overview') }}</span
-          >
-          <el-card
-              v-if="passwordFormVisible"
-              class="password-form-card"
-              style="text-align:center;margin-bottom:15px"
-          >
+        <!--简介-->
+        <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestDetails">
+          <span slot="label"><i class="el-icon-s-home"></i>&nbsp;{{ $t('m.Overview') }}</span>
+          <!-- 判断是否需要密码验证 -->
+          <el-card v-if="passwordFormVisible" class="password-form-card" style="text-align:center;margin-bottom:15px">
             <div slot="header">
               <span class="panel-title" style="color: #e6a23c;"
               ><i class="el-icon-warning">
@@ -137,10 +128,8 @@
               >
             </el-form>
           </el-card>
-          <el-card
-              v-if="!contestMenuDisabled"
-              class="box-card"
-          >
+          <!--内容-->
+          <el-card v-if="!passwordFormVisible" class="box-card">
             <div
                 v-highlight
                 class="markdown-body"
@@ -149,11 +138,8 @@
           </el-card>
         </el-tab-pane>
 
-        <el-tab-pane
-            :disabled="contestMenuDisabled"
-            lazy
-            name="ContestProblemList"
-        >
+        <!--题目-->
+        <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestProblemList">
           <span slot="label"
           ><i aria-hidden="true" class="fa fa-list"></i>&nbsp;{{
               $t('m.Problem')
@@ -166,11 +152,8 @@
           </transition>
         </el-tab-pane>
 
-        <el-tab-pane
-            :disabled="contestMenuDisabled"
-            lazy
-            name="ContestSubmissionList"
-        >
+        <!--提交-->
+        <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestSubmissionList">
           <span slot="label"
           ><i class="el-icon-menu"></i>&nbsp;{{ $t('m.Status') }}</span
           >
@@ -181,6 +164,7 @@
           </transition>
         </el-tab-pane>
 
+        <!--rank-->
         <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestRank">
           <span slot="label"
           ><i aria-hidden="true" class="fa fa-bar-chart"></i>&nbsp;{{
@@ -192,11 +176,8 @@
           </transition>
         </el-tab-pane>
 
-        <el-tab-pane
-            :disabled="contestMenuDisabled"
-            lazy
-            name="ContestAnnouncementList"
-        >
+        <!--公告-->
+        <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestAnnouncementList">
           <span slot="label"
           ><i aria-hidden="true" class="fa fa-bullhorn"></i>&nbsp;{{
               $t('m.Announcement')
@@ -209,6 +190,7 @@
           </transition>
         </el-tab-pane>
 
+        <!--讨论-->
         <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestComment">
           <span slot="label"
           ><i aria-hidden="true" class="fa fa-commenting"></i>&nbsp;{{
@@ -220,12 +202,8 @@
           </transition>
         </el-tab-pane>
 
-        <el-tab-pane
-            v-if="contest.openPrint"
-            :disabled="contestMenuDisabled"
-            lazy
-            name="ContestPrint"
-        >
+        <!--打印-->
+        <el-tab-pane v-if="contest.openPrint" :disabled="contestMenuDisabled" lazy name="ContestPrint">
           <span slot="label"
           ><i class="el-icon-printer"></i>&nbsp;{{ $t('m.Print') }}</span
           >
@@ -234,12 +212,8 @@
           </transition>
         </el-tab-pane>
 
-        <el-tab-pane
-            v-if="showAdminHelper"
-            :disabled="contestMenuDisabled"
-            lazy
-            name="ContestACInfo"
-        >
+        <!--admin helper-->
+        <el-tab-pane v-if="showAdminHelper" :disabled="contestMenuDisabled" lazy name="ContestACInfo">
           <span slot="label"
           ><i aria-hidden="true" class="el-icon-s-help"></i>&nbsp;{{
               $t('m.Admin_Helper')
@@ -250,11 +224,9 @@
           </transition>
         </el-tab-pane>
 
-        <el-tab-pane
-            v-if="isSuperAdmin && contest.openPrint"
-            :disabled="contestMenuDisabled"
-            lazy
-            name="ContestAdminPrint"
+        <!--admin打印-->
+        <el-tab-pane v-if="isSuperAdmin && contest.openPrint" :disabled="contestMenuDisabled" lazy
+                     name="ContestAdminPrint"
         >
           <span slot="label"
           ><i class="el-icon-printer"></i>&nbsp;{{
@@ -268,12 +240,8 @@
           </transition>
         </el-tab-pane>
 
-        <el-tab-pane
-            v-if="isSuperAdmin"
-            :disabled="contestMenuDisabled"
-            lazy
-            name="ContestRejudgeAdmin"
-        >
+        <!--重测-->
+        <el-tab-pane v-if="isSuperAdmin" :disabled="contestMenuDisabled" lazy name="ContestRejudgeAdmin">
           <span slot="label"
           ><i aria-hidden="true" class="el-icon-refresh"></i>&nbsp;{{
               $t('m.Rejudge')

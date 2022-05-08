@@ -165,7 +165,7 @@ export const m = {
   Problem_List: 'Problem List',
   Problem_Bank: 'Problem Bank',
   All: 'All',
-  My_OJ: 'Mine',
+  My_OJ: 'Local',
   Level: 'Level',
   Tags: 'Tags',
   Search_Filter_Tag: 'Enter the tag name...',

@@ -337,8 +337,10 @@ export const m = {
   Show_Username: '用户名',
   Show_Nickname: '昵称',
   Show_Realname: '真实姓名',
+  Password_Limit: '密码限制',
   Account_Limit: '账号限制（登录用户名）',
   The_allowed_account_will_be: '允许参加比赛的用户名是：',
+  Contest_Auth_Check_Tip: '密码限制和账号限制至少需要一个',
 
   // /views/admin/discussion/Discussion.vue
   Discussion_ID: '讨论ID',

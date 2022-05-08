@@ -10,7 +10,7 @@ import ContestList from "@/views/oj/contest/ContestList.vue"
 import Problem from "@/views/oj/problem/Problem.vue"
 import ACMRank from "@/views/oj/rank/ACMRank.vue"
 import OIRank from "@/views/oj/rank/OIRank.vue"
-import ContestDetails from "@/views/oj/contest/ContestDetails.vue"
+import ContestDetails from "@/views/oj/contest/Contest.vue"
 import ACMScoreBoard from "@/views/oj/contest/outside/ACMScoreBoard.vue"
 import OIScoreBoard from "@/views/oj/contest/outside/OIScoreBoard.vue"
 import ContestProblemList from "@/views/oj/contest/children/ContestProblemList.vue"
@@ -299,7 +299,6 @@ const ojRoutes = [
   },
   {
     path: '*',
-    meta: {title: '404'},
     component: NotFound,
     meta: {title: '404'}
   }

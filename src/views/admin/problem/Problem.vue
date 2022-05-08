@@ -706,7 +706,7 @@ export default {
         memoryLimit: 256,
         stackLimit: 128,
         difficulty: 1,
-        auth: 1,
+        auth: 3,
         codeShare: true,
         examples: [], // 题面上的样例输入输出
         spjLanguage: '',
@@ -803,8 +803,8 @@ export default {
         memoryLimit: 256,
         stackLimit: 128,
         difficulty: 1,
-        auth: 1,
-        codeShare: true,
+        auth: 3,
+        codeShare: false,
         examples: [],
         spjLanguage: '',
         spjCode: '',
@@ -815,7 +815,7 @@ export default {
         uploadTestcaseDir: '',
         testCaseScore: [],
         contestProblem: {},
-        type: 0,
+        type: 1,
         hint: '',
         source: '',
         cid: null,
@@ -1013,7 +1013,7 @@ export default {
       });
     },
     querySearch(queryString, cb) {
-      var ojName = 'ME';
+      var ojName = 'LOCAL';
       if (this.problem.isRemote) {
         ojName = this.problem.problemId.split('-')[0];
       }
@@ -1410,7 +1410,7 @@ export default {
         this.problem.author = this.userInfo.username;
       }
 
-      var ojName = 'ME';
+      var ojName = 'LOCAL';
       if (this.problem.isRemote) {
         ojName = this.problem.problemId.split('-')[0];
       }
