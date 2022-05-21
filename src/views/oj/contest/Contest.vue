@@ -96,9 +96,9 @@
     </el-row>
     <div class="sub-menu">
       <el-tabs v-model="route_name" @tab-click="tabClick">
-        <!--简介-->
-        <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestDetails">
-          <span slot="label"><i class="el-icon-s-home"></i>&nbsp;{{ $t('m.Overview') }}</span>
+        <!--题目-->
+        <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestProblemList">
+          <span slot="label"><i aria-hidden="true" class="fa fa-list"></i>&nbsp;{{ $t('m.Problem') }}</span>
           <!-- 判断是否需要密码验证 -->
           <el-card v-if="passwordFormVisible" class="password-form-card" style="text-align:center;margin-bottom:15px">
             <div slot="header">
@@ -128,8 +128,20 @@
               >
             </el-form>
           </el-card>
+          <div v-if="!contestMenuDisabled">
+            <transition name="el-collapse-transition">
+              <router-view
+                  v-if="route_name === 'ContestProblemList'"
+              ></router-view>
+            </transition>
+          </div>
+        </el-tab-pane>
+
+        <!--简介-->
+        <el-tab-pane :disabled="passwordFormVisible" lazy name="ContestDetails">
+          <span slot="label"><i class="el-icon-info"></i>&nbsp;{{ $t('m.Overview') }}</span>
           <!--内容-->
-          <el-card v-if="!passwordFormVisible" class="box-card">
+          <el-card class="box-card">
             <div
                 v-highlight
                 class="markdown-body"
@@ -138,25 +150,9 @@
           </el-card>
         </el-tab-pane>
 
-        <!--题目-->
-        <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestProblemList">
-          <span slot="label"
-          ><i aria-hidden="true" class="fa fa-list"></i>&nbsp;{{
-              $t('m.Problem')
-            }}</span
-          >
-          <transition name="el-collapse-transition">
-            <router-view
-                v-if="route_name === 'ContestProblemList'"
-            ></router-view>
-          </transition>
-        </el-tab-pane>
-
         <!--提交-->
         <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestSubmissionList">
-          <span slot="label"
-          ><i class="el-icon-menu"></i>&nbsp;{{ $t('m.Status') }}</span
-          >
+          <span slot="label"><i class="el-icon-menu"></i>&nbsp;{{ $t('m.Status') }}</span>
           <transition name="el-collapse-transition">
             <router-view
                 v-if="route_name === 'ContestSubmissionList'"
@@ -192,11 +188,7 @@
 
         <!--讨论-->
         <el-tab-pane :disabled="contestMenuDisabled" lazy name="ContestComment">
-          <span slot="label"
-          ><i aria-hidden="true" class="fa fa-commenting"></i>&nbsp;{{
-              $t('m.Comment')
-            }}</span
-          >
+          <span slot="label"><i aria-hidden="true" class="fa fa-commenting"></i>&nbsp;{{ $t('m.Comment') }}</span>
           <transition name="el-collapse-transition">
             <router-view v-if="route_name === 'ContestComment'"></router-view>
           </transition>
@@ -204,9 +196,7 @@
 
         <!--打印-->
         <el-tab-pane v-if="contest.openPrint" :disabled="contestMenuDisabled" lazy name="ContestPrint">
-          <span slot="label"
-          ><i class="el-icon-printer"></i>&nbsp;{{ $t('m.Print') }}</span
-          >
+          <span slot="label"><i class="el-icon-printer"></i>&nbsp;{{ $t('m.Print') }}</span>
           <transition name="el-collapse-transition">
             <router-view v-if="route_name === 'ContestPrint'"></router-view>
           </transition>
@@ -214,11 +204,7 @@
 
         <!--admin helper-->
         <el-tab-pane v-if="showAdminHelper" :disabled="contestMenuDisabled" lazy name="ContestACInfo">
-          <span slot="label"
-          ><i aria-hidden="true" class="el-icon-s-help"></i>&nbsp;{{
-              $t('m.Admin_Helper')
-            }}</span
-          >
+          <span slot="label"><i aria-hidden="true" class="el-icon-s-help"></i>&nbsp;{{ $t('m.Admin_Helper') }}</span>
           <transition name="el-collapse-transition">
             <router-view v-if="route_name === 'ContestACInfo'"></router-view>
           </transition>
@@ -226,13 +212,8 @@
 
         <!--admin打印-->
         <el-tab-pane v-if="isSuperAdmin && contest.openPrint" :disabled="contestMenuDisabled" lazy
-                     name="ContestAdminPrint"
-        >
-          <span slot="label"
-          ><i class="el-icon-printer"></i>&nbsp;{{
-              $t('m.Admin_Print')
-            }}</span
-          >
+                     name="ContestAdminPrint">
+          <span slot="label"><i class="el-icon-printer"></i>&nbsp;{{ $t('m.Admin_Print') }}</span>
           <transition name="el-collapse-transition">
             <router-view
                 v-if="route_name === 'ContestAdminPrint'"
@@ -290,10 +271,11 @@ export default {
   created() {
     this.contestID = this.$route.params.contestID;
     this.route_name = this.$route.name;
+    // this.route_name = 'ContestProblemList';
     if (this.route_name == 'ContestProblemDetails') {
       this.route_name = 'ContestProblemList';
     }
-    if (this.route_name == 'ContestSubmissionDeatil') {
+    if (this.route_name == 'ContestSubmissionDetail') {
       this.route_name = 'ContestSubmissionList';
     }
     this.CONTEST_TYPE_REVERSE = Object.assign({}, CONTEST_TYPE_REVERSE);
@@ -437,7 +419,7 @@ export default {
       if (newVal.name == 'ContestProblemDetails') {
         this.route_name = 'ContestProblemList';
       }
-      if (this.route_name == 'ContestSubmissionDeatil') {
+      if (this.route_name == 'ContestSubmissionDetail') {
         this.route_name = 'ContestSubmissionList';
       }
       this.contestID = newVal.params.contestID;

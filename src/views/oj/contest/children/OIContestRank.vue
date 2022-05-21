@@ -71,26 +71,22 @@
           size="medium"
           @cell-click="getUserProblemSubmission"
       >
-        <vxe-table-column
-            :title="$t('m.Contest_Rank_Seq')"
-            field="rank"
-            fixed="left"
-            width="50"
-        >
+        <!--序号-->
+        <vxe-table-column v-if="isContestAdmin" :title="$t('m.Order_Number')" field="seq" fixed="left" width="50">
+          <template v-slot="{ row }">
+            {{ row.seq }}
+          </template>
+        </vxe-table-column>
+
+        <!--排名-->
+        <vxe-table-column :title="$t('m.Contest_Rank_Seq')" field="rank" fixed="left" width="50">
           <template v-slot="{ row }">
             {{ row.rank == -1 ? '*' : row.rank }}
           </template>
         </vxe-table-column>
 
-        <vxe-table-column
-            v-if="!isMobileView"
-            :title="$t('m.User')"
-            align="left"
-            field="username"
-            fixed="left"
-            header-align="center"
-            min-width="300"
-        >
+        <!--用户-->
+        <vxe-table-column v-if="!isMobileView" :title="$t('m.User')" align="left" field="username" fixed="left" header-align="center" min-width="300">
           <template v-slot="{ row }">
             <avatar
                 :inline="true"
@@ -139,15 +135,7 @@
             </span>
           </template>
         </vxe-table-column>
-        <vxe-table-column
-            v-else
-            :title="$t('m.User')"
-            align="left"
-            field="username"
-            fixed="left"
-            header-align="center"
-            min-width="300"
-        >
+        <vxe-table-column v-else :title="$t('m.User')" align="left" field="username" fixed="left" header-align="center" min-width="300">
           <template v-slot="{ row }">
             <avatar
                 :inline="true"
@@ -197,19 +185,12 @@
           </template>
         </vxe-table-column>
 
-        <vxe-table-column
-            v-if="isContestAdmin"
-            :title="$t('m.RealName')"
-            field="realname"
-            min-width="96"
-            show-overflow
-        >
+        <!--真实姓名-->
+        <vxe-table-column v-if="isContestAdmin" :title="$t('m.RealName')" field="realname" min-width="96" show-overflow>
         </vxe-table-column>
-        <vxe-table-column
-            :title="$t('m.Total_Score')"
-            field="totalScore"
-            min-width="90"
-        >
+
+        <!--总分-->
+        <vxe-table-column :title="$t('m.Total_Score')" field="totalScore" min-width="90">
           <template v-slot="{ row }">
             <span
             ><a
@@ -222,12 +203,9 @@
             </span>
           </template>
         </vxe-table-column>
-        <vxe-table-column
-            v-for="problem in contestProblems"
-            :key="problem.displayId"
-            :field="problem.displayId"
-            min-width="80"
-        >
+
+        <!--提交-->
+        <vxe-table-column v-for="problem in contestProblems" :key="problem.displayId" :field="problem.displayId" min-width="80">
           <template v-slot:header>
             <span v-if="problem.color" class="contest-rank-balloon">
               <svg
@@ -315,7 +293,7 @@ export default {
     return {
       total: 0,
       page: 1,
-      limit: 30,
+      limit: 50,
       contestID: '',
       dataRank: [],
       autoRefresh: false,
@@ -404,6 +382,7 @@ export default {
     cellClassName({row, rowIndex, column, columnIndex}) {
       if (row.username == this.userInfo.username) {
         if (
+            column.property == 'seq' ||
             column.property == 'rank' ||
             column.property == 'totalScore' ||
             column.property == 'username' ||
@@ -418,6 +397,7 @@ export default {
       }
 
       if (
+          column.property !== 'seq' &&
           column.property !== 'rank' &&
           column.property !== 'totalScore' &&
           column.property !== 'username' &&
@@ -425,7 +405,7 @@ export default {
       ) {
         if (this.isContestAdmin) {
           return row.cellClassName[
-              [this.contestProblems[columnIndex - 4].displayId]
+              [this.contestProblems[columnIndex - 5].displayId]
               ];
         } else {
           return row.cellClassName[

@@ -328,7 +328,7 @@ export const m = {
   Announcement: 'Announcement',
   Submissions: 'Submissions',
   Rankings: 'Rankings',
-  Comment: 'Comment',
+  Comment: 'Q&A',
   Print: 'Print',
   Admin_Print: 'Admin Print',
   Admin_Helper: 'AC Info',

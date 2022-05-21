@@ -475,7 +475,7 @@ export default {
         this.$store.dispatch('changeModalStatus', {visible: true});
       } else {
         this.$router.push({
-          name: 'ContestDetails',
+          name: 'ContestProblemList',
           params: {contestID: cid},
         });
       }

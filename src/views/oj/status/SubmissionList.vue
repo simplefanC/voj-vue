@@ -710,7 +710,7 @@ export default {
       if (row.cid != 0) {
         // 比赛提交详情
         this.$router.push({
-          name: 'ContestSubmissionDeatil',
+          name: 'ContestSubmissionDetail',
           params: {
             contestID: this.$route.params.contestID,
             problemID: row.displayId,
@@ -719,7 +719,7 @@ export default {
         });
       } else {
         this.$router.push({
-          name: 'SubmissionDeatil',
+          name: 'SubmissionDetail',
           params: {submitID: row.submitId},
         });
       }

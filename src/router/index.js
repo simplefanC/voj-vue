@@ -42,30 +42,6 @@ const router = new VueRouter({
  */
 router.beforeEach((to, from, next) => {
   NProgress.start()
-
-  function redirectToLoginPage() {
-    if (to.path.split('/')[1] === 'admin') { // 管理端
-      next({
-        path: '/admin/login'
-      })
-    } else { // oj端
-      next({
-        path: '/home'
-      })
-      store.commit('changeModalStatus', {mode: 'Login', visible: true})
-    }
-    mMessage.error('Error！Please Login Again!')
-    store.commit("clearUserInfoAndToken");
-  }
-
-  function checkRole(role) {
-    if (role) { // 拥有权限就进入
-      next()
-    } else { // 没有角色权限 全部返回登录页，并且清除缓存
-      redirectToLoginPage();
-    }
-  }
-
   if (to.matched.some(record => record.meta.requireAuth)) { // 判断该路由是否需要登录权限
     const token = localStorage.getItem('token') || ''
     const isSuperAdmin = store.getters.isSuperAdmin
@@ -83,6 +59,29 @@ router.beforeEach((to, from, next) => {
     }
   } else { // 不需要认证的页面
     next()
+  }
+
+  function checkRole(role) {
+    if (role) { // 拥有权限就进入
+      next()
+    } else { // 没有角色权限 全部返回登录页，并且清除缓存
+      redirectToLoginPage();
+    }
+  }
+
+  function redirectToLoginPage() {
+    if (to.path.split('/')[1] === 'admin') { // 管理端
+      next({
+        path: '/admin/login'
+      })
+    } else { // oj端
+      next({
+        path: '/home'
+      })
+      store.commit('changeModalStatus', {mode: 'Login', visible: true})
+    }
+    mMessage.error('Error！Please Login Again!')
+    store.commit("clearUserInfoAndToken");
   }
 })
 

@@ -122,10 +122,10 @@ const ojRoutes = [
         meta: {title: 'Contest Submission'}
       },
       {
-        name: 'ContestSubmissionDeatil',
-        path: 'problem/:problemID/submission-deatil/:submitID',
+        name: 'ContestSubmissionDetail',
+        path: 'problem/:problemID/submission-detail/:submitID',
         component: SubmissionDetails,
-        meta: {title: 'Contest Submission Deatil'}
+        meta: {title: 'Contest Submission Detail'}
       },
       {
         name: 'ContestProblemList',
@@ -191,9 +191,9 @@ const ojRoutes = [
   },
   {
     path: '/submission-detail/:submitID',
-    name: 'SubmissionDeatil',
+    name: 'SubmissionDetail',
     component: SubmissionDetails,
-    meta: {title: 'Submission Deatil'}
+    meta: {title: 'Submission Detail'}
   },
   {
     path: '/acm-rank',

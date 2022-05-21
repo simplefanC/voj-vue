@@ -1,5 +1,34 @@
 <template>
   <div class="problem-list">
+    <!-- 判断是否需要密码验证 -->
+<!--    <el-card v-if="passwordFormVisible" class="password-form-card" style="text-align:center;margin-bottom:15px">-->
+<!--      <div slot="header">-->
+<!--              <span class="panel-title" style="color: #e6a23c;"-->
+<!--              ><i class="el-icon-warning">-->
+<!--                  {{ $t('m.Password_Required') }}</i-->
+<!--              ></span-->
+<!--              >-->
+<!--      </div>-->
+<!--      <p class="password-form-tips">-->
+<!--        {{ $t('m.To_Enter_Need_Password') }}-->
+<!--      </p>-->
+<!--      <el-form>-->
+<!--        <el-input-->
+<!--            v-model="contestPassword"-->
+<!--            :placeholder="$t('m.Enter_the_contest_password')"-->
+<!--            style="width:70%"-->
+<!--            type="password"-->
+<!--            @keydown.enter.native="checkPassword"-->
+<!--        />-->
+<!--        <el-button-->
+<!--            style="float:right;"-->
+<!--            type="primary"-->
+<!--            @click="checkPassword"-->
+<!--        >{{ $t('m.Enter') }}-->
+<!--        </el-button-->
+<!--        >-->
+<!--      </el-form>-->
+<!--    </el-card>-->
     <vxe-table
         :data="problems"
         align="center"
@@ -151,6 +180,7 @@
 import {mapGetters, mapState} from 'vuex';
 import {JUDGE_STATUS, RULE_TYPE} from '@/common/constants';
 import api from '@/common/api';
+import myMessage from "@/common/message";
 
 export default {
   name: 'ContestProblemList',
@@ -160,6 +190,8 @@ export default {
       RULE_TYPE: {},
       isGetStatusOk: false,
       testcolor: 'rgba(0, 206, 209, 1)',
+      // btnLoading: false,
+      // contestPassword: '',
     };
   },
   mounted() {
@@ -168,8 +200,26 @@ export default {
     this.getContestProblems();
   },
   methods: {
+    // checkPassword() {
+    //   if (this.contestPassword === '') {
+    //     myMessage.warning(this.$i18n.t('m.Enter_the_contest_password'));
+    //     return;
+    //   }
+    //   this.btnLoading = true;
+    //   api.registerContest(this.contestID + '', this.contestPassword).then(
+    //       (res) => {
+    //         myMessage.success(this.$i18n.t('m.Register_contest_successfully'));
+    //         this.$store.commit('contestIntoAccess', {intoAccess: true});
+    //         this.btnLoading = false;
+    //       },
+    //       (res) => {
+    //         this.btnLoading = false;
+    //       }
+    //   );
+    // },
     getContestProblems() {
-      this.$store.dispatch('getContestProblems').then((res) => {
+      if (this.contestMenuDisabled === false)
+        this.$store.dispatch('getContestProblems').then((res) => {
         if (this.isAuthenticated) {
           let isContestProblemList = true;
           // 如果已登录，则需要查询对当前页面题目列表中各个题目的提交情况
@@ -228,14 +278,21 @@ export default {
       }
     },
   },
+  // watch: {
+  //   contestMenuDisabled(newValue, oldValue){
+  //     console.log("newValue, oldValue", newValue, oldValue)
+  //     this.getContestProblems()
+  //   }
+  // },
   computed: {
     ...mapState({
       problems: (state) => state.contest.contestProblems,
     }),
     ...mapGetters([
+      'contestMenuDisabled',
       'isAuthenticated',
       'contestRuleType',
-      'ContestRealTimePermission',
+      'ContestRealTimePermission'
     ]),
   },
 };
