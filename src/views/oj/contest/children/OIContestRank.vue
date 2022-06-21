@@ -86,7 +86,8 @@
         </vxe-table-column>
 
         <!--用户-->
-        <vxe-table-column v-if="!isMobileView" :title="$t('m.User')" align="left" field="username" fixed="left" header-align="center" min-width="300">
+        <vxe-table-column v-if="!isMobileView" :title="$t('m.User')" align="left" field="username" fixed="left"
+                          header-align="center" min-width="300">
           <template v-slot="{ row }">
             <avatar
                 :inline="true"
@@ -135,7 +136,8 @@
             </span>
           </template>
         </vxe-table-column>
-        <vxe-table-column v-else :title="$t('m.User')" align="left" field="username" fixed="left" header-align="center" min-width="300">
+        <vxe-table-column v-else :title="$t('m.User')" align="left" field="username" fixed="left" header-align="center"
+                          min-width="300">
           <template v-slot="{ row }">
             <avatar
                 :inline="true"
@@ -205,7 +207,8 @@
         </vxe-table-column>
 
         <!--提交-->
-        <vxe-table-column v-for="problem in contestProblems" :key="problem.displayId" :field="problem.displayId" min-width="80">
+        <vxe-table-column v-for="problem in contestProblems" :key="problem.displayId" :field="problem.displayId"
+                          min-width="80">
           <template v-slot:header>
             <span v-if="problem.color" class="contest-rank-balloon">
               <svg
@@ -380,13 +383,17 @@ export default {
     ...mapActions(['getContestProblems']),
 
     cellClassName({row, rowIndex, column, columnIndex}) {
-      if (row.username == this.userInfo.username) {
+      if (column.property === 'username' && row.registered === false) {
+        return 'unregistered';
+      }
+
+      if (row.username === this.userInfo.username) {
         if (
-            column.property == 'seq' ||
-            column.property == 'rank' ||
-            column.property == 'totalScore' ||
-            column.property == 'username' ||
-            column.property == 'realname'
+            column.property === 'seq' ||
+            column.property === 'rank' ||
+            column.property === 'username' ||
+            column.property === 'realname' ||
+            column.property === 'totalScore'
         ) {
           return 'own-submit-row';
         }
@@ -441,16 +448,19 @@ export default {
     },
     getUserProblemSubmission({row, column}) {
       if (
-          column.property !== 'rank' &&
-          column.property !== 'totalScore' &&
-          column.property !== 'username' &&
-          column.property !== 'realname'
+          column.property === 'seq' ||
+          column.property === 'rank' ||
+          column.property === 'totalScore' ||
+          column.property === 'username' ||
+          column.property === 'realname' ||
+          row[column.property] === undefined
       ) {
-        this.$router.push({
-          name: 'ContestSubmissionList',
-          query: {username: row.username, problemID: column.property},
-        });
+        return;
       }
+      this.$router.push({
+        name: 'ContestSubmissionList',
+        query: {username: row.username, problemID: column.property},
+      });
     },
     applyToChart(rankData) {
       let [user, scores] = [[], []];
@@ -474,25 +484,25 @@ export default {
         let submissionInfo = rank.submissionInfo;
         let timeInfo = rank.timeInfo;
         let cellClass = {};
-        if (this.concernedList.indexOf(rank.uid) != -1) {
+        if (this.concernedList.indexOf(rank.uid) !== -1) {
           dataRank[i].isConcerned = true;
         }
         Object.keys(submissionInfo).forEach((problemID) => {
           dataRank[i][problemID] = submissionInfo[problemID];
           let score = submissionInfo[problemID];
-          if (timeInfo != null && timeInfo[problemID] != undefined) {
+          if (timeInfo != null && timeInfo[problemID] !== undefined) {
             cellClass[problemID] = 'oi-100';
-          } else if (score == 0) {
+          } else if (score === 0) {
             cellClass[problemID] = 'oi-0';
           } else {
             cellClass[problemID] = 'oi-between';
           }
         });
         dataRank[i].cellClassName = cellClass;
-        if (dataRank[i].rank == -1) {
+        if (dataRank[i].rank === -1) {
           dataRank[i].userCellClassName = 'bg-star';
         }
-        if (dataRank[i].gender == 'female') {
+        if (dataRank[i].gender === 'female') {
           dataRank[i].userCellClassName = 'bg-female';
         }
       });

@@ -75,8 +75,8 @@
                   :placeholder="$t('m.Enter_Problem_ID')"
                   size="medium"
                   type="search"
-                  @keyup.enter.native="handleQueryChange('probemID')"
-                  @search-click="handleQueryChange('probemID')"
+                  @keyup.enter.native="handleQueryChange('problemID')"
+                  @search-click="handleQueryChange('problemID')"
               ></vxe-input>
             </el-col>
             <el-col :lg="5" :md="5" :sm="12" :xs="24" class="search">
@@ -294,6 +294,17 @@
             </template>
           </vxe-table-column>
           <vxe-table-column
+              v-if="contestID && isAdminRole"
+              :title="$t('m.RealName')"
+              field="realname"
+              min-width="96"
+              show-overflow
+          >
+            <template v-slot="{ row }">
+              {{ row.realname }}
+            </template>
+          </vxe-table-column>
+          <vxe-table-column
               :title="$t('m.Submit_Time')"
               field="submitTime"
               min-width="96"
@@ -311,7 +322,7 @@
           </vxe-table-column>
           <!-- 非比赛提交记录，超级管理员可以对提交进行重判 -->
           <vxe-table-column
-              v-if="rejudgeColumnVisible"
+              v-if="isSuperAdmin"
               :title="$t('m.Option')"
               min-width="90"
           >
@@ -403,7 +414,7 @@ export default {
       let query = this.$route.query;
       this.formFilter.problemID = query.problemID;
       this.formFilter.username = query.username || '';
-      this.formFilter.onlyMine = query.onlyMine + '' == 'true' ? true : false; // 统一换成字符串判断
+      this.formFilter.onlyMine = query.onlyMine + '' == 'true'; // 统一换成字符串判断
       this.formFilter.status = query.status;
       this.formFilter.completeProblemID = query.completeProblemID || false;
       if (this.formFilter.onlyMine) {
@@ -536,8 +547,8 @@ export default {
       const checkStatus = () => {
         let submitIds = this.needCheckSubmitIds;
         let func = this.contestID
-            ? 'checkContestSubmissonsStatus'
-            : 'checkSubmissonsStatus';
+            ? 'checkContestSubmissionsStatus'
+            : 'checkSubmissionsStatus';
         api[func](Object.keys(submitIds), this.contestID).then(
             (res) => {
               let result = res.data.data;
@@ -651,7 +662,7 @@ export default {
       this.changeRoute();
     },
     handleQueryChange(searchParam) {
-      if (searchParam == 'probemID') {
+      if (searchParam == 'problemID') {
         this.formFilter.completeProblemID = false; // 并非走完全检索displayID了
       }
       this.currentPage = 1;
@@ -749,7 +760,7 @@ export default {
       if (row.username == this.userInfo.username && this.isAuthenticated) {
         return 'own-submit-row';
       }
-    },
+    }
   },
   computed: {
     ...mapGetters([
@@ -776,9 +787,6 @@ export default {
           : JUDGE_STATUS[this.formFilter.status]
               ? JUDGE_STATUS[this.formFilter.status].name
               : this.$i18n.t('m.Status');
-    },
-    rejudgeColumnVisible() {
-      return this.isSuperAdmin;
     },
     scoreColumnVisible() {
       return (

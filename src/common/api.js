@@ -284,12 +284,12 @@ const ojApi = {
       params
     })
   },
-  checkSubmissonsStatus(submitIds, cid) {
+  checkSubmissionsStatus(submitIds, cid) {
     return ajax('/api/check-submissions-status', 'post', {
       data: {submitIds, cid}
     })
   },
-  checkContestSubmissonsStatus(submitIds, cid) {
+  checkContestSubmissionsStatus(submitIds, cid) {
     return ajax('/api/check-contest-submissions-status', 'post', {
       data: {submitIds, cid}
     })

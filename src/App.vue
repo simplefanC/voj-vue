@@ -386,6 +386,11 @@ a:hover {
   background: rgb(230, 255, 223) !important;
 }
 
+.unregistered {
+  background-color: #C0C4CC !important;
+  color: #fff !important;
+}
+
 .submission-hover:hover {
   cursor: pointer;
 }

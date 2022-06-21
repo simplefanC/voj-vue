@@ -69,7 +69,7 @@
         </el-alert>
       </el-popover>
       <el-link
-          v-if="allow_register"
+          v-if="websiteConfig.register"
           type="primary"
           @click="switchMode('Register')"
       >{{ $t('m.Login_No_Account') }}
@@ -86,7 +86,7 @@
   </div>
 </template>
 <script>
-import {mapActions, mapGetters} from 'vuex';
+import {mapActions, mapGetters, mapState} from 'vuex';
 import api from '@/common/api';
 import mMessage from '@/common/message';
 
@@ -184,6 +184,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(['websiteConfig']),
     ...mapGetters(['modalStatus', 'loginFailNum']),
     visible: {
       get() {

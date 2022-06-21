@@ -156,7 +156,10 @@
                   :style="getTestCaseResultColor(item.status)"
                   class="test-detail-item"
               >
-                <span>Test #{{ index + 1 }}:</span>
+                <div @click="downloadSingleTestCase(item)">
+                  <span>Test #{{ index + 1 }}:</span>
+                  <div v-if="downCaseAuthentication" style="float: right"><i class="fa fa-download fa-lg" aria-hidden="true"></i></div>
+                </div>
                 <h2>{{ JUDGE_STATUS[item.status]['short'] }}</h2>
                 <div style="text-align:center;">
                   {{ item.time }}ms/{{ item.memory }}KB
@@ -170,13 +173,15 @@
                   </span>
                 </div>
               </div>
-
               <div
                   v-else
                   :style="getTestCaseResultColor(item.status)"
                   class="test-detail-item"
               >
-                <span>Test #{{ index + 1 }}: </span>
+                <div @click="downloadSingleTestCase(item)">
+                  <span>Test #{{ index + 1 }}:</span>
+                  <div v-if="downCaseAuthentication" style="float: right"><i class="fa fa-download fa-lg" aria-hidden="true"></i></div>
+                </div>
                 <h2>{{ JUDGE_STATUS[item.status]['short'] }}</h2>
                 <div style="text-align:center;">
                   {{ item.time }}ms/{{ item.memory }}KB
@@ -198,7 +203,7 @@
     <template
         v-if="
         (submission.code && submission.share && codeShare) ||
-          isMeSubmisson ||
+          isMySubmission ||
           isAdminRole
       "
     >
@@ -220,7 +225,7 @@
           >{{ $t('m.Copy') }}
           </el-button
           >
-          <template v-if="codeShare && isMeSubmisson">
+          <template v-if="codeShare && isMySubmission">
             <el-button
                 v-if="submission.share"
                 icon="el-icon-circle-close"
@@ -253,6 +258,7 @@ import utils from '@/common/utils';
 import myMessage from '@/common/message';
 import {addCodeBtn} from '@/common/codeblock';
 import Highlight from '@/components/oj/common/Highlight';
+import {mapGetters} from "_vuex@3.6.2@vuex";
 
 export default {
   name: 'submissionDetails',
@@ -410,6 +416,19 @@ export default {
           }
       );
     },
+
+    downloadSingleTestCase(item) {
+      if(!this.downCaseAuthentication) {
+        return
+      }
+      let problemID = item.pid
+      let inputData = item.inputData
+      let outputData = item.outputData
+      let url = '/api/file/download-single-testcase?pid=' + problemID + '&inputData=' + inputData + '&outputData=' + outputData
+      utils.downloadFile(url).then(() => {
+        this.$alert(this.$i18n.t('m.Download_Testcase_Success'), 'Tips');
+      });
+    }
   },
   watch: {
     submission(newVal, oldVal) {
@@ -421,6 +440,10 @@ export default {
     },
   },
   computed: {
+    ...mapGetters([
+      'isSuperAdmin',
+      'isProblemAdmin'
+    ]),
     status() {
       return {
         type: JUDGE_STATUS[this.submission.status].type,
@@ -443,9 +466,12 @@ export default {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;
     },
-    isMeSubmisson() {
+    isMySubmission() {
       return this.$store.getters.userInfo.uid === this.submission.uid;
     },
+    downCaseAuthentication(){
+      return this.isSuperAdmin || this.isProblemAdmin;
+    }
   },
 };
 </script>

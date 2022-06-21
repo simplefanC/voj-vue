@@ -96,6 +96,7 @@
                   v-model="websiteConfig.codeVisibleStartTime"
                   :placeholder="$t('m.Start_Time')"
                   type="datetime"
+                  value-format="timestamp"
               >
               </el-date-picker>
             </el-form-item>
@@ -462,16 +463,15 @@ export default {
           });
     },
     saveWebsiteConfig() {
-      for (var key in this.websiteConfig) {
-        if (key == 'register' || key == 'codeVisibleStartTime') {
-
-        } else {
-          // 空白符开头或者空白符结尾
-          if (!this.websiteConfig[key].replace(/(^\s*)|(\s*$)/g, '')) {
-            this.websiteConfig[key] = 'None';
-          }
-        }
-      }
+      // for (var key in this.websiteConfig) {
+      //   if (key !== 'register' && key !== 'codeVisibleStartTime') {
+      //     // 空白符开头或者空白符结尾
+      //     if (!this.websiteConfig[key].replace(/(^\s*)|(\s*$)/g, '')) {
+      //       this.websiteConfig[key] = 'None';
+      //     }
+      //   }
+      // }
+      console.log("this.websiteConfig.codeVisibleStartTime", this.websiteConfig.codeVisibleStartTime)
       api
           .admin_editWebsiteConfig(this.websiteConfig)
           .then((res) => {
