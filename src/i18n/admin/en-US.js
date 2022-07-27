@@ -154,7 +154,7 @@ export const m = {
   Display_Title: 'Display Title',
   Original_Display: 'Original Display',
   Contest_Display: 'Contest Display',
-  Add_Rmote_OJ_Problem: 'Add Remote OJ Problem',
+  Add_Remote_OJ_Problem: 'Add Remote OJ Problem',
   Add_From_Public_Problem: 'Add From Public Problem',
   Auth: 'Auth',
   Modified_User: 'Modified User',

@@ -291,7 +291,7 @@
             <el-col
                 v-for="(oj, index) in remoteJudgeList"
                 :key="index"
-                :md="6"
+                :md="8"
                 :sm="24"
                 style="margin-bottom: 10px"
             >
@@ -359,24 +359,24 @@ export default {
           logo: require('@/assets/remotejudgelogo/poj.png'),
           status: true,
         },
-        // {
-        //   url: 'https://codeforces.com',
-        //   name: 'Codeforces',
-        //   logo: require('@/assets/codeforces-logo.png'),
-        //   status: true,
-        // },
+        {
+          url: 'https://codeforces.com',
+          name: 'Codeforces',
+          logo: require('@/assets/remotejudgelogo/codeforces.png'),
+          status: true,
+        },
         // {
         //   url: 'https://codeforces.com/gyms',
         //   name: 'GYM',
         //   logo: require('@/assets/gym-logo.png'),
         //   status: true,
         // },
-        // {
-        //   url: 'https://atcoder.jp',
-        //   name: 'AtCoder',
-        //   logo: require('@/assets/atcoder-logo.png'),
-        //   status: true,
-        // },
+        {
+          url: 'https://atcoder.jp',
+          name: 'AtCoder',
+          logo: require('@/assets/remotejudgelogo/atcoder.png'),
+          status: true,
+        },
         // {
         //   url: 'https://www.spoj.com',
         //   name: 'SPOJ',
@@ -393,12 +393,6 @@ export default {
           url: 'https://nanti.jisuanke.com',
           name: 'JSK',
           logo: require('@/assets/remotejudgelogo/jsk.png'),
-          status: true,
-        },
-        {
-          url: 'http://www.iai.sh.cn',
-          name: 'YACS',
-          logo: require('@/assets/remotejudgelogo/yacs.png'),
           status: true,
         },
         {
@@ -554,10 +548,14 @@ export default {
 }
 
 .oj-normal {
+  display: block;
+  font-size: 14px;
   color: #409eff;
 }
 
 .oj-error {
+  display: block;
+  font-size: 14px;
   color: #e65c47;
 }
 

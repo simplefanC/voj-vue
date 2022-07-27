@@ -63,7 +63,7 @@
         :title="$t('m.' + upsertTitle)"
         :visible.sync="addTagDialogVisible"
         width="350px"
-        @close-on-click-modal="false"
+        :close-on-click-modal="false"
     >
       <el-form>
         <el-form-item :label="$t('m.Tag_Name')" required>

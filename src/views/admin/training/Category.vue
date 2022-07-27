@@ -43,7 +43,7 @@
         :title="$t('m.' + upsertTitle)"
         :visible.sync="addCategoryDialogVisible"
         width="350px"
-        @close-on-click-modal="false"
+        :close-on-click-modal="false"
     >
       <el-form>
         <el-form-item :label="$t('m.Category_Name')" required>

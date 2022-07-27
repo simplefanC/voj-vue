@@ -21,7 +21,7 @@
                 size="small"
                 type="success"
                 @click="AddRemoteOJProblemDialogVisible = true"
-            >{{ $t('m.Add_Rmote_OJ_Problem') }}
+            >{{ $t('m.Add_Remote_OJ_Problem') }}
             </el-button>
           </span>
           <span>
@@ -187,7 +187,7 @@
         :title="$t('m.Add_Training_Problem')"
         :visible.sync="addProblemDialogVisible"
         width="90%"
-        @close-on-click-modal="false"
+        :close-on-click-modal="false"
     >
       <AddPublicProblem
           :trainingID="trainingId"
@@ -196,10 +196,10 @@
     </el-dialog>
 
     <el-dialog
-        :title="$t('m.Add_Rmote_OJ_Problem')"
+        :title="$t('m.Add_Remote_OJ_Problem')"
         :visible.sync="AddRemoteOJProblemDialogVisible"
         width="350px"
-        @close-on-click-modal="false"
+        :close-on-click-modal="false"
     >
       <el-form>
         <el-form-item :label="$t('m.Remote_OJ')">
