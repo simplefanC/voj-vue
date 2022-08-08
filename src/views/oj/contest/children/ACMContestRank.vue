@@ -65,6 +65,12 @@
           size="medium"
           @cell-click="getUserProblemSubmission"
       >
+        <!--序号-->
+        <vxe-table-column v-if="isContestAdmin" :title="$t('m.Order_Number')" field="seq" fixed="left" width="50">
+          <template v-slot="{ row }">
+            {{ row.seq }}
+          </template>
+        </vxe-table-column>
         <vxe-table-column
             :title="$t('m.Contest_Rank_Seq')"
             field="rank"
@@ -464,45 +470,53 @@ export default {
     },
     getUserProblemSubmission({row, column}) {
       if (
-          column.property != 'rank' &&
-          column.property != 'rating' &&
-          column.property != 'totalTime' &&
-          column.property != 'username' &&
-          column.property != 'realname'
+          column.property === 'seq' ||
+          column.property === 'rank' ||
+          column.property === 'rating' ||
+          column.property === 'totalTime' ||
+          column.property === 'username' ||
+          column.property === 'realname'
       ) {
-        this.$router.push({
-          name: 'ContestSubmissionList',
-          query: {username: row.username, problemID: column.property},
-        });
+        return;
       }
+      this.$router.push({
+        name: 'ContestSubmissionList',
+        query: {username: row.username, problemID: column.property},
+      });
     },
     cellClassName({row, rowIndex, column, columnIndex}) {
-      if (row.username == this.userInfo.username) {
+      if (column.property === 'username' && row.registered === false) {
+        return 'unregistered';
+      }
+
+      if (row.username === this.userInfo.username) {
         if (
-            column.property == 'rank' ||
-            column.property == 'rating' ||
-            column.property == 'totalTime' ||
-            column.property == 'username' ||
-            column.property == 'realname'
+            column.property === 'seq' ||
+            column.property === 'rank' ||
+            column.property === 'rating' ||
+            column.property === 'totalTime' ||
+            column.property === 'username' ||
+            column.property === 'realname'
         ) {
           return 'own-submit-row';
         }
       }
 
-      if (column.property == 'username' && row.userCellClassName) {
+      if (column.property === 'username' && row.userCellClassName) {
         return row.userCellClassName;
       }
 
       if (
-          column.property != 'rank' &&
-          column.property != 'rating' &&
-          column.property != 'totalTime' &&
-          column.property != 'username' &&
-          column.property != 'realname'
+          column.property !== 'seq' &&
+          column.property !== 'rank' &&
+          column.property !== 'rating' &&
+          column.property !== 'totalTime' &&
+          column.property !== 'username' &&
+          column.property !== 'realname'
       ) {
         if (this.isContestAdmin) {
           return row.cellClassName[
-              [this.contestProblems[columnIndex - 5].displayId]
+              [this.contestProblems[columnIndex - 6].displayId]
               ];
         } else {
           return row.cellClassName[

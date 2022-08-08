@@ -27,7 +27,7 @@
               <vxe-checkbox
                   v-model="tagVisible"
                   @change="changeTagVisible(tagVisible)"
-              >{{ $t('m.Tags') }}
+              >{{ $t('m.Show_Tags') }}
               </vxe-checkbox
               >
             </el-col>
@@ -296,20 +296,34 @@
             </el-input>
           </div>
         </div>
-        <template v-if="searchTagList.length > 0" v-loading="loadings.tag">
-          <el-button
-              v-for="tag in searchTagList"
-              :key="tag.id"
-              :style="
-              'color:#FFF;background-color:' +
-                (tag.color ? tag.color : '#409eff')
-            "
-              class="tag-btn"
-              size="mini"
-              type="ghost"
-              @click="addTag(tag)"
-          >{{ tag.name }}
-          </el-button>
+        <template v-if="searchTagClassificationList.length > 0" v-loading="loadings.tag">
+          <el-row :gutter="10" v-for="(item,index) in secondClassificationTemp"
+                  :key="index">
+            <el-col  v-for="(tagsAndClassification,i) in item" :key="i"
+                     :span="query.oj == 'All' || (secondClassificationTemp.length==index+1 && item.length == i+1 && i%2 ==0)
+              ?24:12">
+              <el-collapse v-model="activeTagClassificationIdList" style="margin-top:10px">
+                <el-collapse-item :title="getTagClassificationName(tagsAndClassification.classification)"
+                                  v-if="tagsAndClassification.classification != null
+                        || tagsAndClassification.tagList.length > 0 "
+                                  :name="tagsAndClassification.classification == null?-1:tagsAndClassification.classification.id">
+                  <el-button
+                      v-for="tag in tagsAndClassification.tagList"
+                      :key="tag.id"
+                      @click="addTag(tag)"
+                      type="ghost"
+                      size="mini"
+                      class="tag-btn"
+                      :style="
+                        'color:#FFF;background-color:' +
+                          (tag.color ? tag.color : '#409eff')
+                      "
+                  >{{ tag.name }}
+                  </el-button>
+                </el-collapse-item>
+              </el-collapse>
+            </el-col>
+          </el-row>
           <el-button id="pick-one" long @click="pickone">
             <i class="fa fa-random"></i>
             {{ $t('m.Pick_a_random_question') }}
@@ -344,7 +358,7 @@ export default {
       JUDGE_STATUS: {},
       JUDGE_STATUS_RESERVE: {},
       REMOTE_OJ: {},
-      tagList: [],
+      tagsAndClassificationList: [],
       tagVisible: false,
       currentProblemTitle: '',
       problemRecord: [],
@@ -375,7 +389,8 @@ export default {
         {color: '#67c23a', percentage: 100},
       ],
       searchTag: '',
-      searchTagList: [],
+      searchTagClassificationList: [],
+      activeTagClassificationIdList: []
     };
   },
   created() {
@@ -539,17 +554,21 @@ export default {
     },
     getTagList(oj) {
       this.loadings.tag = true;
-      api.getProblemTagList(oj).then(
+      api.getProblemTagsAndClassification(oj).then(
           (res) => {
-            this.tagList = res.data.data;
-            this.searchTagList = res.data.data;
+            this.tagsAndClassificationList = res.data.data;
+            this.searchTagClassificationList = res.data.data;
             let tidLen = this.query.tagId.length;
-            let tagLen = this.tagList.length;
+            let tagLen = this.tagsAndClassificationList.length;
             for (let x = 0; x < tidLen; x++) {
               for (let y = 0; y < tagLen; y++) {
-                if (this.query.tagId[x] == this.tagList[y].id) {
-                  this.filterTagList.push(this.tagList[y]);
-                  break;
+                let tmpTagAndClassification = this.tagsAndClassificationList[y].tagList;
+                let tmpLen = tmpTagAndClassification.length;
+                for (let z = 0; z < tmpLen; z++) {
+                  if (this.query.tagId[x] == tmpTagAndClassification[z].id) {
+                    this.filterTagList.push(tmpTagAndClassification[z]);
+                    break;
+                  }
                 }
               }
             }
@@ -563,12 +582,28 @@ export default {
     },
     filterSearchTag() {
       if (this.searchTag) {
-        this.searchTagList = this.tagList.filter(
-            (item) =>
-                item.name.toLowerCase().indexOf(this.searchTag.toLowerCase()) >= 0
-        );
+        this.searchTagClassificationList = [];
+        this.activeTagClassificationIdList = [];
+        for (let tagsAndClassification of this.tagsAndClassificationList) {
+          let tmpTagList = [];
+          for (let tag of tagsAndClassification.tagList) {
+            if (tag.name.toLowerCase().indexOf(this.searchTag.toLowerCase()) >= 0) {
+              tmpTagList.push(tag);
+            }
+          }
+          if (tmpTagList.length > 0) {
+            this.searchTagClassificationList.push(
+                {
+                  classification: tagsAndClassification.classification,
+                  tagList: tmpTagList
+                }
+            )
+            this.activeTagClassificationIdList.push(tagsAndClassification.classification == null ? -1 : tagsAndClassification.classification.id);
+          }
+        }
       } else {
-        this.searchTagList = this.tagList;
+        this.searchTagClassificationList = this.tagsAndClassificationList;
+        this.activeTagClassificationIdList = [];
       }
     },
     changeTagVisible(visible) {
@@ -651,6 +686,30 @@ export default {
         return this.getLevelColor(difficulty);
       }
     },
+    getTagClassificationName(classification) {
+      if (classification != null) {
+        let name = '';
+        let oj = this.query.oj;
+        if (oj == 'All') {
+          switch (classification.oj) {
+            case "LOCAL":
+              name = '[' + this.$i18n.t('m.My_OJ') + '] '
+              break;
+            case "AC":
+              name = '[AtCoder] ';
+              break;
+            case "CF":
+              name = '[Codeforces] ';
+              break;
+            default:
+              name = '[' + classification.oj + '] '
+          }
+        }
+        return name + classification.name;
+      } else {
+        return this.$i18n.t('m.Unclassified');
+      }
+    }
   },
   computed: {
     ...mapGetters(['isAuthenticated']),
@@ -663,6 +722,21 @@ export default {
         return this.query.oj;
       }
     },
+    secondClassificationTemp(){
+      let index = 0;
+      let count = 2;		//两个一组
+      let arrTemp = [];
+      let tagsClassificationList = this.searchTagClassificationList;
+      let len = tagsClassificationList.length;
+      for(let i=0;i<len;i++){
+        index = parseInt(i/count);
+        if (arrTemp.length <= index) {
+          arrTemp.push([]);
+        }
+        arrTemp[index].push(tagsClassificationList[i])
+      }
+      return arrTemp
+    }
   },
   watch: {
     $route(newVal, oldVal) {
@@ -775,5 +849,16 @@ ul {
   /deep/ .vxe-table--body-wrapper {
     overflow-x: hidden !important;
   }
+}
+
+/deep/ .el-collapse-item__header {
+  font-weight: bolder !important;
+  height: 38px !important;
+  line-height: 38px !important;
+  font-size: 15px !important;
+}
+
+/deep/ .el-collapse-item__content {
+  padding-bottom: 10px !important;
 }
 </style>
