@@ -36,7 +36,7 @@
         {{ resetText }}
       </el-button>
       <el-link type="primary" @click="switchMode('Login')">{{
-          $t('m.Remember_Passowrd_To_Login')
+          $t('m.Remember_Password_To_Login')
         }}
       </el-link>
     </div>

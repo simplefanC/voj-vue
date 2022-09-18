@@ -183,7 +183,7 @@ export default {
         school: '',
         signature: '',
         total: 0,
-        rating: 0,
+        // rating: 0,
         score: 0,
         solvedList: [],
       },

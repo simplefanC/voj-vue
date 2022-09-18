@@ -42,7 +42,7 @@
             </li>
             <li>
               <span :class="getStatusColor(10)">Submitted Failed</span>
-              ：{{ $t('m.Submitted_Faild_Description') }}
+              ：{{ $t('m.Submitted_Failed_Description') }}
             </li>
             <li>
               <span :class="getStatusColor(6)">Compiling</span>
@@ -58,7 +58,7 @@
             </li>
             <li>
               <span :class="getStatusColor(-3)">Presentation Error</span> :
-              {{ $t('m.Persentation_Error_Description') }}
+              {{ $t('m.Presentation_Error_Description') }}
             </li>
             <li>
               <span :class="getStatusColor(0)">Accepted</span> :

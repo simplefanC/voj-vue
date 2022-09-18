@@ -39,17 +39,23 @@ export const m = {
 
   // /components/oj/common/Register.vue 注册弹窗
   Register_Username: 'Please Enter Username',
+  Register_Realname: 'Please Enter Real name',
+  Register_School: 'Please Enter School Name',
+  Register_Number: 'Please Enter Student ID',
   Register_Password: 'Please Enter Password',
   Register_Password_Again: 'Please Enter Password Again',
   Register_Email: 'Please Enter Email',
   Register_Email_Captcha: 'Please enter the captcha from the email',
   Register_Btn: 'Register',
-  Register_Already_Registed: 'Already registed? Login now!',
+  Register_Already_Registered: 'Already registered? Login now!',
   The_username_already_exists: 'The username already exists.',
   The_email_already_exists: 'The email already exists.',
   Password_does_not_match: 'Password does not match.',
   Email_Check_Required: 'The email is required.',
   Email_Check_Format: 'The email format is incorrect.',
+  Realname_Check_Required: 'The real name is required.',
+  School_Check_Required: 'The school is required.',
+  Number_Check_Required: 'The student ID is required.',
   Password_Again_Check_Required: 'The password again is required.',
   Code_Check_Required: 'The captcha is required.',
   Code_Check_Length: 'The captcha must be six digits.',
@@ -64,7 +70,7 @@ export const m = {
   Send_Password_Reset_Email: 'Send Password Reset Email',
   Waiting_Can_Resend_Email: 'resend the Reset Email...',
   ResetPwd_Send_Email_Msg: 'Reset password email has been sent to the designated mailbox! If you haven\'t received the email for a long time, please check whether your email is accurate!',
-  Remember_Passowrd_To_Login: 'Remember password? To login!',
+  Remember_Password_To_Login: 'Remember password? To login!',
   Set_New_Password: 'Set New Password',
   Set_New_Password_Msg: 'Please Enter New Password',
   Set_New_Password_Again_Msg: 'Please Enter New Password Again',
@@ -110,7 +116,7 @@ export const m = {
   is_incorrect_format_file: ' is an incorrect format file,please choose the file format of .GIF, .JPG, .JPEG, .PNG, .BMP, .Webp',
   Exceed_max_size_limit: 'Exceed max size limit',
   File_Exceed_Tips: ' file size is wrong, you can upload a image up to 2MB in size',
-  Cancel_Avater_Tips: 'Are you sure you want to cancel the capture of this image?',
+  Cancel_Avatar_Tips: 'Are you sure you want to cancel the capture of this image?',
 
   // /views/oj/user/UserHome.vue
   Recent_login_time: 'Recently launched：',
@@ -121,7 +127,7 @@ export const m = {
   UserHome_Rating: 'Rating',
   List_Solved_Problems: 'List of solved problems',
   UserHome_Not_Data: 'The guy is so lazy that has not solved any problem yet.',
-  Personal_Profile: 'Persion Profile',
+  Personal_Profile: 'Personal Profile',
   UserHome_Solved_Problems: 'Solved Problems',
 
   // /views/oj/user/Setting.vue
@@ -316,6 +322,7 @@ export const m = {
   Private_Tips: 'Private - Only users knowing contest password can see and submit.',
   Protected_Tips: 'Protected - Any one can see, but only users knowing contest password can submit.',
   Contest_Outside_ScoreBoard: 'OutSide Contest ScoreBoard',
+  Contest_Admin_Rank: 'Whether Contest Admin participate in rank ',
 
   // /views/oj/contest/ContestDetail.vue
   StartAt: 'StartAt',
@@ -390,11 +397,11 @@ export const m = {
   Example: 'Example',
   Result_Explanation: 'Result Explanation',
   Pending_Description: 'Your solution is waiting be judged, please wait for the result...',
-  Submitted_Faild_Description: 'Your submission failed this time, please click the button to submit again.',
+  Submitted_Failed_Description: 'Your submission failed this time, please click the button to submit again.',
   Compiling_Description: 'Your source code is being compiled, please wait for the result...',
   Judging_Description: 'Your program is running with test data. Please wait for the result...',
   Compile_Error_Description: "Failed to compile your source code. Click on the link to see compiler's output.",
-  Persentation_Error_Description: 'The code you submitted is very close to the correct answer. Please check whether there are extra spaces, newlines and other blanks in the code format output.',
+  Presentation_Error_Description: 'The code you submitted is very close to the correct answer. Please check whether there are extra spaces, newlines and other blanks in the code format output.',
   Accepted_Description: 'Congratulations! Your solution is correct.',
   Wrong_Answer_Description: "Your program's output doesn't match judger's answer.",
   Runtime_Error_Description: 'Your program terminated abnormally. Possible reasons are: segment fault, divided by zero or exited with code other than 0.',

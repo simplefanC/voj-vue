@@ -295,7 +295,7 @@ export default {
       }
     },
     reselect() {
-      this.$confirm(this.$i18n.t('m.Cancel_Avater_Tips'), 'Tips', {
+      this.$confirm(this.$i18n.t('m.Cancel_Avatar_Tips'), 'Tips', {
         confirmButtonText: this.$i18n.t('m.OK'),
         cancelButtonText: this.$i18n.t('m.Cancel'),
         type: 'warning',

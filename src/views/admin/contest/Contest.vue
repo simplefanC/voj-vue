@@ -160,8 +160,8 @@
           </el-col>
         </el-row>
 
-        <!--赛外榜单-->
         <el-row :gutter="20">
+          <!--赛外榜单-->
           <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Contest_Outside_ScoreBoard')" required>
               <el-switch
@@ -172,6 +172,16 @@
               </el-switch>
             </el-form-item>
           </el-col>
+          <!--比赛管理员参与排名-->
+          <el-col :md="8" :xs="24">
+            <el-form-item :label="$t('m.Contest_Admin_Rank')" required>
+              <el-switch
+                  v-model="contest.contestAdminRank"
+              >
+              </el-switch>
+            </el-form-item>
+          </el-col>
+          <!--打印功能-->
           <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Print_Func')" required>
               <el-switch
@@ -402,6 +412,7 @@ export default {
         sealRankTime: '', //封榜时间
         autoRealRank: true,
         auth: 0,
+        contestAdminRank: false,
         openPrint: false,
         rankShowName: 'username',
         openPwdLimit: false,

@@ -11,6 +11,36 @@
         ></el-input>
       </el-form-item>
 
+      <el-form-item prop="realname">
+        <el-input
+            v-model="registerForm.realname"
+            :placeholder="$t('m.Register_Realname')"
+            prefix-icon="el-icon-user-solid"
+            width="100%"
+            @keyup.enter.native="handleRegister"
+        ></el-input>
+      </el-form-item>
+
+      <el-form-item prop="school">
+        <el-input
+            v-model="registerForm.school"
+            :placeholder="$t('m.Register_School')"
+            prefix-icon="el-icon-school"
+            width="100%"
+            @keyup.enter.native="handleRegister"
+        ></el-input>
+      </el-form-item>
+
+      <el-form-item prop="number">
+        <el-input
+            v-model="registerForm.number"
+            :placeholder="$t('m.Register_Number')"
+            prefix-icon="el-icon-postcard"
+            width="100%"
+            @keyup.enter.native="handleRegister"
+        ></el-input>
+      </el-form-item>
+
       <el-form-item prop="password">
         <el-input
             v-model="registerForm.password"
@@ -65,7 +95,7 @@
         {{ $t('m.Register_Btn') }}
       </el-button>
       <el-link type="primary" @click="switchMode('Login')">{{
-          $t('m.Register_Already_Registed')
+          $t('m.Register_Already_Registered')
         }}
       </el-link>
     </div>
@@ -126,6 +156,9 @@ export default {
         passwordAgain: '',
         email: '',
         code: '',
+        realname: '',
+        school: '',
+        number: ''
       },
       sendEmailError: false,
       rules: {
@@ -146,7 +179,27 @@ export default {
             trigger: 'blur',
           },
         ],
-
+        realname: [
+          {
+            required: true,
+            message: this.$i18n.t('m.Realname_Check_Required'),
+            trigger: 'blur',
+          }
+        ],
+        school: [
+          {
+            required: true,
+            message: this.$i18n.t('m.School_Check_Required'),
+            trigger: 'blur',
+          }
+        ],
+        number: [
+          {
+            required: true,
+            message: this.$i18n.t('m.Number_Check_Required'),
+            trigger: 'blur',
+          }
+        ],
         email: [
           {
             required: true,
