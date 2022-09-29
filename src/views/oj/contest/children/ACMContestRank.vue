@@ -1,54 +1,68 @@
 <template>
   <el-card shadow>
     <div slot="header">
-      <span class="panel-title">{{ $t('m.Contest_Rank') }}</span>
-      <span style="float:right;font-size: 20px;">
-        <el-popover placement="left-start" trigger="hover">
-          <i slot="reference" class="el-icon-s-tools"></i>
-          <div id="switches">
-            <p>
-              <span>{{ $t('m.Chart') }}</span>
-              <el-switch v-model="showChart"></el-switch>
-            </p>
-            <p>
-              <span>{{ $t('m.Table') }}</span>
-              <el-switch v-model="showTable"></el-switch>
-            </p>
-            <p>
-              <span>{{ $t('m.Star_User') }}</span>
-              <el-switch
-                  v-model="showStarUser"
-                  @change="getContestRankData(page)"
-              ></el-switch>
-            </p>
-            <p>
-              <span>{{ $t('m.Auto_Refresh') }}(10s)</span>
-              <el-switch
-                  v-model="autoRefresh"
-                  :disabled="refreshDisabled"
-                  @change="handleAutoRefresh"
-              ></el-switch>
-            </p>
-            <template v-if="isContestAdmin">
-              <p>
-                <span>{{ $t('m.Force_Update') }}</span>
-                <el-switch
-                    v-model="forceUpdate"
-                    @change="getContestRankData(page)"
-                ></el-switch>
-              </p>
-              <el-button size="small" type="primary" @click="downloadRankCSV">{{
-                  $t('m.Download_as_CSV')
-                }}</el-button>
-            </template>
-            <!--            <template>-->
-            <!--              <el-button type="primary" size="small" @click="downloadRankCSV">{{-->
-            <!--                  $t('m.Download_as_CSV')-->
-            <!--                }}</el-button>-->
-            <!--            </template>-->
-          </div>
-        </el-popover>
-      </span>
+      <el-row style="margin-bottom: 10px">
+        <el-col :span="20">
+          <el-input
+              style="width: 300px"
+              prefix-icon="el-icon-search"
+              v-model="keyword"
+              :placeholder="$t('m.Contest_Rank_Search_Placeholder')"
+              @keyup.enter.native="getContestRankData(1)"
+          >
+          </el-input>
+        </el-col>
+        <el-col :span="4">
+          <span style="float:right;font-size: 20px;margin-top: 8px;">
+            <el-popover placement="left-start" trigger="hover">
+              <i slot="reference" class="el-icon-s-tools"></i>
+              <div id="switches">
+                <p>
+                  <span>{{ $t('m.Chart') }}</span>
+                  <el-switch v-model="showChart"></el-switch>
+                </p>
+                <p>
+                  <span>{{ $t('m.Table') }}</span>
+                  <el-switch v-model="showTable"></el-switch>
+                </p>
+                <p>
+                  <span>{{ $t('m.Star_User') }}</span>
+                  <el-switch
+                      v-model="showStarUser"
+                      @change="getContestRankData(page)"
+                  ></el-switch>
+                </p>
+                <p>
+                  <span>{{ $t('m.Auto_Refresh') }}(10s)</span>
+                  <el-switch
+                      v-model="autoRefresh"
+                      :disabled="refreshDisabled"
+                      @change="handleAutoRefresh"
+                  ></el-switch>
+                </p>
+                <template v-if="isContestAdmin">
+                  <p>
+                    <span>{{ $t('m.Force_Update') }}</span>
+                    <el-switch
+                        v-model="forceUpdate"
+                        @change="getContestRankData(page)"
+                    ></el-switch>
+                  </p>
+                  <el-button size="small" type="primary" @click="downloadRankCSV">{{
+                      $t('m.Download_as_CSV')
+                    }}</el-button>
+                </template>
+                <!--            <template>-->
+                <!--              <el-button type="primary" size="small" @click="downloadRankCSV">{{-->
+                <!--                  $t('m.Download_as_CSV')-->
+                <!--                }}</el-button>-->
+                <!--            </template>-->
+              </div>
+            </el-popover>
+          </span>
+        </el-col>
+      </el-row>
+      <!--      <span class="panel-title">{{ $t('m.Contest_Rank') }}</span>-->
     </div>
     <div v-show="showChart" class="echarts">
       <ECharts ref="chart" :autoresize="true" :options="options"></ECharts>
@@ -330,7 +344,7 @@
         :current.sync="page"
         :layout="'prev, pager, next, sizes'"
         :page-size.sync="limit"
-        :page-sizes="[10, 30, 100, 500, 1000, 10000]"
+        :page-sizes="[10, 30, 50]"
         :total="total"
         @on-change="getContestRankData"
         @on-page-size-change="getContestRankData(1)"
@@ -358,7 +372,8 @@ export default {
     return {
       total: 0,
       page: 1,
-      limit: 30,
+      limit: 50,
+      keyword: '',
       autoRefresh: false,
       contestID: '',
       dataRank: [],

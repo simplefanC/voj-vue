@@ -60,7 +60,7 @@
         </el-menu-item
         >
 
-        <el-menu-item index="/introduction">
+        <el-menu-item index="/introduction" v-if="websiteConfig.introduction">
           <i class="el-icon-info"></i>
           {{ $t('m.NavBar_About') }}
         </el-menu-item>

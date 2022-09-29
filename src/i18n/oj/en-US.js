@@ -33,6 +33,7 @@ export const m = {
   Login_Forget_Password: 'Forget Password',
   Username_Check_Required: 'The username is required.',
   Username_Check_Max: 'The longest length of a username is 20.',
+  The_username_check_regular: 'Field should contain only Latin letters, digits, underscore or dash characters.',
   Password_Check_Required: 'The password is required.',
   Password_Check_Between: 'The length of the password is between 6 and 20.',
   Welcome_Back: 'Welcome back~',
@@ -145,7 +146,7 @@ export const m = {
 
   // /views/oj/Home.vue
   Welcome_to: 'Welcome to ',
-  Recent_7_Days_AC_Rank: 'Recent 7 Days AC Top 10 Rank',
+  Recent_7_Days_AC_Rank: 'AC Top 10 Rank',
   Other_OJ_Contest: 'Other Online Judge Contest',
   Supported_Remote_Online_Judge: 'Supported Remote Online Judge',
 
@@ -190,6 +191,7 @@ export const m = {
   Put_away_the_full_screen_and_write_the_code: 'Put away the full screen and write the code',
   Contest_Problem: 'Contest Problem',
   Show_Tags: 'Show Tags',
+  Show_All_Problem: 'Show All Problem',
   Hide_Tags: 'Hide Tags',
   No_tag: 'No tag',
   Statistic: 'Statistic',
@@ -322,7 +324,8 @@ export const m = {
   Private_Tips: 'Private - Only users knowing contest password can see and submit.',
   Protected_Tips: 'Protected - Any one can see, but only users knowing contest password can submit.',
   Contest_Outside_ScoreBoard: 'OutSide Contest ScoreBoard',
-  Contest_Admin_Rank: 'Whether Contest Admin participate in rank ',
+  Contest_Admin_Rank: 'Whether Contest Admin participate in rank',
+  Contest_Admin_Visible: 'Visible only to Contest Admin',
 
   // /views/oj/contest/ContestDetail.vue
   StartAt: 'StartAt',
@@ -436,6 +439,8 @@ export const m = {
   Theme: 'Theme',
   Reset_Code: 'Reset Code',
   Upload_file: 'Upload file',
+  Switch_Display: 'Switch Display Mode',
+  Display_Mode: 'Display Mode',
   monokai: 'Mnokai',
   solarized: 'Molarized Light',
   material: 'Material',

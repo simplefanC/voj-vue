@@ -172,31 +172,8 @@
               </el-switch>
             </el-form-item>
           </el-col>
-          <!--比赛管理员参与排名-->
-          <el-col :md="8" :xs="24">
-            <el-form-item :label="$t('m.Contest_Admin_Rank')" required>
-              <el-switch
-                  v-model="contest.contestAdminRank"
-              >
-              </el-switch>
-            </el-form-item>
-          </el-col>
-          <!--打印功能-->
-          <el-col :md="8" :xs="24">
-            <el-form-item :label="$t('m.Print_Func')" required>
-              <el-switch
-                  v-model="contest.openPrint"
-                  :active-text="$t('m.Support_Offline_Print')"
-                  :inactive-text="$t('m.Not_Support_Print')"
-              >
-              </el-switch>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
           <!--榜单显示用户名称-->
-          <el-col :span="24">
+          <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Rank_Show_Name')" required>
               <el-radio-group v-model="contest.rankShowName">
                 <el-radio label="username">{{
@@ -214,6 +191,42 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
+
+          <!--打印功能-->
+          <el-col :md="8" :xs="24">
+            <el-form-item :label="$t('m.Print_Func')" required>
+              <el-switch
+                  v-model="contest.openPrint"
+                  :active-text="$t('m.Support_Offline_Print')"
+                  :inactive-text="$t('m.Not_Support_Print')"
+              >
+              </el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row :gutter="20">
+          <!--比赛管理员参与排名-->
+          <el-col :md="8" :xs="24">
+            <el-form-item :label="$t('m.Contest_Admin_Rank')" required>
+              <el-switch
+                  v-model="contest.contestAdminRank"
+              >
+              </el-switch>
+            </el-form-item>
+          </el-col>
+          <!--是否仅比赛管理员可见-->
+          <el-col :md="8" :xs="24">
+            <el-form-item :label="$t('m.Contest_Admin_Visible')" required>
+              <el-switch
+                  v-model="contest.contestAdminVisible"
+              >
+              </el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row :gutter="20">
           <!--打星用户-->
           <el-col>
             <el-form-item :label="$t('m.Star_User_UserName')" required>
@@ -413,6 +426,7 @@ export default {
         autoRealRank: true,
         auth: 0,
         contestAdminRank: false,
+        contestAdminVisible: false,
         openPrint: false,
         rankShowName: 'username',
         openPwdLimit: false,

@@ -47,7 +47,6 @@ const getters = {
       // 私有赛需要通过验证密码方可查看比赛
       return !state.intoAccess
     }
-
   },
 
   // 榜单是否实时刷新

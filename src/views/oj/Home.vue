@@ -221,6 +221,27 @@
       </el-col>
       <el-col :md="9" :sm="24" class="phone-margin">
         <el-card>
+          <div slot="header" class="clearfix title">
+            <span class="home-title panel-title">
+              {{ $t('m.Supported_Remote_Online_Judge') }}
+            </span>
+          </div>
+          <el-row :gutter="20">
+            <el-col
+                v-for="(oj, index) in remoteJudgeList"
+                :key="index"
+                :md="8"
+                :sm="24"
+                style="margin-bottom: 10px"
+            >
+              <a :class="oj.status ? 'oj-normal' : 'oj-error'" :href="oj.url" target="_blank">
+                <img :src="oj.logo" class="oj-logo"/>
+                {{ oj.name }}
+              </a>
+            </el-col>
+          </el-row>
+        </el-card>
+        <el-card class="card-top">
           <div slot="header" class="clearfix">
             <span class="panel-title home-title">{{
                 $t('m.Recent_7_Days_AC_Rank')
@@ -280,27 +301,6 @@
             <!--            >-->
             <!--            </vxe-table-column>-->
           </vxe-table>
-        </el-card>
-        <el-card class="card-top">
-          <div slot="header" class="clearfix title">
-            <span class="home-title panel-title">
-              {{ $t('m.Supported_Remote_Online_Judge') }}
-            </span>
-          </div>
-          <el-row :gutter="20">
-            <el-col
-                v-for="(oj, index) in remoteJudgeList"
-                :key="index"
-                :md="8"
-                :sm="24"
-                style="margin-bottom: 10px"
-            >
-              <a :class="oj.status ? 'oj-normal' : 'oj-error'" :href="oj.url" target="_blank">
-                <img :src="oj.logo" class="oj-logo"/>
-                {{ oj.name }}
-              </a>
-            </el-col>
-          </el-row>
         </el-card>
       </el-col>
     </el-row>

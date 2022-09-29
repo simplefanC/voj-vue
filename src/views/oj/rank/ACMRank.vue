@@ -1,27 +1,32 @@
 <template>
   <el-row justify="space-around" type="flex">
     <el-col :span="24">
-      <el-card :padding="10">
+<!--      <el-card :padding="10">-->
+<!--        <div slot="header">-->
+<!--          <span class="panel-title">{{ $t('m.ACM_Ranklist') }}</span>-->
+<!--        </div>-->
+<!--        <div class="echarts">-->
+<!--          <ECharts ref="chart" :autoresize="true" :options="options"></ECharts>-->
+<!--        </div>-->
+<!--      </el-card>-->
+      <el-card :padding="10" >
         <div slot="header">
           <span class="panel-title">{{ $t('m.ACM_Ranklist') }}</span>
         </div>
-        <div class="echarts">
-          <ECharts ref="chart" :autoresize="true" :options="options"></ECharts>
+        <div style="text-align: center;">
+          <el-input
+              v-model="searchUser"
+              :placeholder="$t('m.Rank_Search_Placeholder')"
+              @keyup.enter.native="getRankData(1)"
+          >
+            <el-button
+                slot="append"
+                class="search-btn"
+                icon="el-icon-search"
+                @click="getRankData(1)"
+            ></el-button>
+          </el-input>
         </div>
-      </el-card>
-      <el-card :padding="10" style="text-align: center;">
-        <el-input
-            v-model="searchUser"
-            :placeholder="$t('m.Rank_Search_Placeholder')"
-            @keyup.enter.native="getRankData(1)"
-        >
-          <el-button
-              slot="append"
-              class="search-btn"
-              icon="el-icon-search"
-              @click="getRankData(1)"
-          ></el-button>
-        </el-input>
       </el-card>
       <vxe-table
           :data="dataRank"
@@ -240,8 +245,8 @@ export default {
   },
   methods: {
     getRankData(page) {
-      let bar = this.$refs.chart;
-      bar.showLoading({maskColor: 'rgba(250, 250, 250, 0.8)'});
+      // let bar = this.$refs.chart;
+      // bar.showLoading({maskColor: 'rgba(250, 250, 250, 0.8)'});
       this.loadingTable = true;
       api
           .getUserRank(page, this.limit, RULE_TYPE.ACM, this.searchUser)

@@ -4,7 +4,7 @@
       <el-card shadow>
         <div slot="header">
           <el-row :gutter="20" style="margin-bottom: 0.5em;">
-            <el-col :sm="6" :xs="24">
+            <el-col :sm="5" :xs="24">
               <span class="problem-list-title">{{ $t('m.Problem_List') }}</span>
             </el-col>
             <el-col :sm="6" :xs="24">
@@ -19,7 +19,7 @@
               ></vxe-input>
             </el-col>
             <el-col
-                :sm="6"
+                :sm="5"
                 :xs="12"
                 class="filter-mt"
                 style="text-align: center;padding-top: 6px;"
@@ -32,7 +32,21 @@
               >
             </el-col>
             <el-col
-                :sm="6"
+                :sm="3"
+                :xs="12"
+                class="filter-mt"
+                style="text-align: center;padding-top: 6px;"
+            >
+              <vxe-checkbox
+                  v-if="isSuperAdmin || isProblemAdmin"
+                  v-model="query.problemVisible"
+                  @change="changeProblemVisible"
+              >{{ $t('m.Show_All_Problem') }}
+              </vxe-checkbox
+              >
+            </el-col>
+            <el-col
+                :sm="5"
                 :xs="12"
                 class="filter-mt"
                 style="text-align: center;"
@@ -380,6 +394,7 @@ export default {
         oj: '',
         tagId: '',
         currentPage: 1,
+        problemVisible: false
       },
       customColors: [
         {color: '#909399', percentage: 20},
@@ -610,6 +625,9 @@ export default {
       this.$refs.problemList.getColumnByField('tag').visible = visible;
       this.$refs.problemList.refreshColumn();
     },
+    changeProblemVisible() {
+      this.getData();
+    },
     onReset() {
       this.filterTagList = [];
       if (JSON.stringify(this.$route.query) != '{}') {
@@ -712,7 +730,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters([
+      'isSuperAdmin',
+      'isProblemAdmin'
+    ]),
     OJName() {
       if (this.query.oj == 'LOCAL' || !this.$route.query.oj) {
         return this.$i18n.t('m.My_OJ');

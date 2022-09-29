@@ -97,7 +97,7 @@ export default {
         if (valid) {
           this.logining = true;
           api
-              .admin_login(this.ruleForm2.username, this.ruleForm2.password)
+              .login(this.ruleForm2)
               .then(
                   (res) => {
                     this.logining = false;

@@ -35,6 +35,10 @@
               $t('m.System_Config')
             }}
           </el-menu-item>
+          <el-menu-item index="/admin/switch">{{
+              $t('m.System_Switch')
+            }}
+          </el-menu-item>
         </el-submenu>
         <!-- <el-submenu index="problem" v-if="hasProblemPermission"> -->
         <el-submenu index="problem">
@@ -277,6 +281,18 @@
                   $t('m.System_Config')
                 }}
               </mu-list-item-title>
+            </mu-list-item>
+            <mu-list-item
+                button
+                :ripple="false"
+                slot="nested"
+                to="/admin/switch"
+                @click="opendrawer = !opendrawer"
+                active-class="mobile-menu-active"
+            >
+              <mu-list-item-title>{{
+                  $t('m.System_Switch')
+                }}</mu-list-item-title>
             </mu-list-item>
           </mu-list-item>
 
@@ -566,7 +582,7 @@ export default {
   methods: {
     handleCommand(command) {
       if (command === 'logout') {
-        api.admin_logout().then((res) => {
+        api.logout().then((res) => {
           this.$router.push({path: '/admin/login'});
           mMessage.success(res.data.msg);
           this.$store.commit('clearUserInfoAndToken');

@@ -1,7 +1,7 @@
 import moment from 'moment'
 import utils from './utils'
 import time from './time'
-import {PROBLEM_LEVEL} from './constants'
+import {PROBLEM_LEVEL, USER_ROLE, RULE_TYPE, USER_STATUS} from './constants'
 
 // 友好显示时间
 function fromNow(time) {
@@ -9,33 +9,30 @@ function fromNow(time) {
 }
 
 function parseRole(num) {
-  if (num == 1000) {
-    return '超级管理员'
-  } else if (num == 1001) {
-    return '普通管理员'
-  } else if (num == 1002) {
-    return '用户(默认)'
-  } else if (num == 1003) {
-    return '用户(禁止提交)'
-  } else if (num == 1004) {
-    return '用户(禁止发讨论)'
-  } else if (num == 1005) {
-    return '用户(禁言)'
-  } else if (num == 1006) {
-    return '用户(禁止提交&禁止发讨论)'
-  } else if (num == 1007) {
-    return '用户(禁止提交&禁言)'
-  } else if (num == 1008) {
-    return '题目管理员'
+  for (let role of USER_ROLE) {
+    if(role.id == num)
+      return role.name
+  }
+}
+
+function parseStatus(num) {
+  for (let status of USER_STATUS) {
+    if(status.value == num)
+      return status.label
   }
 }
 
 function parseContestType(num) {
-  if (num == 0) {
-    return 'ACM'
-  } else if (num == 1) {
-    return 'OI'
+  for(let key in RULE_TYPE){
+    if(RULE_TYPE[key] == num)
+      return key
   }
+
+  // if (num == 0) {
+  //   return 'ACM'
+  // } else if (num == 1) {
+  //   return 'OI'
+  // }
 }
 
 function parseProblemLevel(num) {
@@ -49,5 +46,6 @@ export default {
   fromNow: fromNow,
   parseContestType: parseContestType,
   parseRole: parseRole,
+  parseStatus: parseStatus,
   parseProblemLevel: parseProblemLevel,
 }

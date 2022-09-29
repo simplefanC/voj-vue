@@ -33,6 +33,7 @@ export const m = {
   Login_Forget_Password: '忘记密码',
   Username_Check_Required: '用户名不能为空',
   Username_Check_Max: '用户名长度不能超过20位',
+  The_username_check_regular: '用户名只能由字母数字下划线组成，并且首字母必须为字母',
   Password_Check_Required: '密码不能为空',
   Password_Check_Between: '请输入长度为6~20位的密码',
   Welcome_Back: '欢迎回来~',
@@ -146,7 +147,7 @@ export const m = {
 
   // /views/oj/Home.vue
   Welcome_to: '欢迎使用 ',
-  Recent_7_Days_AC_Rank: '最近7日AC排名',
+  Recent_7_Days_AC_Rank: 'AC排名',
   Other_OJ_Contest: '其它OJ的近期比赛',
   Supported_Remote_Online_Judge: '支持的远程评测平台',
 
@@ -191,6 +192,7 @@ export const m = {
   Put_away_the_full_screen_and_write_the_code: '收起全屏，编写代码',
   Contest_Problem: '比赛题目',
   Show_Tags: '显示标签',
+  Show_All_Problem: '显示所有题目',
   Hide_Tags: '隐藏标签',
   No_tag: '暂无标签',
   Statistic: '题目统计',
@@ -326,6 +328,7 @@ export const m = {
   Protected_Tips: '保护赛 - 每个用户都可查看，但是提交需要密码',
   Contest_Outside_ScoreBoard: '赛外榜单',
   Contest_Admin_Rank: '比赛管理员是否参与排名',
+  Contest_Admin_Visible: '仅对比赛管理员可见',
 
   // /views/oj/contest/ContestDetail.vue
   StartAt: '开始时间',
@@ -346,6 +349,7 @@ export const m = {
   Please_check_the_contest_announcement_for_details: '具体内容请查看比赛公告',
 
   // /views/oj/contest/children/ACMContestRank.vue
+  Contest_Rank_Search_Placeholder: '请输入查询的用户名称或学校名称',
   Contest_Rank: '比赛排名',
   Menu: '菜单',
   Chart: '图表',
@@ -438,6 +442,8 @@ export const m = {
   Theme: '风格',
   Reset_Code: '重置代码',
   Upload_file: '上传文件',
+  Switch_Display: '切换横竖屏',
+  Display_Mode: '横竖屏',
   monokai: 'Monokai',
   solarized: 'Molarized Light',
   material: 'Material',

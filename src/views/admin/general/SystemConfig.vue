@@ -36,7 +36,7 @@
             </el-form-item>
           </el-col>
 
-          <el-col :md="12" :xs="24">
+          <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Record_Name')" required>
               <el-input
                   v-model="websiteConfig.recordName"
@@ -44,7 +44,7 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :md="12" :xs="24">
+          <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Record_Url')" required>
               <el-input
                   v-model="websiteConfig.recordUrl"
@@ -80,27 +80,27 @@
           <!--              </el-input>-->
           <!--            </el-form-item>-->
           <!--          </el-col>-->
-          <el-col :md="6" :xs="24">
-            <el-form-item :label="$t('m.Allow_Register')" label-width="120px">
-              <el-switch
-                  v-model="websiteConfig.register"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949"
-              >
-              </el-switch>
-            </el-form-item>
-          </el-col>
-          <el-col :md="18" :xs="24">
-            <el-form-item :label="$t('m.Code_Visible_Start_Time')" label-width="180px" required>
-              <el-date-picker
-                  v-model="websiteConfig.codeVisibleStartTime"
-                  :placeholder="$t('m.Start_Time')"
-                  type="datetime"
-                  value-format="timestamp"
-              >
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
+<!--          <el-col :md="6" :xs="24">-->
+<!--            <el-form-item :label="$t('m.Allow_Register')" label-width="120px">-->
+<!--              <el-switch-->
+<!--                  v-model="websiteConfig.register"-->
+<!--                  active-color="#13ce66"-->
+<!--                  inactive-color="#ff4949"-->
+<!--              >-->
+<!--              </el-switch>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
+<!--          <el-col :md="18" :xs="24">-->
+<!--            <el-form-item :label="$t('m.Code_Visible_Start_Time')" label-width="180px" required>-->
+<!--              <el-date-picker-->
+<!--                  v-model="websiteConfig.codeVisibleStartTime"-->
+<!--                  :placeholder="$t('m.Start_Time')"-->
+<!--                  type="datetime"-->
+<!--                  value-format="timestamp"-->
+<!--              >-->
+<!--              </el-date-picker>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
         </el-row>
       </el-form>
       <el-button
@@ -182,7 +182,7 @@
       </div>
       <el-form :model="smtp" label-position="left" label-width="80px">
         <el-row :gutter="20">
-          <el-col :md="24" :xs="24">
+          <el-col :md="12" :xs="24">
             <el-form-item :label="$t('m.Host')" label-width="80px" required>
               <el-input
                   v-model="smtp.emailHost"
@@ -190,7 +190,7 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :md="24" :xs="24">
+          <el-col :md="12" :xs="24">
             <el-form-item :label="$t('m.Port')" label-width="80px" required>
               <el-input
                   v-model="smtp.emailPort"

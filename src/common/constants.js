@@ -199,6 +199,24 @@ export const RULE_TYPE = {
   OI: 1
 }
 
+export const USER_STATUS = [
+  {value: 0, label: '正常'},
+  {value: 1, label: '封禁'},
+  {value: 2, label: '申请中'}
+]
+
+export const USER_ROLE = [
+  {id: 1000, name: '超级管理员'},
+  {id: 1001, name: '普通管理员'},
+  {id: 1008, name: '题目管理员'},
+  {id: 1002, name: '用户(默认)'},
+  {id: 1003, name: '用户(禁止提交)'},
+  {id: 1004, name: '用户(禁止发讨论)'},
+  {id: 1005, name: '用户(禁言)'},
+  {id: 1006, name: '用户(禁止提交&禁止发讨论)'},
+  {id: 1007, name: '用户(禁止提交&禁言)'},
+]
+
 export const CONTEST_TYPE_REVERSE = {
   '0': {
     name: 'Public',
@@ -236,6 +254,10 @@ export const USER_TYPE = {
   SUPER_ADMIN: 'root'
 }
 
+export const JUDGE_CASE_MODE = {
+  DEFAULT: 'default',
+  ITERATE_UNTIL_WRONG: 'iterate_until_wrong'
+}
 
 export const STORAGE_KEY = {
   AUTHED: 'authed',

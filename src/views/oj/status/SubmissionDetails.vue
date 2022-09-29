@@ -2,7 +2,7 @@
   <el-row justify="space-around" type="flex">
     <el-col id="status" :span="24">
       <el-alert
-          :class="getbackgroudColor(submission.status)"
+          :class="getBackgroundColor(submission.status)"
           :closable="false"
           :type="status.type"
           effect="dark"
@@ -352,7 +352,7 @@ export default {
           '!important'
       );
     },
-    getbackgroudColor(status) {
+    getBackgroundColor(status) {
       return 'status-' + JUDGE_STATUS[status].color;
     },
     getSubmission() {
@@ -394,7 +394,7 @@ export default {
       );
     },
 
-    //首先该题必须支持开放测试点结果查看，同时若是比赛题目，只支持IO查看测试点情况，ACM强制禁止查看
+    //首先该题必须支持开放测试点结果查看，同时若是比赛题目，只支持OI查看测试点情况，ACM强制禁止查看
     getAllCaseResult() {
       api.getAllCaseResult(this.$route.params.submitID).then((res) => {
         this.testCaseResult = res.data.data;

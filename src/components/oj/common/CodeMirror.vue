@@ -1,7 +1,7 @@
 <template>
   <div style="margin: 0px 0px 15px 0px;font-size: 14px;">
     <el-row class="header">
-      <el-col :lg="15" :md="15" :sm="15" :xs="24">
+      <el-col :lg="12" :md="12" :sm="12" :xs="24">
         <div class="select-row">
           <span>{{ $t('m.Lang') }}:</span>
           <span>
@@ -16,6 +16,7 @@
               </el-option>
             </el-select>
           </span>
+          <!--重置代码-->
           <span>
             <el-tooltip :content="$t('m.Reset_Code')" placement="top">
               <el-button
@@ -25,6 +26,7 @@
               ></el-button>
             </el-tooltip>
           </span>
+          <!--上传文件-->
           <span>
             <el-tooltip :content="$t('m.Upload_file')" placement="top">
               <el-button
@@ -44,8 +46,18 @@
           </span>
         </div>
       </el-col>
-      <el-col :lg="9" :md="9" :sm="9" :xs="24">
+      <el-col :lg="12" :md="12" :sm="12" :xs="24">
         <div class="select-row fl-right">
+          <span>{{ $t('m.Display_Mode') }}:</span>
+          <span>
+            <el-tooltip :content="$t('m.Switch_Display')" placement="top">
+            <el-button
+                icon="el-icon-exchange"
+                size="small"
+                @click="onSwitchDisplay"
+            ></el-button>
+          </el-tooltip>
+          </span>
           <span>{{ $t('m.Theme') }}:</span>
           <el-select
               :value="this.theme"
@@ -207,6 +219,9 @@ export default {
     });
   },
   methods: {
+    onSwitchDisplay() {
+      this.$emit('switchDisplayMode');
+    },
     onEditorCodeChange(newCode) {
       this.$emit('update:value', newCode);
     },
@@ -292,6 +307,16 @@ export default {
 </style>
 
 <style>
+.el-icon-exchange {
+  background: url('exchange.svg') center no-repeat;
+  font-size: 12px;
+  background-size: cover;
+}
+.el-icon-exchange:before {
+  content: "替";
+  font-size: 12px;
+  visibility: hidden;
+}
 .CodeMirror {
   height: 600px !important;
 }

@@ -468,13 +468,26 @@
             </el-popover>
           </div>
 
-          <el-switch
-              v-model="problem.isUploadCase"
-              :active-text="$t('m.Use_Upload_File')"
-              :inactive-text="$t('m.Use_Manual_Input')"
-              style="margin: 10px 0"
-          >
-          </el-switch>
+          <el-form-item required>
+            <el-radio-group v-model="problem.judgeCaseMode">
+              <el-radio :label="JUDGE_CASE_MODE.DEFAULT">
+                {{ problem.type == 1 ? $t('m.OI_Judge_Case_Default_Mode'): $t('m.ACM_Judge_Case_Default_Mode')}}
+              </el-radio>
+              <template v-if="problem.type == 0">
+                <el-radio :label="JUDGE_CASE_MODE.ITERATE_UNTIL_WRONG">{{$t('m.Judge_Case_Iterate_Until_Wrong_Mode')}}</el-radio>
+              </template>
+            </el-radio-group>
+          </el-form-item>
+
+          <el-form-item required>
+            <el-switch
+                v-model="problem.isUploadCase"
+                :active-text="$t('m.Use_Upload_File')"
+                :inactive-text="$t('m.Use_Manual_Input')"
+                style="margin: 10px 0"
+            >
+            </el-switch>
+          </el-form-item>
 
           <div v-show="problem.isUploadCase">
             <el-col :span="24">
@@ -649,7 +662,7 @@ import utils from '@/common/utils';
 import {mapGetters} from 'vuex';
 import api from '@/common/api';
 import myMessage from '@/common/message';
-import {PROBLEM_LEVEL} from '@/common/constants';
+import {PROBLEM_LEVEL, JUDGE_CASE_MODE} from '@/common/constants';
 
 const Editor = () => import('@/components/admin/Editor.vue');
 const Accordion = () => import('@/components/admin/Accordion.vue');
@@ -723,6 +736,7 @@ export default {
         source: '',
         cid: null,
         judgeMode: 'default',
+        judgeCaseMode: 'default',
         userExtraFile: '',
         judgeExtraFile: '',
       },
@@ -751,6 +765,7 @@ export default {
         testCase: '',
       },
       PROBLEM_LEVEL: {},
+      JUDGE_CASE_MODE: {},
       spjRecord: {
         spjCode: '',
         spjLanguage: '',
@@ -763,6 +778,7 @@ export default {
   },
   mounted() {
     this.PROBLEM_LEVEL = Object.assign({}, PROBLEM_LEVEL);
+    this.JUDGE_CASE_MODE = Object.assign({}, JUDGE_CASE_MODE);
     this.routeName = this.$route.name;
     let contestID = this.$route.params.contestId;
     this.uploadFileUrl = '/api/file/upload-testcase-zip';
@@ -820,6 +836,7 @@ export default {
         source: '',
         cid: null,
         judgeMode: 'default',
+        judgeCaseMode: 'default',
         userExtraFile: null,
         judgeExtraFile: null,
       };

@@ -69,30 +69,45 @@
       </el-row>
     </el-card>
     <el-card v-loading="loading.rank" shadow style="margin-top:15px;">
-      <div class="contest-rank-switch">
-        <span style="float:right;">
-          <span>{{ $t('m.Auto_Refresh') }}(30s)</span>
-          <el-switch
-              v-model="autoRefresh"
-              :disabled="contestEnded"
-              @change="handleAutoRefresh"
-          ></el-switch>
-        </span>
-        <span v-if="isContestAdmin" style="float:right;">
-          <span>{{ $t('m.Force_Update') }}</span>
-          <el-switch
-              v-model="forceUpdate"
-              @change="getContestOutsideScoreboard"
-          ></el-switch>
-        </span>
-        <span style="float:right;">
-          <span>{{ $t('m.Star_User') }}</span>
-          <el-switch
-              v-model="showStarUser"
-              @change="getContestOutsideScoreboard"
-          ></el-switch>
-        </span>
-      </div>
+      <el-row style="margin-bottom: 10px">
+        <el-col :span="16">
+          <el-input
+              style="width: 300px"
+              prefix-icon="el-icon-search"
+              v-model="keyword"
+              :placeholder="$t('m.Contest_Rank_Search_Placeholder')"
+              @keyup.enter.native="getContestOutsideScoreboard"
+          >
+          </el-input>
+        </el-col>
+        <el-col :span="8">
+          <div class="contest-rank-switch">
+            <span style="float:right;">
+              <span>{{ $t('m.Auto_Refresh') }}(30s)</span>
+              <el-switch
+                  v-model="autoRefresh"
+                  :disabled="contestEnded"
+                  @change="handleAutoRefresh"
+              ></el-switch>
+            </span>
+            <span v-if="isContestAdmin" style="float:right;">
+              <span>{{ $t('m.Force_Update') }}</span>
+              <el-switch
+                  v-model="forceUpdate"
+                  @change="getContestOutsideScoreboard"
+              ></el-switch>
+            </span>
+            <span style="float:right;">
+              <span>{{ $t('m.Star_User') }}</span>
+              <el-switch
+                  v-model="showStarUser"
+                  @change="getContestOutsideScoreboard"
+              ></el-switch>
+            </span>
+          </div>
+        </el-col>
+      </el-row>
+
       <vxe-table
           :cell-class-name="cellClassName"
           :data="dataRank"
@@ -367,6 +382,7 @@ export default {
         rank: false,
       },
       contestID: '',
+      keyword: '',
       dataRank: [],
       timer: null,
       CONTEST_STATUS: {},
@@ -591,8 +607,8 @@ export default {
 
 <style>
 .contest-rank-switch {
-  margin-bottom: 30px;
-  margin-top: -8px;
+  /*margin-bottom: 30px;*/
+  margin-top: 10px;
 }
 
 .contest-rank-switch span {

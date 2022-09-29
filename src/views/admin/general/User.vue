@@ -13,18 +13,18 @@
             >{{ $t('m.Delete') }}
             </el-button>
           </span>
-          <!--          <span>-->
-          <!--            <el-button-->
-          <!--                type="info"-->
-          <!--                icon="el-icon-remove"-->
-          <!--                @click="forbidUsers(null)"-->
-          <!--                size="small"-->
-          <!--            >{{ $t('m.Forbid') }}-->
-          <!--            </el-button>-->
-          <!--          </span>-->
+          <span>
+            <el-button
+                icon="el-icon-minus"
+                size="small"
+                type="warning"
+                @click="forbidUsers(null)"
+            >{{ $t('m.Forbid') }}
+            </el-button>
+          </span>
           <span>
             <vxe-input
-                v-model="keyword"
+                v-model="query.keyword"
                 :placeholder="$t('m.Enter_keyword')"
                 size="medium"
                 type="search"
@@ -32,15 +32,69 @@
                 @keyup.enter.native="filterByKeyword"
             ></vxe-input>
           </span>
+<!--          <span>-->
+<!--            <el-switch-->
+<!--                v-model="onlyAdmin"-->
+<!--                :active-text="$t('m.OnlyAdmin')"-->
+<!--                :inactive-text="$t('m.All')"-->
+<!--                :width="40"-->
+<!--                @change="filterByAdmin"-->
+<!--            >-->
+<!--            </el-switch>-->
+<!--          </span>-->
           <span>
-            <el-switch
-                v-model="onlyAdmin"
-                :active-text="$t('m.OnlyAdmin')"
-                :inactive-text="$t('m.All')"
-                :width="40"
-                @change="filterByAdmin"
+            <el-select
+                v-model="query.userStatus"
+                size="small"
+                style="width: 180px;"
+                @change="userStatusChange"
             >
-            </el-switch>
+              <el-option
+                  :label="$t('m.All_User')"
+                  :value="-1"
+              ></el-option>
+              <el-option
+                  v-for="(status, index) in USER_STATUS"
+                  :key="index"
+                  :label="status.label"
+                  :value="status.value"
+              ></el-option>
+            </el-select>
+          </span>
+          <span>
+            <el-select
+                v-model="query.userRole"
+                size="small"
+                style="width: 180px;"
+                @change="userRoleChange"
+            >
+              <el-option
+                  :label="$t('m.All_User')"
+                  :value="-1"
+              ></el-option>
+              <el-option
+                  v-for="(role, index) in USER_ROLE"
+                  :key="index"
+                  :label="role.name"
+                  :value="role.id"
+              ></el-option>
+            </el-select>
+          </span>
+          <span>
+            <el-button
+                icon="el-icon-check"
+                size="small"
+                type="primary"
+            >{{ $t('m.Pass') }}
+            </el-button>
+          </span>
+          <span>
+            <el-button
+                icon="el-icon-close"
+                size="small"
+                type="warning"
+            >{{ $t('m.Reject') }}
+            </el-button>
           </span>
         </div>
       </div>
@@ -52,34 +106,46 @@
           auto-resize
           stripe
           @checkbox-change="handleSelectionChange"
-          @checkbox-all="handlechangeAll"
+          @checkbox-all="handleChangeAll"
       >
-        <vxe-table-column type="checkbox" width="60"></vxe-table-column>
-        <vxe-table-column
+        <vxe-column type="checkbox" width="60"></vxe-column>
+        <vxe-column
             field="uid"
             show-overflow
             title="UUID"
-            width="130"
-        ></vxe-table-column>
-        <vxe-table-column
+            :visible="false"
+        ></vxe-column>
+        <vxe-column
             :title="$t('m.User')"
             field="username"
-            min-width="140"
+            min-width="120"
             show-overflow
-        ></vxe-table-column>
-        <vxe-table-column
+        ></vxe-column>
+        <vxe-column
+            :title="$t('m.School')"
+            field="school"
+            min-width="120"
+            show-overflow
+        ></vxe-column>
+        <vxe-column
             :title="$t('m.RealName')"
             field="realname"
-            min-width="140"
+            min-width="120"
             show-overflow
-        ></vxe-table-column>
-        <vxe-table-column
+        ></vxe-column>
+        <vxe-column
+            :title="$t('m.Student_Number')"
+            field="number"
+            min-width="120"
+            show-overflow
+        ></vxe-column>
+        <vxe-column
             :title="$t('m.Email')"
             field="email"
-            min-width="150"
+            min-width="170"
             show-overflow
-        ></vxe-table-column>
-        <vxe-table-column
+        ></vxe-column>
+        <vxe-column
             :title="$t('m.Created_Time')"
             field="gmtCreate"
             min-width="150"
@@ -87,8 +153,8 @@
           <template v-slot="{ row }">
             {{ row.gmtCreate | localtime }}
           </template>
-        </vxe-table-column>
-        <vxe-table-column
+        </vxe-column>
+        <vxe-column
             :title="$t('m.User_Type')"
             field="role"
             min-width="100"
@@ -96,24 +162,17 @@
           <template v-slot="{ row }">
             {{ getRole(row.roles) | parseRole }}
           </template>
-        </vxe-table-column>
-        <vxe-table-column
+        </vxe-column>
+        <vxe-column
             :title="$t('m.Status')"
             field="status"
             min-width="100"
         >
           <template v-slot="{ row }">
-            <el-tag v-if="row.status == 0" color="#19be6b" effect="dark">{{
-                $t('m.Normal')
-              }}
-            </el-tag>
-            <el-tag v-else color="#ed3f14" effect="dark">{{
-                $t('m.Disable')
-              }}
-            </el-tag>
+            {{ row.status | parseStatus }}
           </template>
-        </vxe-table-column>
-        <vxe-table-column :title="$t('m.Option')" min-width="150">
+        </vxe-column>
+        <vxe-column :title="$t('m.Option')" min-width="120">
           <template v-slot="{ row }">
             <el-tooltip
                 :content="$t('m.Edit_User')"
@@ -142,11 +201,12 @@
               </el-button>
             </el-tooltip>
           </template>
-        </vxe-table-column>
+        </vxe-column>
       </vxe-table>
       <div class="panel-options">
         <el-pagination
-            :page-size="pageSize"
+            :page-size="query.pageSize"
+            :current-page.sync="query.currentPage"
             :page-sizes="[10, 30, 50, 100]"
             :total="total"
             class="page"
@@ -182,7 +242,7 @@
       </el-upload>
       <template v-else>
         <vxe-table :data="uploadUsersPage" auto-resize stripe>
-          <vxe-table-column
+          <vxe-column
               :title="$t('m.Username')"
               field="username"
               min-width="96"
@@ -191,8 +251,8 @@
             <template v-slot="{ row }">
               {{ row[0] }}
             </template>
-          </vxe-table-column>
-          <vxe-table-column
+          </vxe-column>
+          <vxe-column
               :title="$t('m.Password')"
               field="password"
               min-width="130"
@@ -201,8 +261,8 @@
             <template v-slot="{ row }">
               {{ row[1] }}
             </template>
-          </vxe-table-column>
-          <vxe-table-column
+          </vxe-column>
+          <vxe-column
               :title="$t('m.Email')"
               field="email"
               min-width="120"
@@ -211,8 +271,8 @@
             <template v-slot="{ row }">
               {{ row[2] }}
             </template>
-          </vxe-table-column>
-          <vxe-table-column
+          </vxe-column>
+          <vxe-column
               :title="$t('m.RealName')"
               field="realname"
               min-width="150"
@@ -221,8 +281,8 @@
             <template v-slot="{ row }">
               {{ row[3] }}
             </template>
-          </vxe-table-column>
-          <vxe-table-column
+          </vxe-column>
+          <vxe-column
               :title="$t('m.Gender')"
               field="gender"
               min-width="60"
@@ -231,8 +291,8 @@
             <template v-slot="{ row }">
               {{ row[4] }}
             </template>
-          </vxe-table-column>
-          <vxe-table-column
+          </vxe-column>
+          <vxe-column
               :title="$t('m.Nickname')"
               field="nickname"
               min-width="100"
@@ -241,8 +301,8 @@
             <template v-slot="{ row }">
               {{ row[5] }}
             </template>
-          </vxe-table-column>
-          <vxe-table-column
+          </vxe-column>
+          <vxe-column
               :title="$t('m.School')"
               field="school"
               min-width="100"
@@ -251,7 +311,7 @@
             <template v-slot="{ row }">
               {{ row[6] }}
             </template>
-          </vxe-table-column>
+          </vxe-column>
         </vxe-table>
 
         <div class="panel-options">
@@ -389,6 +449,7 @@
     <el-dialog
         :title="$t('m.User')"
         :visible.sync="showUserDialog"
+        :close-on-click-modal="false"
         width="350px"
     >
       <el-form
@@ -402,6 +463,16 @@
           <el-col :span="24">
             <el-form-item :label="$t('m.Username')" prop="username" required>
               <el-input v-model="selectUser.username"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item :label="$t('m.School')" prop="school">
+              <el-input v-model="selectUser.school"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item :label="$t('m.Student_Number')" prop="number">
+              <el-input v-model="selectUser.number"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -440,63 +511,24 @@
             <el-form-item :label="$t('m.User_Type')">
               <el-select v-model="selectUser.type">
                 <el-option
-                    :key="1000"
-                    :value="1000"
-                    label="超级管理员"
-                ></el-option>
-                <el-option
-                    :key="1001"
-                    :value="1001"
-                    label="普通管理员"
-                ></el-option>
-                <el-option
-                    :key="1008"
-                    :value="1008"
-                    label="题目管理员"
-                ></el-option>
-                <el-option
-                    :key="1002"
-                    :value="1002"
-                    label="用户(默认)"
-                ></el-option>
-                <el-option
-                    :key="1003"
-                    :value="1003"
-                    label="用户(禁止提交)"
-                ></el-option>
-                <el-option
-                    :key="1004"
-                    :value="1004"
-                    label="用户(禁止发讨论)"
-                ></el-option>
-                <el-option
-                    :key="1005"
-                    :value="1005"
-                    label="用户(禁言)"
-                ></el-option>
-                <el-option
-                    :key="1006"
-                    :value="1006"
-                    label="用户(禁止提交&禁止发讨论)"
-                ></el-option>
-                <el-option
-                    :key="1007"
-                    :value="1007"
-                    label="用户(禁止提交&禁言)"
+                    v-for="(role, index) in USER_ROLE"
+                    :key="index"
+                    :label="role.name"
+                    :value="role.id"
                 ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item :label="$t('m.Status')">
-              <el-switch
-                  v-model="selectUser.status"
-                  :active-text="$t('m.Normal')"
-                  :active-value="0"
-                  :inactive-text="$t('m.Disable')"
-                  :inactive-value="1"
-              >
-              </el-switch>
+              <el-select v-model="selectUser.status">
+                <el-option
+                    v-for="(status, index) in USER_STATUS"
+                    :key="index"
+                    :label="status.label"
+                    :value="status.value"
+                ></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -518,6 +550,7 @@ import papa from 'papaparse'; // csv插件
 import api from '@/common/api';
 import utils from '@/common/utils';
 import myMessage from '@/common/message';
+import {USER_ROLE, USER_STATUS} from '@/common/constants';
 
 export default {
   name: 'user',
@@ -574,8 +607,6 @@ export default {
       );
     };
     return {
-      // 一页显示的用户数
-      pageSize: 10,
       // 用户总数
       total: 0,
       // 数据库查询的用户列表
@@ -584,17 +615,25 @@ export default {
       uploadUsersPage: [],
       uploadUsersCurrentPage: 1,
       uploadUsersPageSize: 15,
-      // 搜索关键字
-      keyword: '',
+      query: {
+        userStatus: -1,
+        userRole: -1,
+        keyword: '',
+        pageSize: 10,
+        currentPage: 1,
+      },
       // 是否显示用户对话框
       showUserDialog: false,
       onlyAdmin: false,
-
+      USER_STATUS: [],
+      USER_ROLE: [],
       // 当前用户model
       selectUser: {
         uid: '',
         username: '',
         realname: '',
+        school: '',
+        number: '',
         email: '',
         password: '',
         type: 1002,
@@ -636,15 +675,14 @@ export default {
       },
       loadingTable: false,
       loadingGenerate: false,
-      // 当前页码
-      currentPage: 1,
+
       selectedUsers: [],
       formGenerateUser: {
         prefix: '',
         suffix: '',
         number_from: 0,
         number_to: 10,
-        password_length: 6,
+        password_length: 8,
       },
       formGenerateRules: {
         number_from: [
@@ -678,18 +716,28 @@ export default {
       },
     };
   },
+  created() {
+    this.USER_STATUS = Object.assign({}, USER_STATUS);
+    this.USER_ROLE = Object.assign({}, USER_ROLE);
+  },
   mounted() {
     this.getUserList(1);
   },
   methods: {
+    userStatusChange(){
+      this.getUserList(1);
+    },
+    userRoleChange(){
+      this.getUserList(1);
+    },
     // 切换页码回调
     currentChange(page) {
-      this.currentPage = page;
+      this.query.currentPage = page;
       this.getUserList(page);
     },
     onPageSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.getUserList(this.currentPage);
+      this.query.pageSize = pageSize;
+      this.getUserList(this.query.currentPage);
     },
     // 提交修改用户的信息
     saveUser() {
@@ -700,7 +748,7 @@ export default {
               .then((res) => {
                 // 更新列表
                 myMessage.success(this.$i18n.t('m.Update_Successfully'));
-                this.getUserList(this.currentPage);
+                this.getUserList(this.query.currentPage);
               })
               .then(() => {
                 this.showUserDialog = false;
@@ -724,6 +772,8 @@ export default {
       this.showUserDialog = true;
       this.selectUser.uid = row.uid;
       this.selectUser.username = row.username;
+      this.selectUser.school = row.school;
+      this.selectUser.number = row.number;
       this.selectUser.realname = row.realname;
       this.selectUser.email = row.email;
       this.selectUser.setNewPwd = false;
@@ -733,9 +783,16 @@ export default {
     },
     // 获取用户列表
     getUserList(page) {
+      let params = {
+        limit: this.query.pageSize,
+        currentPage: page,
+        keyword: this.query.keyword,
+        status: this.query.userStatus === -1 ? null : this.query.userStatus,
+        roleId: this.query.userRole === -1 ? null : this.query.userRole,
+      };
       this.loadingTable = true;
       api
-          .admin_getUserList(page, this.pageSize, this.keyword, this.onlyAdmin)
+          .admin_getUserList(params)
           .then(
               (res) => {
                 this.loadingTable = false;
@@ -763,11 +820,43 @@ export default {
                   .then((res) => {
                     myMessage.success(this.$i18n.$t('m.Delete_successfully'));
                     this.selectedUsers = [];
-                    this.getUserList(this.currentPage);
+                    this.getUserList(this.query.currentPage);
                   })
                   .catch(() => {
                     this.selectedUsers = [];
-                    this.getUserList(this.currentPage);
+                    this.getUserList(this.query.currentPage);
+                  });
+            },
+            () => {
+            }
+        );
+      } else {
+        myMessage.warning(
+            this.$i18n.t('m.The_number_of_users_selected_cannot_be_empty')
+        );
+      }
+    },
+    forbidUsers(ids) {
+      if (!ids) {
+        ids = this.selectedUsers;
+      }
+      if (ids.length > 0) {
+        this.$confirm(this.$i18n.t('m.Forbid_User_Tips'), 'Tips', {
+          confirmButtonText: this.$i18n.t('m.OK'),
+          cancelButtonText: this.$i18n.t('m.Cancel'),
+          type: 'warning',
+        }).then(
+            () => {
+              api
+                  .admin_forbidUsers(ids)
+                  .then((res) => {
+                    myMessage.success(this.$i18n.$t('m.Forbid_successfully'));
+                    this.selectedUsers = [];
+                    this.getUserList(this.query.currentPage);
+                  })
+                  .catch(() => {
+                    this.selectedUsers = [];
+                    this.getUserList(this.query.currentPage);
                   });
             },
             () => {
@@ -788,7 +877,7 @@ export default {
       }
     },
     // 一键全部选中，改变选中的内容列表
-    handlechangeAll() {
+    handleChangeAll() {
       let userList = this.$refs.xTable.getCheckboxRecords();
       this.selectedUsers = [];
       for (let num = 0; num < userList.length; num++) {

@@ -1,34 +1,34 @@
 <template>
   <div class="problem-list">
     <!-- 判断是否需要密码验证 -->
-<!--    <el-card v-if="passwordFormVisible" class="password-form-card" style="text-align:center;margin-bottom:15px">-->
-<!--      <div slot="header">-->
-<!--              <span class="panel-title" style="color: #e6a23c;"-->
-<!--              ><i class="el-icon-warning">-->
-<!--                  {{ $t('m.Password_Required') }}</i-->
-<!--              ></span-->
-<!--              >-->
-<!--      </div>-->
-<!--      <p class="password-form-tips">-->
-<!--        {{ $t('m.To_Enter_Need_Password') }}-->
-<!--      </p>-->
-<!--      <el-form>-->
-<!--        <el-input-->
-<!--            v-model="contestPassword"-->
-<!--            :placeholder="$t('m.Enter_the_contest_password')"-->
-<!--            style="width:70%"-->
-<!--            type="password"-->
-<!--            @keydown.enter.native="checkPassword"-->
-<!--        />-->
-<!--        <el-button-->
-<!--            style="float:right;"-->
-<!--            type="primary"-->
-<!--            @click="checkPassword"-->
-<!--        >{{ $t('m.Enter') }}-->
-<!--        </el-button-->
-<!--        >-->
-<!--      </el-form>-->
-<!--    </el-card>-->
+    <!--    <el-card v-if="passwordFormVisible" class="password-form-card" style="text-align:center;margin-bottom:15px">-->
+    <!--      <div slot="header">-->
+    <!--              <span class="panel-title" style="color: #e6a23c;"-->
+    <!--              ><i class="el-icon-warning">-->
+    <!--                  {{ $t('m.Password_Required') }}</i-->
+    <!--              ></span-->
+    <!--              >-->
+    <!--      </div>-->
+    <!--      <p class="password-form-tips">-->
+    <!--        {{ $t('m.To_Enter_Need_Password') }}-->
+    <!--      </p>-->
+    <!--      <el-form>-->
+    <!--        <el-input-->
+    <!--            v-model="contestPassword"-->
+    <!--            :placeholder="$t('m.Enter_the_contest_password')"-->
+    <!--            style="width:70%"-->
+    <!--            type="password"-->
+    <!--            @keydown.enter.native="checkPassword"-->
+    <!--        />-->
+    <!--        <el-button-->
+    <!--            style="float:right;"-->
+    <!--            type="primary"-->
+    <!--            @click="checkPassword"-->
+    <!--        >{{ $t('m.Enter') }}-->
+    <!--        </el-button-->
+    <!--        >-->
+    <!--      </el-form>-->
+    <!--    </el-card>-->
     <vxe-table
         :data="problems"
         align="center"
@@ -180,7 +180,6 @@
 import {mapGetters, mapState} from 'vuex';
 import {JUDGE_STATUS, RULE_TYPE} from '@/common/constants';
 import api from '@/common/api';
-import myMessage from "@/common/message";
 
 export default {
   name: 'ContestProblemList',
@@ -218,35 +217,37 @@ export default {
     //   );
     // },
     getContestProblems() {
-      if (this.contestMenuDisabled === false)
+      // contestMenuDisabled 需要等待state.contest.auth获取(先undefined)
+      // if (this.contestMenuDisabled === false) {
         this.$store.dispatch('getContestProblems').then((res) => {
-        if (this.isAuthenticated) {
-          let isContestProblemList = true;
-          // 如果已登录，则需要查询对当前页面题目列表中各个题目的提交情况
-          let pidList = [];
-          if (this.problems && this.problems.length > 0) {
-            for (let index = 0; index < this.problems.length; index++) {
-              pidList.push(this.problems[index].pid);
+          if (this.isAuthenticated) {
+            let isContestProblemList = true;
+            // 如果已登录，则需要查询对当前页面题目列表中各个题目的提交情况
+            let pidList = [];
+            if (this.problems && this.problems.length > 0) {
+              for (let index = 0; index < this.problems.length; index++) {
+                pidList.push(this.problems[index].pid);
+              }
+              api
+                  .getUserProblemStatus(
+                      pidList,
+                      isContestProblemList,
+                      this.$route.params.contestID
+                  )
+                  .then((res) => {
+                    let result = res.data.data;
+                    for (let index = 0; index < this.problems.length; index++) {
+                      this.problems[index]['myStatus'] =
+                          result[this.problems[index].pid]['status'];
+                      this.problems[index]['score'] =
+                          result[this.problems[index].pid]['score'];
+                    }
+                    this.isGetStatusOk = true;
+                  });
             }
-            api
-                .getUserProblemStatus(
-                    pidList,
-                    isContestProblemList,
-                    this.$route.params.contestID
-                )
-                .then((res) => {
-                  let result = res.data.data;
-                  for (let index = 0; index < this.problems.length; index++) {
-                    this.problems[index]['myStatus'] =
-                        result[this.problems[index].pid]['status'];
-                    this.problems[index]['score'] =
-                        result[this.problems[index].pid]['score'];
-                  }
-                  this.isGetStatusOk = true;
-                });
           }
-        }
-      });
+        });
+      // }
     },
     goContestProblem(event) {
       this.$router.push({

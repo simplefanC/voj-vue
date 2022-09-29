@@ -194,9 +194,9 @@ const ojApi = {
       }
     })
   },
-  getProblemTagsAndClassification(oj){
-    return ajax('/api/get-problem-tags-and-classification', 'get',{
-      params:{
+  getProblemTagsAndClassification(oj) {
+    return ajax('/api/get-problem-tags-and-classification', 'get', {
+      params: {
         oj
       }
     })
@@ -771,14 +771,9 @@ const adminApi = {
   },
 
   // 获取用户列表
-  admin_getUserList(currentPage, limit, keyword, onlyAdmin) {
-    let params = {currentPage, limit}
-    if (keyword) {
-      params.keyword = keyword
-    }
-    params.onlyAdmin = onlyAdmin
+  admin_getUserList(params) {
     return ajax('/api/admin/user/get-user-list', 'get', {
-      params: params
+      params
     })
   },
   // 编辑用户
@@ -789,6 +784,11 @@ const adminApi = {
   },
   admin_deleteUsers(ids) {
     return ajax('/api/admin/user/delete-user', 'delete', {
+      data: {ids}
+    })
+  },
+  admin_forbidUsers(ids) {
+    return ajax('/api/admin/user/forbid-user', 'post', {
       data: {ids}
     })
   },
@@ -904,6 +904,16 @@ const adminApi = {
   },
   admin_editDataBaseConfig(data) {
     return ajax('/api/admin/config/set-db-and-redis-config', 'put', {
+      data
+    })
+  },
+  // 系统开关
+  admin_getSwitchConfig() {
+    return ajax('/api/admin/switch/info', 'get')
+  },
+
+  admin_saveSwitchConfig(data) {
+    return ajax('/api/admin/switch/update', 'put', {
       data
     })
   },
@@ -1034,7 +1044,7 @@ const adminApi = {
     })
   },
 
-  admin_getTagClassification(oj){
+  admin_getTagClassification(oj) {
     return ajax('/api/admin/tag/classification', 'get', {
       params: {
         oj
@@ -1042,19 +1052,19 @@ const adminApi = {
     })
   },
 
-  admin_addTagClassification(data){
+  admin_addTagClassification(data) {
     return ajax('/api/admin/tag/classification', 'post', {
       data
     })
   },
 
-  admin_updateTagClassification (data) {
+  admin_updateTagClassification(data) {
     return ajax('/api/admin/tag/classification', 'put', {
       data
     })
   },
 
-  admin_deleteTagClassification (tcid) {
+  admin_deleteTagClassification(tcid) {
     return ajax('/api/admin/tag/classification', 'delete', {
       params: {
         tcid

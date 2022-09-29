@@ -3,7 +3,8 @@
     <div id="problem-main">
       <!--problem main-->
       <el-row class="problem-box">
-        <el-col :lg="12" :md="24" :sm="24" class="problem-left">
+<!--        <el-col :lg="12" :md="24" :sm="24" class="problem-left">-->
+        <el-col :lg="12" :md="24" :sm="24" :class="problemLeftClass" >
           <el-tabs
               v-model="activeName"
               type="border-card"
@@ -15,7 +16,7 @@
                   {{ $t('m.Problem_Description') }}</i
               >
               </span>
-              <div :padding="10" class="problem-detail" shadow>
+              <div :padding="10" :class="problemDetailClass" shadow>
                 <div slot="header" class="panel-title">
                   <span>{{ problemData.problem.title }}</span
                   ><br/>
@@ -483,7 +484,8 @@
 <!--            ></el-button>-->
 <!--          </el-tooltip>-->
 <!--        </div>-->
-        <el-col :lg="12" :md="24" :sm="24" class="problem-right">
+<!--        <el-col :lg="12" :md="24" :sm="24" class="problem-right">-->
+        <el-col :lg="12" :md="24" :sm="24" :class="problemRightClass" >
           <el-card
               id="submit-code"
               :padding="10"
@@ -498,6 +500,7 @@
                 @changeLang="onChangeLang"
                 @changeTheme="onChangeTheme"
                 @resetCode="onResetToTemplate"
+                @switchDisplayMode="switchDisplayMode"
             ></CodeMirror>
             <el-row>
               <el-col :lg="10" :md="10" :sm="24" style="margin-top:4px;">
@@ -766,6 +769,10 @@ export default {
       mySubmissions: [],
       loading: false,
       bodyClass: '',
+      vertical: false,
+      problemLeftClass: 'problem-left',
+      problemRightClass: 'problem-right',
+      problemDetailClass: 'problem-detail',
       userExtraFile: null,
       fileContent: '',
       fileName: '',
@@ -967,6 +974,8 @@ export default {
       this.toResetWatch = false;
     },
     init() {
+      this.vertical = storage.get("vertical") || false
+      this.setDisplayStyle()
       if (this.$route.params.contestID) {
         this.contestID = this.$route.params.contestID;
       }
@@ -1168,6 +1177,22 @@ export default {
           })
           .catch(() => {
           });
+    },
+    switchDisplayMode(){
+      console.log("switchDisplayMode")
+      this.vertical = !this.vertical
+      this.setDisplayStyle()
+    },
+    setDisplayStyle(){
+      if(this.vertical) {
+        this.problemLeftClass = 'problem-left-vertical'
+        this.problemRightClass = 'problem-right-vertical'
+        this.problemDetailClass = 'problem-detail-vertical'
+      } else {
+        this.problemLeftClass = 'problem-left'
+        this.problemRightClass = 'problem-right'
+        this.problemDetailClass = 'problem-detail'
+      }
     },
     checkSubmissionStatus() {
       // 使用setTimeout避免一些问题
@@ -1438,6 +1463,8 @@ export default {
       theme: this.theme,
     });
 
+    storage.set("vertical", this.vertical)
+
     next();
   },
   watch: {
@@ -1528,11 +1555,10 @@ a {
 }
 
 @media screen and (min-width: 768px) {
-  .problem-detail {
-    height: 100%;
-    /*height: 700px !important;*/
-    /*overflow-y: auto;*/
-  }
+  /*.problem-detail {*/
+  /*  height: 700px !important;*/
+  /*  overflow-y: auto;*/
+  /*}*/
 
   .submit-detail {
     height: 755px !important;
@@ -1563,13 +1589,41 @@ a {
     overflow: hidden;
   }
 
+  .problem-detail {
+    height: 700px !important;
+    overflow-y: auto;
+  }
+
+  .problem-detail-vertical {
+    height: 100%;
+    overflow-y: auto;
+  }
+
   .problem-left {
     /*width: calc(50% - 10px); !*左侧初始化宽度*!*/
-    width: 100%; /*左侧初始化宽度*/
+    width: 50%;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     float: left;
+  }
+  .problem-left-vertical {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    float: left;
+  }
+  .problem-right {
+    height: 100%;
+    float: left;
+    width: 50%;
+    /*width: 100%;*/
+  }
+  .problem-right-vertical {
+    height: 100%;
+    float: left;
+    width: 100%;
   }
 
   .problem-resize {
@@ -1633,12 +1687,7 @@ a {
     color: #444444;
   }
 
-  .problem-right {
-    height: 100%;
-    float: left;
-    /*width: 50%;*/
-    width: 100%;
-  }
+
 }
 
 @media screen and (max-width: 1080px) {

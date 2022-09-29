@@ -178,6 +178,11 @@ export default {
             message: this.$i18n.t('m.Username_Check_Max'),
             trigger: 'blur',
           },
+          {
+            pattern: '^[a-zA-Z]([-_a-zA-Z0-9]{6,19})+$',
+            message: this.$i18n.t('m.The_username_check_regular'),
+            trigger: 'blur'
+          }
         ],
         realname: [
           {
