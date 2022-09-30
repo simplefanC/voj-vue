@@ -338,7 +338,7 @@
 
         <el-form-item style="text-align:center">
           <el-button
-              :loading="addRemoteOJproblemLoading"
+              :loading="addRemoteOJProblemLoading"
               icon="el-icon-plus"
               type="primary"
               @click="addRemoteOJProblem"
@@ -383,7 +383,7 @@ export default {
       currentRow: {},
       addProblemDialogVisible: false,
       AddRemoteOJProblemDialogVisible: false,
-      addRemoteOJproblemLoading: false,
+      addRemoteOJProblemLoading: false,
       otherOJName: REMOTE_OJ[0].key,
       otherOJProblemId: '',
       REMOTE_OJ: {},
@@ -516,15 +516,14 @@ export default {
         api.admin_getContestProblemList(params).then(
             (res) => {
               this.loading = false;
-              this.showPagination = true;
-              this.total = res.data.data.problemList.total;
-              this.problemList = res.data.data.problemList.records;
+              this.showPagination = false;
+              // this.total = res.data.data.problemList.total;
+              this.problemList = res.data.data.problemList;
               this.contestProblemMap = res.data.data.contestProblemMap;
-              this.showPagination = true;
             },
             (err) => {
               this.loading = false;
-              this.showPagination = true;
+              this.showPagination = false;
             }
         );
       }
@@ -618,7 +617,7 @@ export default {
         return;
       }
 
-      this.addRemoteOJproblemLoading = true;
+      this.addRemoteOJProblemLoading = true;
       let funcName = '';
       if (this.query.contestId) {
         funcName = 'admin_addContestRemoteOJProblem';
@@ -632,13 +631,13 @@ export default {
           this.displayId
       ).then(
           (res) => {
-            this.addRemoteOJproblemLoading = false;
+            this.addRemoteOJProblemLoading = false;
             this.AddRemoteOJProblemDialogVisible = false;
             myMessage.success(this.$i18n.t('m.Add_Successfully'));
             this.currentChange(1);
           },
           (err) => {
-            this.addRemoteOJproblemLoading = false;
+            this.addRemoteOJProblemLoading = false;
           }
       );
     },

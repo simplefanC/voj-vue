@@ -97,34 +97,34 @@
               prefix-icon="el-icon-search"
               v-model="keyword"
               :placeholder="$t('m.Contest_Rank_Search_Placeholder')"
-              @keyup.enter.native="getContestOutsideScoreboard"
+              @keyup.enter.native="getContestOutsideScoreboard(1)"
           >
           </el-input>
         </el-col>
         <el-col :span="8">
           <div class="contest-rank-switch">
-        <span style="float:right;">
-          <span>{{ $t('m.Auto_Refresh') }}(30s)</span>
-          <el-switch
-              v-model="autoRefresh"
-              :disabled="contestEnded"
-              @change="handleAutoRefresh"
-          ></el-switch>
-        </span>
-            <span v-if="isContestAdmin" style="float:right;">
-          <span>{{ $t('m.Force_Update') }}</span>
-          <el-switch
-              v-model="forceUpdate"
-              @change="getContestOutsideScoreboard"
-          ></el-switch>
-        </span>
             <span style="float:right;">
-          <span>{{ $t('m.Star_User') }}</span>
-          <el-switch
-              v-model="showStarUser"
-              @change="getContestOutsideScoreboard"
-          ></el-switch>
-        </span>
+              <span>{{ $t('m.Auto_Refresh') }}(30s)</span>
+              <el-switch
+                  v-model="autoRefresh"
+                  :disabled="contestEnded"
+                  @change="handleAutoRefresh"
+              ></el-switch>
+            </span>
+                <span v-if="isContestAdmin" style="float:right;">
+              <span>{{ $t('m.Force_Update') }}</span>
+              <el-switch
+                  v-model="forceUpdate"
+                  @change="getContestOutsideScoreboard(page)"
+              ></el-switch>
+            </span>
+                <span style="float:right;">
+              <span>{{ $t('m.Star_User') }}</span>
+              <el-switch
+                  v-model="showStarUser"
+                  @change="getContestOutsideScoreboard(page)"
+              ></el-switch>
+            </span>
           </div>
         </el-col>
       </el-row>
@@ -338,24 +338,37 @@
           </template>
         </vxe-table-column>
       </vxe-table>
+      <Pagination
+          :current.sync="page"
+          :layout="'prev, pager, next, sizes'"
+          :page-size.sync="limit"
+          :page-sizes="[10, 30, 50]"
+          :total="total"
+          @on-change="getContestOutsideScoreboard"
+          @on-page-size-change="getContestOutsideScoreboard(1)"
+      ></Pagination>
     </el-card>
   </div>
 </template>
 <script>
 import Avatar from 'vue-avatar';
 import ScoreBoardMixin from './scoreBoardMixin';
-
+const Pagination = () => import('@/components/oj/common/Pagination');
 export default {
   name: 'OIContestRank',
   components: {
+    Pagination,
     Avatar,
   },
   mixins: [ScoreBoardMixin],
   data() {
     return {
+      total: 0,
+      page: 1,
+      limit: 50,
+      keyword: '',
       contestID: '',
       dataRank: [],
-      keyword: '',
       autoRefresh: false,
       loading: {
         info: false,
@@ -374,7 +387,7 @@ export default {
     this.init();
   },
   mounted() {
-    this.getContestOutsideScoreboard();
+    this.getContestOutsideScoreboard(1);
   },
   computed: {
     isMobileView() {

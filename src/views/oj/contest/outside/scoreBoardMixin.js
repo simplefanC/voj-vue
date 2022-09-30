@@ -42,17 +42,20 @@ export default {
         this.loading.info = false;
       });
     },
-    getContestOutsideScoreboard() {
+    getContestOutsideScoreboard(page) {
       let data = {
+        currentPage: page,
+        limit: this.limit,
         cid: this.$route.params.contestID,
-        forceRefresh: this.forceUpdate ? true : false,
+        forceRefresh: !!this.forceUpdate,
         removeStar: !this.showStarUser,
         concernedList: this.concernedList,
         keyword: this.keyword
       }
       this.loading.rank = true;
       api.getContestOutsideScoreboard(data).then(res => {
-        this.applyToTable(res.data.data);
+        this.total = res.data.data.total
+        this.applyToTable(res.data.data.records);
         this.loading.rank = false;
       }, (err) => {
         this.loading.rank = false;
@@ -65,7 +68,7 @@ export default {
     handleAutoRefresh(status) {
       if (status == true) {
         this.refreshFunc = setInterval(() => {
-          this.getContestOutsideScoreboard()
+          this.getContestOutsideScoreboard(this.page)
         }, 30000)
       } else {
         clearInterval(this.refreshFunc)
@@ -96,7 +99,7 @@ export default {
       }
       let key = buildContestRankConcernedKey(this.contestID);
       storage.set(key, this.concernedList);
-      this.getContestOutsideScoreboard();
+      this.getContestOutsideScoreboard(this.page);
     }
   },
   computed: {

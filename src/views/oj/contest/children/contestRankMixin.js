@@ -17,7 +17,7 @@ export default {
         currentPage: page,
         limit: this.limit,
         cid: this.$route.params.contestID,
-        forceRefresh: this.forceUpdate ? true : false,
+        forceRefresh: !!this.forceUpdate,
         removeStar: !this.showStarUser,
         concernedList: this.concernedList,
         keyword: this.keyword

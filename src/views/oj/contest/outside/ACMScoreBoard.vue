@@ -76,7 +76,7 @@
               prefix-icon="el-icon-search"
               v-model="keyword"
               :placeholder="$t('m.Contest_Rank_Search_Placeholder')"
-              @keyup.enter.native="getContestOutsideScoreboard"
+              @keyup.enter.native="getContestOutsideScoreboard(1)"
           >
           </el-input>
         </el-col>
@@ -94,14 +94,14 @@
               <span>{{ $t('m.Force_Update') }}</span>
               <el-switch
                   v-model="forceUpdate"
-                  @change="getContestOutsideScoreboard"
+                  @change="getContestOutsideScoreboard(page)"
               ></el-switch>
             </span>
             <span style="float:right;">
               <span>{{ $t('m.Star_User') }}</span>
               <el-switch
                   v-model="showStarUser"
-                  @change="getContestOutsideScoreboard"
+                  @change="getContestOutsideScoreboard(page)"
               ></el-switch>
             </span>
           </div>
@@ -359,6 +359,15 @@
           </template>
         </vxe-table-column>
       </vxe-table>
+      <Pagination
+          :current.sync="page"
+          :layout="'prev, pager, next, sizes'"
+          :page-size.sync="limit"
+          :page-sizes="[10, 30, 50]"
+          :total="total"
+          @on-change="getContestOutsideScoreboard"
+          @on-page-size-change="getContestOutsideScoreboard(1)"
+      ></Pagination>
     </el-card>
   </div>
 </template>
@@ -367,14 +376,21 @@ import Avatar from 'vue-avatar';
 import time from '@/common/time';
 import ScoreBoardMixin from './scoreBoardMixin';
 
+const Pagination = () => import('@/components/oj/common/Pagination');
+
 export default {
   name: 'ACMScoreBoard',
   mixins: [ScoreBoardMixin],
   components: {
+    Pagination,
     Avatar,
   },
   data() {
     return {
+      total: 0,
+      page: 1,
+      limit: 50,
+      keyword: '',
       autoRefresh: false,
       removeStar: false,
       loading: {
@@ -382,7 +398,6 @@ export default {
         rank: false,
       },
       contestID: '',
-      keyword: '',
       dataRank: [],
       timer: null,
       CONTEST_STATUS: {},
@@ -397,7 +412,7 @@ export default {
     this.init();
   },
   mounted() {
-    this.getContestOutsideScoreboard();
+    this.getContestOutsideScoreboard(1);
   },
   methods: {
     getUserHomeByUsername(uid, username) {
