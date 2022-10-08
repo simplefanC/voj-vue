@@ -231,7 +231,7 @@
                 v-for="(oj, index) in remoteJudgeList"
                 :key="index"
                 :md="8"
-                :sm="24"
+                :sm="12"
                 style="margin-bottom: 10px"
             >
               <a :class="oj.status ? 'oj-normal' : 'oj-error'" :href="oj.url" target="_blank">
