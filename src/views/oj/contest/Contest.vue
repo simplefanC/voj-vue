@@ -331,6 +331,7 @@ export default {
         addCodeBtn();
       });
     });
+
   },
   methods: {
     ...mapActions(['changeDomTitle']),

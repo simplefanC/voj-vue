@@ -43,6 +43,10 @@ const getters = {
     // 未开始不可查看
     if (getters.contestStatus === CONTEST_STATUS.SCHEDULED) return true
 
+    if(state.contest.auth === CONTEST_TYPE.PUBLIC) {
+      return false
+    }
+
     if (state.contest.auth === CONTEST_TYPE.PRIVATE) {
       // 私有赛需要通过验证密码方可查看比赛
       return !state.intoAccess
@@ -205,14 +209,15 @@ const mutations = {
 const actions = {
   getContest({commit, rootState, dispatch}) {
     return new Promise((resolve, reject) => {
+      //api/get-contest-info
       api.getContest(rootState.route.params.contestID).then((res) => {
         resolve(res)
         let contest = res.data.data
         commit('changeContest', {contest: contest})
         commit('now', {now: moment(contest.now)})
-        if (contest.auth == CONTEST_TYPE.PRIVATE) {
+        if (contest.auth === CONTEST_TYPE.PRIVATE) {
           dispatch('getContestAccess', {auth: CONTEST_TYPE.PRIVATE})
-        } else if (contest.auth == CONTEST_TYPE.PROTECTED) {
+        } else if (contest.auth === CONTEST_TYPE.PROTECTED) {
           dispatch('getContestAccess', {auth: CONTEST_TYPE.PROTECTED})
         }
       }, err => {
@@ -248,10 +253,11 @@ const actions = {
   },
   getContestAccess({commit, rootState}, contestType) {
     return new Promise((resolve, reject) => {
+      //api/get-contest-access
       api.getContestAccess(rootState.route.params.contestID).then(res => {
-        if (contestType.auth == CONTEST_TYPE.PRIVATE) {
+        if (contestType.auth === CONTEST_TYPE.PRIVATE) {
           commit('contestIntoAccess', {intoAccess: res.data.data.access})
-        } else {
+        } else if (contestType.auth === CONTEST_TYPE.PROTECTED) {
           commit('contestSubmitAccess', {submitAccess: res.data.data.access})
         }
         resolve(res)

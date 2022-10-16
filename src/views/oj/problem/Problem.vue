@@ -829,6 +829,7 @@ export default {
         currentPage: this.mySubmission_currentPage,
         problemID: this.problemID,
         contestID: this.contestID,
+        completeProblemID: true,
         limit: this.mySubmission_limit,
       };
       if (this.contestID) {

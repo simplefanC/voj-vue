@@ -199,26 +199,10 @@ export default {
     this.getContestProblems();
   },
   methods: {
-    // checkPassword() {
-    //   if (this.contestPassword === '') {
-    //     myMessage.warning(this.$i18n.t('m.Enter_the_contest_password'));
-    //     return;
-    //   }
-    //   this.btnLoading = true;
-    //   api.registerContest(this.contestID + '', this.contestPassword).then(
-    //       (res) => {
-    //         myMessage.success(this.$i18n.t('m.Register_contest_successfully'));
-    //         this.$store.commit('contestIntoAccess', {intoAccess: true});
-    //         this.btnLoading = false;
-    //       },
-    //       (res) => {
-    //         this.btnLoading = false;
-    //       }
-    //   );
-    // },
     getContestProblems() {
-      // contestMenuDisabled 需要等待state.contest.auth获取(先undefined)
-      // if (this.contestMenuDisabled === false) {
+      // contestMenuDisabled
+      // 需要等待getContest获取到比赛的auth 否则就是undefined
+      if (this.contestMenuDisabled === false) {
         this.$store.dispatch('getContestProblems').then((res) => {
           if (this.isAuthenticated) {
             let isContestProblemList = true;
@@ -247,7 +231,7 @@ export default {
             }
           }
         });
-      // }
+      }
     },
     goContestProblem(event) {
       this.$router.push({
@@ -279,12 +263,11 @@ export default {
       }
     },
   },
-  // watch: {
-  //   contestMenuDisabled(newValue, oldValue){
-  //     console.log("newValue, oldValue", newValue, oldValue)
-  //     this.getContestProblems()
-  //   }
-  // },
+  watch: {
+    contestMenuDisabled(newValue, oldValue){
+      this.getContestProblems()
+    }
+  },
   computed: {
     ...mapState({
       problems: (state) => state.contest.contestProblems,

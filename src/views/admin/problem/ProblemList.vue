@@ -516,14 +516,14 @@ export default {
         api.admin_getContestProblemList(params).then(
             (res) => {
               this.loading = false;
-              this.showPagination = false;
-              // this.total = res.data.data.problemList.total;
-              this.problemList = res.data.data.problemList;
+              this.showPagination = true;
+              this.total = res.data.data.problemList.total;
+              this.problemList = res.data.data.problemList.records;
               this.contestProblemMap = res.data.data.contestProblemMap;
             },
             (err) => {
               this.loading = false;
-              this.showPagination = false;
+              this.showPagination = true;
             }
         );
       }

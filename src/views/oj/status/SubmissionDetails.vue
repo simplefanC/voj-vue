@@ -367,9 +367,7 @@ export default {
                 !this.isIOProblem
             ) {
               // score exist means the submission is OI problem submission
-              if (data.submission.score !== null) {
-                this.isIOProblem = true;
-              }
+              this.isIOProblem = true;
             }
             // 如果是比赛 需要显示的是比赛题号
             if (this.$route.params.problemID && data.submission.cid != 0) {
