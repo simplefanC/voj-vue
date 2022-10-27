@@ -754,6 +754,7 @@ export default {
       }
     },
     getStatusColor(status) {
+      console.log(status)
       return 'el-tag el-tag--medium status-' + JUDGE_STATUS[status]['color'];
     },
     tableRowClassName({row, rowIndex}) {

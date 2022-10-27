@@ -107,6 +107,13 @@ export const JUDGE_STATUS = {
     short: 'SF',
     type: 'info',
     rgb: '#909399',
+  },
+  '11': {
+    name: "Output Limit Exceeded",
+    color: 'red',
+    short: 'OLE',
+    type: 'danger',
+    rgb: '#ed3f14',
   }
 }
 
