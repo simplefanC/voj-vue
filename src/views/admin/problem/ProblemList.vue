@@ -100,7 +100,8 @@
             v-if="!isContest"
             :title="$t('m.Display_ID')"
             field="problemId"
-            min-width="100"
+            min-width="120"
+            show-overflow
         >
         </vxe-table-column>
 
@@ -108,7 +109,7 @@
             v-else
             :title="$t('m.Original_Display')"
             align="left"
-            min-width="150"
+            min-width="120"
         >
           <template v-slot="{ row }">
             <p v-if="query.contestId">
@@ -168,11 +169,11 @@
         <vxe-table-column
             :title="$t('m.Author')"
             field="author"
-            min-width="130"
+            min-width="120"
             show-overflow
         >
         </vxe-table-column>
-        <vxe-table-column :title="$t('m.Created_Time')" min-width="120">
+        <vxe-table-column :title="$t('m.Created_Time')" min-width="130">
           <template v-slot="{ row }">
             {{ row.gmtCreate | localtime }}
           </template>

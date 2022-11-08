@@ -950,6 +950,14 @@ const adminApi = {
     })
   },
 
+  admin_addLOJProblem(problemId) {
+    return ajax("/api/admin/problem/import-loj-problem", "get", {
+      params: {
+        problemId
+      }
+    })
+  },
+
   admin_addContestRemoteOJProblem(name, problemId, cid, displayId) {
     return ajax("/api/admin/contest/import-remote-oj-problem", "get", {
       params: {

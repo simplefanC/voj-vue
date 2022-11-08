@@ -166,7 +166,9 @@ export const REMOTE_OJ = [
   {name: "POJ", key: "POJ"},
   {name: 'HDU', key: "HDU"},
   {name: "Codeforces", key: "CF"},
-  {name: 'AtCoder', key: "AC"}
+  {name: "GYM", key: "GYM"},
+  {name: 'AtCoder', key: "AC"},
+  // {name: 'LOJ', key: "LOJ"}
 ]
 
 export const CONTEST_STATUS = {

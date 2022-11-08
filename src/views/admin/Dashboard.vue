@@ -133,37 +133,37 @@
             <vxe-table-column
                 :title="$t('m.Host')"
                 field="host"
-                min-width="110"
+                min-width="100"
             ></vxe-table-column>
             <vxe-table-column
                 :title="$t('m.Port')"
                 field="port"
-                min-width="80"
+                min-width="90"
             ></vxe-table-column>
             <vxe-table-column
                 :title="$t('m.CPU_Core')"
                 field="backupCores"
-                min-width="80"
+                min-width="90"
             >
             </vxe-table-column>
 
             <vxe-table-column
                 :title="$t('m.CPU_Usage')"
                 field="backupPercentCpuLoad"
-                min-width="100"
+                min-width="90"
             >
             </vxe-table-column>
 
             <vxe-table-column
                 :title="$t('m.Mem_Usage')"
                 field="backupPercentMemoryLoad"
-                min-width="100"
+                min-width="90"
             >
             </vxe-table-column>
             <vxe-table-column
                 :title="$t('m.Secure')"
                 field="secure"
-                min-width="80"
+                min-width="90"
             >
               <template v-slot="{ row }">
                 <el-tooltip content="是否触发保护阈值" placement="top">
@@ -175,7 +175,7 @@
                 </el-tooltip>
               </template>
             </vxe-table-column>
-            <vxe-table-column :title="$t('m.Healthy_Status')" min-width="100">
+            <vxe-table-column :title="$t('m.Healthy_Status')" min-width="90">
               <template v-slot="{ row }">
                 <el-tag
                     v-if="row.metadata['nacos.healthy'] == 'true'"
@@ -201,12 +201,12 @@
       </div>
       <vxe-table :data="judgeInfo" align="center" auto-resize stripe>
         <vxe-table-column type="seq" width="50"></vxe-table-column>
-        <vxe-table-column :title="$t('m.Name')" min-width="150">
+        <vxe-table-column :title="$t('m.Name')" min-width="120">
           <template v-slot="{ row }">
             <span>{{ row.service.metadata.judgeName }}</span>
           </template>
         </vxe-table-column>
-        <vxe-table-column :title="$t('m.Host')" min-width="80">
+        <vxe-table-column :title="$t('m.Host')" min-width="100">
           <template v-slot="{ row }">
             <span>{{ row.service.host }}</span>
           </template>

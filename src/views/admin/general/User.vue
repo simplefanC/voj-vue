@@ -130,7 +130,7 @@
         <vxe-column
             :title="$t('m.RealName')"
             field="realname"
-            min-width="120"
+            min-width="90"
             show-overflow
         ></vxe-column>
         <vxe-column
@@ -148,7 +148,7 @@
         <vxe-column
             :title="$t('m.Created_Time')"
             field="gmtCreate"
-            min-width="150"
+            min-width="155"
         >
           <template v-slot="{ row }">
             {{ row.gmtCreate | localtime }}
@@ -166,7 +166,7 @@
         <vxe-column
             :title="$t('m.Status')"
             field="status"
-            min-width="100"
+            min-width="90"
         >
           <template v-slot="{ row }">
             {{ row.status | parseStatus }}

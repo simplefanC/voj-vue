@@ -36,18 +36,18 @@
           @checkbox-all="handlechangeAll"
       >
         <vxe-table-column type="checkbox" width="60"></vxe-table-column>
-        <vxe-table-column field="id" min-width="100" title="ID">
-        </vxe-table-column>
-        <vxe-table-column :title="$t('m.Title')" field="title" min-width="150">
+        <vxe-table-column field="id" min-width="100" title="ID"></vxe-table-column>
+        <vxe-table-column field="problemId" min-width="100" :title="$t('m.Display_ID')"></vxe-table-column>
+        <vxe-table-column :title="$t('m.Title')" field="title" min-width="200">
         </vxe-table-column>
         <vxe-table-column
             :title="$t('m.Author')"
             field="author"
-            min-width="150"
+            min-width="100"
         >
         </vxe-table-column>
 
-        <vxe-table-column :title="$t('m.Created_Time')" field="gmtCreate">
+        <vxe-table-column :title="$t('m.Created_Time')" field="gmtCreate" min-width="100">
           <template v-slot="{ row }">
             {{ row.gmtCreate | localtime }}
           </template>
@@ -104,6 +104,28 @@
         </el-button
         >
       </el-upload>
+    </el-card>
+
+    <el-card style="margin-top:15px">
+      <div slot="header">
+        <span class="panel-title home-title">{{ $t('m.Import_LOJ_Problem') }}</span>
+      </div>
+      <el-form>
+        <el-form-item :label="$t('m.Problem_ID')" required>
+          <el-input v-model="LOJProblemId" type="number" size="small" style="width:200px"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button
+              :loading="addLOJProblemLoading"
+              icon="el-icon-plus"
+              type="primary"
+              size="small"
+              @click="addLOJProblem"
+          >{{ $t('m.Add') }}
+          </el-button>
+        </el-form-item>
+      </el-form>
     </el-card>
 
     <el-card style="margin-top:15px">
@@ -195,6 +217,7 @@
 import api from '@/common/api';
 import utils from '@/common/utils';
 import myMessage from '@/common/message';
+import {REMOTE_OJ} from "@/common/constants";
 
 export default {
   name: 'import_and_export',
@@ -216,6 +239,8 @@ export default {
         qdoj: false,
         fps: false,
       },
+      addLOJProblemLoading: false,
+      LOJProblemId: '',
     };
   },
   mounted() {
@@ -230,6 +255,24 @@ export default {
     // 一键全部选中，改变选中的内容列表
     handlechangeAll() {
       this.selected_problems = this.$refs.xTable.getCheckboxRecords();
+    },
+
+    addLOJProblem() {
+      if (!this.LOJProblemId) {
+        myMessage.error(this.$i18n.t('m.Problem_ID_is_required'));
+        return;
+      }
+      this.addLOJProblemLoading = true;
+      api.admin_addLOJProblem(this.LOJProblemId).then(
+          (res) => {
+            this.addLOJProblemLoading = false;
+            myMessage.success(this.$i18n.t('m.Add_Successfully'));
+            this.currentChange(1);
+          },
+          (err) => {
+            this.addLOJProblemLoading = false;
+          }
+      );
     },
 
     getProblems(page = 1) {

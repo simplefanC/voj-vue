@@ -2,7 +2,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 清除注释
 const CompressionWebpackPlugin = require('compression-webpack-plugin'); // 开启压缩
 
 // 是否为生产环境
-const isProduction = process.env.NODE_ENV === 'production';
+// const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = false;
 
 // 本地环境是否需要使用cdn
 const devNeedCdn = false;
@@ -70,7 +71,7 @@ module.exports = {
     // ============注入cdn start============
     config.plugin('html').tap(args => {
       // 生产环境或本地需要cdn时，才注入cdn
-      // if (isProduction || devNeedCdn) args[0].cdn = cdn
+      if (isProduction || devNeedCdn) args[0].cdn = cdn
       return args
     })
     config.plugin('webpack-bundle-analyzer') // 查看打包文件体积大小
@@ -81,7 +82,7 @@ module.exports = {
     // 用cdn方式引入，则构建时要忽略相关资源
     const plugins = [];
     if (isProduction || devNeedCdn) {
-      // config.externals = cdn.externals
+      config.externals = cdn.externals
       config.mode = 'production';
       config["performance"] = {//打包文件大小配置
         "maxEntrypointSize": 10000000,

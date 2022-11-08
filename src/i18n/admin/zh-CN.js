@@ -305,6 +305,7 @@ export const m = {
   Export: '导出',
   Import_Problem: '导入题目',
   Import_QDOJ_Problem: '导入QDUOJ的题目',
+  Import_LOJ_Problem: '导入LOJ的题目',
   Import_FPS_Problem: '导入FPS格式的题目',
   Export_Problem_NULL_Tips: '选择导出的题目不能为空',
 

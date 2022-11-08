@@ -336,6 +336,7 @@ export const m = {
   Export: 'Export',
   Import_Problem: 'Import Problem',
   Import_QDOJ_Problem: 'Import QDOJ Problem',
+  Import_LOJ_Problem: 'Import LOJ Problem',
   Import_FPS_Problem: 'Import FPS Problem',
   Export_Problem_NULL_Tips: 'The problem selected for export cannot be empty',
 

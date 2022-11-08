@@ -108,7 +108,7 @@
           <vxe-table-column
               :title="$t('m.Run_ID')"
               field="submitId"
-              width="100"
+              min-width="96"
           ></vxe-table-column>
           <vxe-table-column
               :title="$t('m.Problem')"
@@ -162,7 +162,7 @@
               v-if="scoreColumnVisible"
               :title="$t('m.Score')"
               field="score"
-              width="64"
+              min-width="64"
           >
             <template v-slot="{ row }">
               <template v-if="contestID && row.score != null">
@@ -223,7 +223,7 @@
               </template>
             </template>
           </vxe-table-column>
-          <vxe-table-column :title="$t('m.Time')" field="time" min-width="96">
+          <vxe-table-column :title="$t('m.Time')" field="time" min-width="90">
             <template v-slot="{ row }">
               <span>{{ submissionTimeFormat(row.time) }}</span>
             </template>
@@ -231,7 +231,7 @@
           <vxe-table-column
               :title="$t('m.Memory')"
               field="memory"
-              min-width="96"
+              min-width="90"
           >
             <template v-slot="{ row }">
               <span>{{ submissionMemoryFormat(row.memory) }}</span>
@@ -241,7 +241,7 @@
           <vxe-table-column
               :title="$t('m.Length')"
               field="length"
-              min-width="80"
+              min-width="90"
           >
             <template v-slot="{ row }">
               <span>{{ submissionLengthFormat(row.length) }}</span>
@@ -251,7 +251,7 @@
           <vxe-table-column
               :title="$t('m.Language')"
               field="language"
-              min-width="130"
+              min-width="90"
               show-overflow
           >
             <template v-slot="{ row }">
@@ -271,7 +271,7 @@
           <vxe-table-column
               :title="$t('m.Judger')"
               field="judger"
-              min-width="100"
+              min-width="90"
               show-overflow
           >
             <template v-slot="{ row }">
@@ -282,7 +282,7 @@
           <vxe-table-column
               :title="$t('m.Author')"
               field="username"
-              min-width="96"
+              min-width="90"
               show-overflow
           >
             <template v-slot="{ row }">
@@ -297,7 +297,7 @@
               v-if="contestID && isAdminRole"
               :title="$t('m.RealName')"
               field="realname"
-              min-width="96"
+              min-width="90"
               show-overflow
           >
             <template v-slot="{ row }">
@@ -307,7 +307,7 @@
           <vxe-table-column
               :title="$t('m.Submit_Time')"
               field="submitTime"
-              min-width="96"
+              min-width="90"
           >
             <template v-slot="{ row }">
               <span
