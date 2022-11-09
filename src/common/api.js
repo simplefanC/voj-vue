@@ -951,7 +951,7 @@ const adminApi = {
   },
 
   admin_addLOJProblem(problemId) {
-    return ajax("/api/admin/problem/import-loj-problem", "get", {
+    return ajax("/api/file/import-loj-problem", "get", {
       params: {
         problemId
       }
