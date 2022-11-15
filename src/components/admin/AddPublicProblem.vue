@@ -70,6 +70,10 @@ export default {
           .admin_getContest(this.contestID)
           .then((res) => {
             this.contest = res.data.data;
+            this.$emit('getTips', this.contest.type == 0
+                ? this.$i18n.t('m.ACM_Contest_Add_From_Public_Problem_Tips')
+                : this.$i18n.t('m.OI_Contest_Add_From_Public_Problem_Tips')
+            );
             this.getPublicProblem(1);
           })
           .catch(() => {

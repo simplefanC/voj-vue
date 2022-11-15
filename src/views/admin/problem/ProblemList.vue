@@ -297,7 +297,7 @@
 
     <el-dialog
         v-if="query.contestId"
-        :title="$t('m.Add_Contest_Problem')"
+        :title="$t('m.Add_Contest_Problem') + contestProblemTips"
         :visible.sync="addProblemDialogVisible"
         width="90%"
         :close-on-click-modal="false"
@@ -305,6 +305,7 @@
       <AddPublicProblem
           :contestID="query.contestId"
           @on-change="getProblemList"
+          @getTips="getContestProblemTips"
       ></AddPublicProblem>
     </el-dialog>
 
@@ -389,7 +390,7 @@ export default {
       otherOJProblemId: '',
       REMOTE_OJ: {},
       displayId: '',
-
+      contestProblemTips: '',
       showPagination: false,
 
       predefineColors: [
@@ -428,7 +429,9 @@ export default {
       this.getProblemList();
       this.REMOTE_OJ = Object.assign({}, REMOTE_OJ);
     },
-
+    getContestProblemTips(data){
+      this.contestProblemTips = data
+    },
     goEdit(problemId) {
       if (this.routeName === 'admin-problem-list') {
         this.$router.push({

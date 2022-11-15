@@ -419,11 +419,11 @@ export default {
         startTime: '',
         endTime: '',
         duration: 0,
-        type: 1, // 0 ACM赛制; 1 OI赛制
+        type: 0, // 0 ACM赛制; 1 OI赛制
         pwd: '',
         sealRank: false,
         sealRankTime: '', //封榜时间
-        autoRealRank: true,
+        autoRealRank: false,
         auth: 0,
         contestAdminRank: false,
         contestAdminVisible: false,

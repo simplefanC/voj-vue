@@ -256,7 +256,25 @@ export default {
     handlechangeAll() {
       this.selected_problems = this.$refs.xTable.getCheckboxRecords();
     },
-
+    // sleep(millisecond) {
+    //   return new Promise(resolve => {
+    //     setTimeout(() => {
+    //       resolve()
+    //     }, millisecond)
+    //   })
+    // },
+    // async addLOJProblem() {
+    //   for (let i = 10029; i <= 10249; i++) {
+    //     api.admin_addLOJProblem(i).then(
+    //         (res) => {
+    //         },
+    //         (err) => {
+    //           console.log(i)
+    //         }
+    //     );
+    //     await this.sleep(9000);
+    //   }
+    // },
     addLOJProblem() {
       if (!this.LOJProblemId) {
         myMessage.error(this.$i18n.t('m.Problem_ID_is_required'));
