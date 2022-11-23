@@ -1175,14 +1175,14 @@ export default {
       }
       myMessage.success(this.$i18n.t('m.Upload_Testcase_Successfully'));
       let fileList = response.data.fileList;
-      let averSorce = parseInt(100 / fileList.length);
-      let add_1_num = 100 - averSorce * fileList.length;
+      let averScore = parseInt(100 / fileList.length);
+      let add_1_num = 100 - averScore * fileList.length;
       for (let i = 0; i < fileList.length; i++) {
-        if (averSorce) {
+        if (averScore) {
           if (i >= fileList.length - add_1_num) {
-            fileList[i].score = averSorce + 1;
+            fileList[i].score = averScore + 1;
           } else {
-            fileList[i].score = averSorce;
+            fileList[i].score = averScore;
           }
         }
         if (!fileList[i].output) {

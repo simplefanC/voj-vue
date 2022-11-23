@@ -297,7 +297,7 @@
 
     <el-dialog
         v-if="query.contestId"
-        :title="$t('m.Add_Contest_Problem') + contestProblemTips"
+        :title="$t('m.Add_Contest_Problem')"
         :visible.sync="addProblemDialogVisible"
         width="90%"
         :close-on-click-modal="false"
@@ -330,13 +330,13 @@
           <el-input v-model="otherOJProblemId" size="small"></el-input>
         </el-form-item>
 
-        <el-form-item
-            v-if="query.contestId"
-            :label="$t('m.Enter_The_Problem_Display_ID_in_the_Contest')"
-            required
-        >
-          <el-input v-model="displayId" size="small"></el-input>
-        </el-form-item>
+<!--        <el-form-item-->
+<!--            v-if="query.contestId"-->
+<!--            :label="$t('m.Enter_The_Problem_Display_ID_in_the_Contest')"-->
+<!--            required-->
+<!--        >-->
+<!--          <el-input v-model="displayId" size="small"></el-input>-->
+<!--        </el-form-item>-->
 
         <el-form-item style="text-align:center">
           <el-button
@@ -614,12 +614,12 @@ export default {
         return;
       }
 
-      if (!this.displayId && this.query.contestId) {
-        myMessage.error(
-            this.$i18n.t('m.The_Problem_Display_ID_in_the_Contest_is_required')
-        );
-        return;
-      }
+      // if (!this.displayId && this.query.contestId) {
+      //   myMessage.error(
+      //       this.$i18n.t('m.The_Problem_Display_ID_in_the_Contest_is_required')
+      //   );
+      //   return;
+      // }
 
       this.addRemoteOJProblemLoading = true;
       let funcName = '';

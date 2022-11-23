@@ -963,8 +963,7 @@ const adminApi = {
       params: {
         name,
         problemId,
-        cid,
-        displayId
+        cid
       }
     })
   },

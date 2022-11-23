@@ -70,10 +70,10 @@ export default {
           .admin_getContest(this.contestID)
           .then((res) => {
             this.contest = res.data.data;
-            this.$emit('getTips', this.contest.type == 0
-                ? this.$i18n.t('m.ACM_Contest_Add_From_Public_Problem_Tips')
-                : this.$i18n.t('m.OI_Contest_Add_From_Public_Problem_Tips')
-            );
+            // this.$emit('getTips', this.contest.type == 0
+            //     ? this.$i18n.t('m.ACM_Contest_Add_From_Public_Problem_Tips')
+            //     : this.$i18n.t('m.OI_Contest_Add_From_Public_Problem_Tips')
+            // );
             this.getPublicProblem(1);
           })
           .catch(() => {
@@ -113,28 +113,28 @@ export default {
     },
     handleAddProblem(id, problemId) {
       if (this.contestID) {
-        this.$prompt(
-            this.$i18n.t('m.Enter_The_Problem_Display_ID_in_the_Contest'), 'Tips'
-            // , {
-            //   inputPattern: /\d+/,
-            //   inputErrorMessage: this.$i18n.t('m.The_Problem_Display_ID_in_the_Contest_format_error')
-            // }
-        ).then(
-            ({value}) => {
-              let data = {
-                pid: id,
-                cid: this.contestID,
-                displayId: value,
-              };
-              api.admin_addContestProblemFromPublic(data).then(
-                  (res) => {
-                    this.$emit('on-change');
-                    myMessage.success(this.$i18n.t('m.Add_Successfully'));
-                    this.getPublicProblem(this.page);
-                  },
-                  () => {
-                  }
-              );
+        // this.$prompt(
+        //     this.$i18n.t('m.Enter_The_Problem_Display_ID_in_the_Contest'), 'Tips'
+        //     // , {
+        //     //   inputPattern: /\d+/,
+        //     //   inputErrorMessage: this.$i18n.t('m.The_Problem_Display_ID_in_the_Contest_format_error')
+        //     // }
+        // ).then(
+        //     ({value}) => {
+        //
+        //     },
+        //     () => {
+        //     }
+        // );
+        let data = {
+          pid: id,
+          cid: this.contestID
+        };
+        api.admin_addContestProblemFromPublic(data).then(
+            (res) => {
+              this.$emit('on-change');
+              myMessage.success(this.$i18n.t('m.Add_Successfully'));
+              this.getPublicProblem(this.page);
             },
             () => {
             }
