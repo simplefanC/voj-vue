@@ -515,6 +515,7 @@
                   >
                 </div>
                 <div v-if="statusVisible" class="status">
+                  <!--提交失败-->
                   <template v-if="result.status == JUDGE_STATUS_RESERVE['sf']">
                     <span>{{ $t('m.Status') }}:</span>
                     <el-tag
@@ -526,23 +527,22 @@
                       {{ submissionStatus.text }}
                     </el-tag>
                   </template>
-                  <template
-                      v-else-if="result.status == JUDGE_STATUS_RESERVE['snr']"
-                  >
-                    <el-alert
-                        :closable="false"
-                        effect="dark"
-                        show-icon
-                        type="warning"
-                    >{{ $t('m.Submitted_Not_Result') }}
-                    </el-alert
-                    >
-                  </template>
+<!--                  <template-->
+<!--                      v-else-if="result.status == JUDGE_STATUS_RESERVE['snr']"-->
+<!--                  >-->
+<!--                    <el-alert-->
+<!--                        :closable="false"-->
+<!--                        effect="dark"-->
+<!--                        show-icon-->
+<!--                        type="warning"-->
+<!--                    >{{ $t('m.Submitted_Not_Result') }}-->
+<!--                    </el-alert-->
+<!--                    >-->
+<!--                  </template>-->
                   <template
                       v-else-if="
                       !this.contestID ||
                         (this.contestID &&
-                          ContestRealTimePermission &&
                           this.contestRuleType == RULE_TYPE.OI) ||
                         (this.contestID &&
                           this.contestRuleType == RULE_TYPE.ACM)
@@ -558,22 +558,22 @@
                       {{ submissionStatus.text }}
                     </el-tag>
                   </template>
-                  <template
-                      v-else-if="
-                      this.contestID &&
-                        !ContestRealTimePermission &&
-                        this.contestRuleType == RULE_TYPE.OI
-                    "
-                  >
-                    <el-alert
-                        :closable="false"
-                        effect="dark"
-                        show-icon
-                        type="success"
-                    >{{ $t('m.Submitted_successfully') }}
-                    </el-alert
-                    >
-                  </template>
+<!--                  <template-->
+<!--                      v-else-if="-->
+<!--                      this.contestID &&-->
+<!--                        !ContestRealTimePermission &&-->
+<!--                        this.contestRuleType == RULE_TYPE.OI-->
+<!--                    "-->
+<!--                  >-->
+<!--                    <el-alert-->
+<!--                        :closable="false"-->
+<!--                        effect="dark"-->
+<!--                        show-icon-->
+<!--                        type="success"-->
+<!--                    >{{ $t('m.Submitted_successfully') }}-->
+<!--                    </el-alert-->
+<!--                    >-->
+<!--                  </template>-->
                 </div>
                 <div
                     v-else-if="
@@ -1319,38 +1319,38 @@ export default {
             }
         );
       };
-
-      if (
-          this.contestRuleType === RULE_TYPE.OI &&
-          !this.ContestRealTimePermission
-      ) {
-        if (this.submissionExists) {
-          this.$confirm(
-              this.$i18n.t(
-                  'm.You_have_submission_in_this_problem_sure_to_cover_it'
-              ),
-              'Warning',
-              {
-                confirmButtonText: this.$i18n.t('m.OK'),
-                cancelButtonText: this.$i18n.t('m.Cancel'),
-                type: 'warning',
-              }
-          )
-              .then(() => {
-                // 暂时解决对话框与后面提示对话框冲突的问题(否则一闪而过）
-                setTimeout(() => {
-                  submitFunc(data, false);
-                }, 1000);
-              })
-              .catch(() => {
-                this.submitting = false;
-              });
-        } else {
-          submitFunc(data, false);
-        }
-      } else {
-        submitFunc(data, true);
-      }
+      submitFunc(data, true);
+      // if (
+      //     this.contestRuleType === RULE_TYPE.OI &&
+      //     !this.ContestRealTimePermission
+      // ) {
+      //   if (this.submissionExists) {
+      //     this.$confirm(
+      //         this.$i18n.t(
+      //             'm.You_have_submission_in_this_problem_sure_to_cover_it'
+      //         ),
+      //         'Warning',
+      //         {
+      //           confirmButtonText: this.$i18n.t('m.OK'),
+      //           cancelButtonText: this.$i18n.t('m.Cancel'),
+      //           type: 'warning',
+      //         }
+      //     )
+      //         .then(() => {
+      //           // 暂时解决对话框与后面提示对话框冲突的问题(否则一闪而过）
+      //           setTimeout(() => {
+      //             submitFunc(data, false);
+      //           }, 1000);
+      //         })
+      //         .catch(() => {
+      //           this.submitting = false;
+      //         });
+      //   } else {
+      //     submitFunc(data, false);
+      //   }
+      // } else {
+      //   submitFunc(data, true);
+      // }
     },
 
     reSubmit(submitId) {
