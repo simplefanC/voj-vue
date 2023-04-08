@@ -10,7 +10,7 @@
 
 ### 项目文档
 
-项目文档地址：[https://docs.voj.mobi](https://docs.voj.mobi/)
+项目文档地址：[https://github.com/simplefanC/voj/wiki](https://github.com/simplefanC/voj/wiki)
 
 ### 项目结构
 
