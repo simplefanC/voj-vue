@@ -178,10 +178,10 @@
     >
       <el-row :gutter="10">
         <el-col :span="12">
-          <el-switch v-model="excludeAdmin" :active-text="$t('m.Exclude_admin_submissions')"></el-switch>
+          <el-switch v-model="excludeAdmin" :active-text="excludeAdmin ? $t('m.Exclude_admin_submissions') : $t('m.All_user_submissions')"></el-switch>
         </el-col>
         <el-col :span="12">
-          <el-switch v-model="allStatus" :active-text="$t('m.All_Status_submissions')"></el-switch>
+          <el-switch v-model="allStatus" :active-text="allStatus ? $t('m.All_Status_submissions') : $t('m.AC_Status_submissions')"></el-switch>
         </el-col>
       </el-row>
       <el-radio-group v-model="splitType" style="margin-top:25px">
