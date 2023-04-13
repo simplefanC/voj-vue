@@ -129,7 +129,7 @@
                 </el-tooltip>
 
                 <el-tooltip
-                    :content="$t('m.Download_Contest_AC_Submission')"
+                    :content="$t('m.Download_Contest_Submission')"
                     effect="dark"
                     placement="top"
                 >
@@ -172,15 +172,19 @@
       </div>
     </el-card>
     <el-dialog
-        :title="$t('m.Download_Contest_AC_Submission')"
+        :title="$t('m.Download_Contest_Submission')"
         :visible.sync="downloadDialogVisible"
-        width="320px"
+        width="400px"
     >
-      <el-switch
-          v-model="excludeAdmin"
-          :active-text="$t('m.Exclude_admin_submissions')"
-      ></el-switch>
-      <el-radio-group v-model="splitType" style="margin-top:10px">
+      <el-row :gutter="10">
+        <el-col :span="12">
+          <el-switch v-model="excludeAdmin" :active-text="$t('m.Exclude_admin_submissions')"></el-switch>
+        </el-col>
+        <el-col :span="12">
+          <el-switch v-model="allStatus" :active-text="$t('m.All_Status_submissions')"></el-switch>
+        </el-col>
+      </el-row>
+      <el-radio-group v-model="splitType" style="margin-top:25px">
         <el-radio label="user">{{ $t('m.SplitType_User') }}</el-radio>
         <el-radio label="problem">{{ $t('m.SplitType_Problem') }}</el-radio>
       </el-radio-group>
@@ -210,6 +214,7 @@ export default {
       keyword: '',
       loading: false,
       excludeAdmin: true,
+      allStatus: true,
       splitType: 'user',
       currentPage: 1,
       currentId: 1,
@@ -257,7 +262,7 @@ export default {
       this.currentId = contestId;
     },
     downloadSubmissions() {
-      let url = `/api/file/download-contest-ac-submission?cid=${this.currentId}&excludeAdmin=${this.excludeAdmin}&splitType=${this.splitType}`;
+      let url = `/api/file/download-contest-ac-submission?cid=${this.currentId}&excludeAdmin=${this.excludeAdmin}&allStatus=${this.allStatus}&splitType=${this.splitType}`;
       utils.downloadFile(url);
       this.downloadDialogVisible = false;
     },
