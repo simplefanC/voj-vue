@@ -345,6 +345,7 @@ export const m = {
   // /views/admin/contest/ContestList.vue
   Visible: 'Visible',
   Info: 'Info',
+  Clone: 'Clone',
   View_Contest_Problem_List: 'View Contest Problem List',
   View_Contest_Announcement_List: 'View Contest Announcement List',
   Download_Contest_Submission: 'Download Contest Submissions',
@@ -355,6 +356,8 @@ export const m = {
   SplitType_User: 'Split folders by username',
   SplitType_Problem: 'Split folders by problem id',
   Delete_Contest_Tips: 'This operation will delete the contest and its submission, discussion, announcement, record and other data. Do you want to continue?',
+  Clone_Contest_Tips: 'This operation will clone the contest. Do you want to continue?',
+  Clone_successfully: 'Clone successfully',
 
   // /views/admin/contest/Contest.vue
   Contest_Title: 'Contest Title',

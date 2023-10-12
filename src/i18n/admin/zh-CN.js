@@ -345,6 +345,7 @@ export const m = {
   // /views/admin/contest/ContestList.vue
   Visible: '是否可见',
   Info: '信息',
+  Clone: '克隆',
   View_Contest_Problem_List: '查看比赛题目列表',
   View_Contest_Announcement_List: '查看比赛公告列表',
   Download_Contest_Submission: '下载比赛的提交代码',
@@ -355,6 +356,8 @@ export const m = {
   SplitType_User: '以用户名分割文件夹',
   SplitType_Problem: '以题目ID分割文件夹',
   Delete_Contest_Tips: '此操作将删除该比赛以及比赛的提交、讨论、公告、记录等数据, 是否继续?',
+  Clone_Contest_Tips: '此操作将克隆该比赛, 是否继续?',
+  Clone_successfully: '克隆成功',
 
   // /views/admin/contest/Contest.vue
   Contest_Title: '比赛标题',

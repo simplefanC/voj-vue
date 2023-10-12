@@ -56,7 +56,6 @@
             <el-form-item :label="$t('m.Contest_Rule_Type')" required>
               <el-radio
                   v-model="contest.type"
-                  :disabled="disableRuleType"
                   :label="0"
                   class="radio"
                   @change="setSealRankTimeDefaultValue"
@@ -65,7 +64,6 @@
               >
               <el-radio
                   v-model="contest.type"
-                  :disabled="disableRuleType"
                   :label="1"
                   class="radio"
                   @change="setSealRankTimeDefaultValue"

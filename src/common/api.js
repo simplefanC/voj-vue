@@ -1264,6 +1264,13 @@ const adminApi = {
       }
     })
   },
+  admin_cloneContest(cid) {
+    return ajax('/api/admin/contest/clone', 'get', {
+      params: {
+        cid
+      }
+    })
+  },
   admin_changeContestVisible(cid, visible, uid) {
     return ajax('/api/admin/contest/change-contest-visible', 'put', {
       params: {

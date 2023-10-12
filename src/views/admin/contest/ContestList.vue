@@ -142,21 +142,37 @@
                   </el-button>
                 </el-tooltip>
               </div>
+              <div>
+                <el-tooltip
+                    v-if="isSuperAdmin"
+                    :content="$t('m.Clone')"
+                    effect="dark"
+                    placement="top"
+                >
+                  <el-button
+                      icon="el-icon-copy-document"
+                      size="mini"
+                      type="success"
+                      @click.native="cloneContest(row.id)"
+                  >
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip
+                    v-if="isSuperAdmin"
+                    :content="$t('m.Delete')"
+                    effect="dark"
+                    placement="top"
+                >
+                  <el-button
+                      icon="el-icon-delete"
+                      size="mini"
+                      type="danger"
+                      @click.native="deleteContest(row.id)"
+                  >
+                  </el-button>
+                </el-tooltip>
+              </div>
             </template>
-            <el-tooltip
-                v-if="isSuperAdmin"
-                :content="$t('m.Delete')"
-                effect="dark"
-                placement="top"
-            >
-              <el-button
-                  icon="el-icon-delete"
-                  size="mini"
-                  type="danger"
-                  @click.native="deleteContest(row.id)"
-              >
-              </el-button>
-            </el-tooltip>
           </template>
         </vxe-table-column>
       </vxe-table>
@@ -279,6 +295,18 @@ export default {
       this.$router.push({
         name: 'admin-contest-problem-list',
         params: {contestId},
+      });
+    },
+    cloneContest(contestId) {
+      this.$confirm(this.$i18n.t('m.Clone_Contest_Tips'), 'Tips', {
+        confirmButtonText: this.$i18n.t('m.OK'),
+        cancelButtonText: this.$i18n.t('m.Cancel'),
+        type: 'warning',
+      }).then(() => {
+        api.admin_cloneContest(contestId).then((res) => {
+          myMessage.success(this.$i18n.t('m.Clone_successfully'));
+          this.currentChange(1);
+        });
       });
     },
     deleteContest(contestId) {
