@@ -8,11 +8,8 @@
         type="success"
     >
       <template slot="title">
-        <span
-        ><i class="el-icon-s-promotion">
-            {{ $t('m.Message_Center') }}</i
-        ></span
-        >
+        <span><i class="el-icon-s-promotion">
+            {{ $t('m.Message_Center') }}</i></span>
       </template>
     </el-alert>
     <el-tabs

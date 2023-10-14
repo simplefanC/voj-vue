@@ -15,50 +15,41 @@
               style="width: 139px; height: 50px"
           ></el-image>
         </div>
-        <el-menu-item index="/home"
-        ><i class="el-icon-s-home"></i>{{ $t('m.NavBar_Home') }}
-        </el-menu-item
-        >
-        <el-menu-item index="/problem" v-if="websiteConfig.problem"
-        ><i class="el-icon-s-grid"></i
-        >{{ $t('m.NavBar_Problem') }}
-        </el-menu-item
-        >
-        <el-menu-item index="/training" v-if="websiteConfig.training"
-        ><i class="el-icon-s-claim"></i
-        >{{ $t('m.NavBar_Training') }}
-        </el-menu-item
-        >
-        <el-menu-item index="/contest" v-if="websiteConfig.contest"
-        ><i class="el-icon-trophy"></i
-        >{{ $t('m.NavBar_Contest') }}
-        </el-menu-item
-        >
-        <el-menu-item index="/status" v-if="websiteConfig.status"
-        ><i class="el-icon-s-marketing"></i
-        >{{ $t('m.NavBar_Status') }}
-        </el-menu-item
-        >
-        <el-submenu index="rank" v-if="websiteConfig.rank">
-          <template slot="title"
-          ><i class="el-icon-s-data"></i>{{ $t('m.NavBar_Rank') }}
-          </template
-          >
-          <el-menu-item index="/acm-rank">{{
-              $t('m.NavBar_ACM_Rank')
-            }}
-          </el-menu-item>
-          <el-menu-item index="/oi-rank">{{
-              $t('m.NavBar_OI_Rank')
-            }}
-          </el-menu-item>
-        </el-submenu>
+        <el-menu-item index="/home">
+          <i class="el-icon-s-home"></i>{{ $t('m.NavBar_Home') }}
+        </el-menu-item>
+        <el-menu-item index="/problem" v-if="websiteConfig.problem">
+          <i class="el-icon-s-grid"></i>{{ $t('m.NavBar_Problem') }}
+        </el-menu-item>
+        <el-menu-item index="/training" v-if="websiteConfig.training">
+          <i class="el-icon-s-claim"></i>{{ $t('m.NavBar_Training') }}
+        </el-menu-item>
+        <el-menu-item index="/contest" v-if="websiteConfig.contest">
+          <i class="el-icon-trophy"></i>{{ $t('m.NavBar_Contest') }}
+        </el-menu-item>
+        <el-menu-item index="/status" v-if="websiteConfig.status">
+          <i class="el-icon-s-marketing"></i>{{ $t('m.NavBar_Status') }}
+        </el-menu-item>
+        <el-menu-item index="/acm-rank" v-if="websiteConfig.rank">
+          <i class="el-icon-s-data"></i>{{ $t('m.NavBar_Rank') }}
+        </el-menu-item>
+<!--        <el-submenu index="rank" v-if="websiteConfig.rank">-->
+<!--          <template slot="title">-->
+<!--            <i class="el-icon-s-data"></i>{{ $t('m.NavBar_Rank') }}-->
+<!--          </template>-->
+<!--          <el-menu-item index="/acm-rank">{{-->
+<!--              $t('m.NavBar_ACM_Rank')-->
+<!--            }}-->
+<!--          </el-menu-item>-->
+<!--          <el-menu-item index="/oi-rank">{{-->
+<!--              $t('m.NavBar_OI_Rank')-->
+<!--            }}-->
+<!--          </el-menu-item>-->
+<!--        </el-submenu>-->
 
-        <el-menu-item index="/discussion" v-if="websiteConfig.discussion"
-        ><i class="el-icon-s-comment"></i
-        >{{ $t('m.NavBar_Discussion') }}
-        </el-menu-item
-        >
+        <el-menu-item index="/discussion" v-if="websiteConfig.discussion">
+          <i class="el-icon-s-comment"></i>{{ $t('m.NavBar_Discussion') }}
+        </el-menu-item>
 
         <el-menu-item index="/introduction" v-if="websiteConfig.introduction">
           <i class="el-icon-info"></i>

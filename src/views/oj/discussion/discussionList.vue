@@ -265,8 +265,7 @@
             this.query.pid == ''
                 ? $t('m.Post_discussion')
                 : $t('m.Post_problem_discussion')
-          }}</i
-        >
+          }}</i>
         </el-button>
         <el-button
             v-if="isAuthenticated"
@@ -275,8 +274,7 @@
             type="danger"
             @click="toOnlyMyDiscussion(!query.onlyMine)"
         ><i class="el-icon-search">
-          {{ query.onlyMine ? $t('m.All') : $t('m.Mine') }}</i
-        >
+          {{ query.onlyMine ? $t('m.All') : $t('m.Mine') }}</i>
         </el-button>
         <template v-if="this.query.pid">
           <el-button

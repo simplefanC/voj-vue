@@ -17,8 +17,7 @@
         <el-submenu v-if="isSuperAdmin" index="general">
           <template slot="title"
           ><i class="el-icon-menu"></i>{{ $t('m.General') }}
-          </template
-          >
+          </template>
           <el-menu-item index="/admin/user">{{
               $t('m.User_Admin')
             }}
@@ -45,8 +44,7 @@
           <template slot="title"
           ><i aria-hidden="true" class="fa fa-bars fa-size"></i
           >{{ $t('m.Problem_Admin') }}
-          </template
-          >
+          </template>
           <el-menu-item index="/admin/problems">{{
               $t('m.Problem_List')
             }}
@@ -71,8 +69,7 @@
           <template slot="title"
           ><i aria-hidden="true" class="fa fa-trophy fa-size"></i
           >{{ $t('m.Contest_Admin') }}
-          </template
-          >
+          </template>
           <el-menu-item index="/admin/contest">{{
               $t('m.Contest_List')
             }}
@@ -91,8 +88,7 @@
               style="font-size: 20px;"
           ></i
           >{{ $t('m.Training_Admin') }}
-          </template
-          >
+          </template>
           <el-menu-item index="/admin/training">{{
               $t('m.Training_List')
             }}
@@ -111,8 +107,7 @@
           <template slot="title"
           ><i aria-hidden="true" class="fa fa-comments fa-size"></i
           >{{ $t('m.Discussion') }}
-          </template
-          >
+          </template>
           <el-menu-item index="/admin/discussion">{{
               $t('m.Discussion_Admin')
             }}
