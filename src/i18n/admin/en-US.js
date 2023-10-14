@@ -366,6 +366,7 @@ export const m = {
   Contest_End_Time: 'End Time',
   Contest_Duration: 'Contest Duration',
   Contest_Rule_Type: 'Contest Rule Type',
+  Contest_Seal_Rank: 'Contest Seal Rank',
   Seal_Time_Rank: 'Seal Time Rank',
   Real_Time_Rank: 'Real Time Rank',
   Seal_Rank_Time: 'Seal Rank Time',

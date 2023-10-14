@@ -98,7 +98,7 @@
 
         <el-row :gutter="20">
           <el-col v-if="contest.sealRank" :md="8" :xs="24">
-            <el-form-item :label="$t('m.Seal_Time_Rank')" required>
+            <el-form-item :label="$t('m.Contest_Seal_Rank')" required>
               <el-switch
                   v-model="contest.sealRank"
                   active-color="#13ce66"
@@ -108,7 +108,7 @@
             </el-form-item>
           </el-col>
           <el-col v-else :md="24" :xs="24">
-            <el-form-item :label="$t('m.Real_Time_Rank')" required>
+            <el-form-item :label="$t('m.Contest_Seal_Rank')" required>
               <el-switch
                   v-model="contest.sealRank"
                   active-color="#13ce66"
@@ -145,15 +145,10 @@
           <el-col :md="8" :xs="24">
             <el-form-item
                 v-show="contest.sealRank"
-                :label="$t('m.Auto_Real_Rank')"
+                :label="$t('m.Real_Rank_After_Contest')"
                 required
             >
-              <el-switch
-                  v-model="contest.autoRealRank"
-                  :active-text="$t('m.Real_Rank_After_Contest')"
-                  :inactive-text="$t('m.Seal_Rank_After_Contest')"
-              >
-              </el-switch>
+              <el-switch v-model="contest.autoRealRank"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -162,11 +157,7 @@
           <!--赛外榜单-->
           <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Contest_Outside_ScoreBoard')" required>
-              <el-switch
-                  v-model="contest.openRank"
-                  :active-text="$t('m.Open')"
-                  :inactive-text="$t('m.Close')"
-              >
+              <el-switch v-model="contest.openRank">
               </el-switch>
             </el-form-item>
           </el-col>
@@ -193,11 +184,7 @@
           <!--打印功能-->
           <el-col :md="8" :xs="24">
             <el-form-item :label="$t('m.Print_Func')" required>
-              <el-switch
-                  v-model="contest.openPrint"
-                  :active-text="$t('m.Support_Offline_Print')"
-                  :inactive-text="$t('m.Not_Support_Print')"
-              >
+              <el-switch v-model="contest.openPrint">
               </el-switch>
             </el-form-item>
           </el-col>
