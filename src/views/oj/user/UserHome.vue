@@ -75,16 +75,7 @@
         </span>
         <hr id="split"/>
         <el-row :gutter="12">
-          <el-col :md="8" :sm="24">
-            <el-card class="submission" shadow="always">
-              <p>
-                <i aria-hidden="true" class="fa fa-th"></i>
-                {{ $t('m.UserHome_Submissions') }}
-              </p>
-              <p class="data-number">{{ profile.total }}</p>
-            </el-card>
-          </el-col>
-          <el-col :md="8" :sm="24">
+          <el-col :md="12" :sm="24">
             <el-card class="solved" shadow="always">
               <p>
                 <i aria-hidden="true" class="fa fa-check-circle"></i>
@@ -93,15 +84,24 @@
               <p class="data-number">{{ profile.solvedList.length }}</p>
             </el-card>
           </el-col>
-          <el-col :md="8" :sm="24">
-            <el-card class="score" shadow="always">
+          <el-col :md="12" :sm="24">
+            <el-card class="submission" shadow="always">
               <p>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                {{ $t('m.UserHome_Score') }}
+                <i aria-hidden="true" class="fa fa-th"></i>
+                {{ $t('m.UserHome_Submissions') }}
               </p>
-              <p class="data-number">{{ getSumScore(profile.scoreList) }}</p>
+              <p class="data-number">{{ profile.total }}</p>
             </el-card>
           </el-col>
+<!--          <el-col :md="8" :sm="24">-->
+<!--            <el-card class="score" shadow="always">-->
+<!--              <p>-->
+<!--                <i aria-hidden="true" class="fa fa-star"></i>-->
+<!--                {{ $t('m.UserHome_Score') }}-->
+<!--              </p>-->
+<!--              <p class="data-number">{{ getSumScore(profile.scoreList) }}</p>-->
+<!--            </el-card>-->
+<!--          </el-col>-->
           <!--          <el-col :md="6" :sm="24">-->
           <!--            <el-card shadow="always" class="rating">-->
           <!--              <p>-->

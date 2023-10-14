@@ -98,8 +98,7 @@
                     color="#19be6b"
                     effect="dark"
                     size="mini"
-                >{{ generalInfo.nacos.status }}</el-tag
-                >
+                >{{ generalInfo.nacos.status }}</el-tag>
                 <el-tag v-else color="#f90" effect="dark" size="mini">{{
                     generalInfo.nacos.status
                   }}</el-tag>
@@ -182,8 +181,7 @@
                     color="#19be6b"
                     effect="dark"
                 >{{ $t('m.Healthy') }}
-                </el-tag
-                >
+                </el-tag>
                 <el-tag v-else color="#f90" effect="dark">{{
                     $t('m.Unhealthy')
                   }}

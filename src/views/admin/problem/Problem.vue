@@ -171,18 +171,18 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :md="4" :xs="24">
-            <el-form-item :label="$t('m.Type')">
-              <el-radio-group
-                  v-model="problem.type"
-                  :disabled="disableRuleType || problem.isRemote"
-                  @change="problemTypeChange"
-              >
-                <el-radio :label="0">ACM</el-radio>
-                <el-radio :label="1">OI</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
+<!--          <el-col :md="4" :xs="24">-->
+<!--            <el-form-item :label="$t('m.Type')">-->
+<!--              <el-radio-group-->
+<!--                  v-model="problem.type"-->
+<!--                  :disabled="disableRuleType || problem.isRemote"-->
+<!--                  @change="problemTypeChange"-->
+<!--              >-->
+<!--                <el-radio :label="0">ACM</el-radio>-->
+<!--                <el-radio :label="1">OI</el-radio>-->
+<!--              </el-radio-group>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
           <el-col :md="3" :xs="24">
             <el-form-item :label="$t('m.Code_Shareable')">
               <el-switch
@@ -468,16 +468,16 @@
             </el-popover>
           </div>
 
-          <el-form-item required>
-            <el-radio-group v-model="problem.judgeCaseMode">
-              <el-radio :label="JUDGE_CASE_MODE.DEFAULT">
-                {{ problem.type == 1 ? $t('m.OI_Judge_Case_Default_Mode'): $t('m.ACM_Judge_Case_Default_Mode')}}
-              </el-radio>
-              <template v-if="problem.type == 0">
-                <el-radio :label="JUDGE_CASE_MODE.ITERATE_UNTIL_WRONG">{{$t('m.Judge_Case_Iterate_Until_Wrong_Mode')}}</el-radio>
-              </template>
-            </el-radio-group>
-          </el-form-item>
+<!--          <el-form-item required>-->
+<!--            <el-radio-group v-model="problem.judgeCaseMode">-->
+<!--              <el-radio :label="JUDGE_CASE_MODE.DEFAULT">-->
+<!--                {{ problem.type == 1 ? $t('m.OI_Judge_Case_Default_Mode'): $t('m.ACM_Judge_Case_Default_Mode')}}-->
+<!--              </el-radio>-->
+<!--              <template v-if="problem.type == 0">-->
+<!--                <el-radio :label="JUDGE_CASE_MODE.ITERATE_UNTIL_WRONG">{{$t('m.Judge_Case_Iterate_Until_Wrong_Mode')}}</el-radio>-->
+<!--              </template>-->
+<!--            </el-radio-group>-->
+<!--          </el-form-item>-->
 
           <el-form-item required>
             <el-switch

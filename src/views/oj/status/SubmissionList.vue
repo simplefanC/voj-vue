@@ -171,31 +171,35 @@
                     effect="plain"
                     size="medium"
                 >{{ row.score }}
-                </el-tag
-                >
+                </el-tag>
               </template>
               <template v-else-if="row.score != null">
-                <el-tooltip placement="top">
-                  <div slot="content">
-                    {{ $t('m.Problem_Score') }}：{{
-                      row.score != null ? row.score : $t('m.Unknown')
-                    }}<br/>{{ $t('m.OI_Rank_Score') }}：{{
-                      row.oiRankScore != null
-                          ? row.oiRankScore
-                          : $t('m.Unknown')
-                    }}<br/>
-                    {{
-                      $t('m.OI_Rank_Calculation_Rule')
-                    }}：(score*0.1+difficulty*2)*(ac_cases/sum_cases)
-                  </div>
-                  <el-tag
-                      :type="JUDGE_STATUS[row.status]['type']"
-                      effect="plain"
-                      size="medium"
-                  >{{ row.score }}
-                  </el-tag
-                  >
-                </el-tooltip>
+                <el-tag
+                    :type="JUDGE_STATUS[row.status]['type']"
+                    effect="plain"
+                    size="medium"
+                >{{ row.score }}
+                </el-tag>
+<!--                <el-tooltip placement="top">-->
+<!--                  <div slot="content">-->
+<!--                    {{ $t('m.Problem_Score') }}：{{-->
+<!--                      row.score != null ? row.score : $t('m.Unknown')-->
+<!--                    }}<br/>{{ $t('m.OI_Rank_Score') }}：{{-->
+<!--                      row.oiRankScore != null-->
+<!--                          ? row.oiRankScore-->
+<!--                          : $t('m.Unknown')-->
+<!--                    }}<br/>-->
+<!--                    {{-->
+<!--                      $t('m.OI_Rank_Calculation_Rule')-->
+<!--                    }}：(score*0.1+difficulty*2)*(ac_cases/sum_cases)-->
+<!--                  </div>-->
+<!--                  <el-tag-->
+<!--                      :type="JUDGE_STATUS[row.status]['type']"-->
+<!--                      effect="plain"-->
+<!--                      size="medium"-->
+<!--                  >{{ row.score }}-->
+<!--                  </el-tag>-->
+<!--                </el-tooltip>-->
               </template>
               <template
                   v-else-if="
@@ -218,8 +222,7 @@
                     effect="plain"
                     size="medium"
                 >--
-                </el-tag
-                >
+                </el-tag>
               </template>
             </template>
           </vxe-table-column>

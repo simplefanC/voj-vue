@@ -136,20 +136,20 @@
                       >
                       <br/>
                     </template>
-                    <template v-if="problemData.problem.type == 1">
-                      <span
-                      >{{ $t('m.Score') }}：{{ problemData.problem.ioScore }}
-                      </span>
-                      <span v-if="!contestID" style="margin-left:5px;">
-                        {{ $t('m.OI_Rank_Score') }}：{{
-                          calcOIRankScore(
-                              problemData.problem.ioScore,
-                              problemData.problem.difficulty
-                          )
-                        }}(0.1*{{ $t('m.Score') }}+2*{{ $t('m.Level') }})
-                      </span>
-                      <br/>
-                    </template>
+<!--                    <template v-if="problemData.problem.type == 1">-->
+<!--                      <span-->
+<!--                      >{{ $t('m.Score') }}：{{ problemData.problem.ioScore }}-->
+<!--                      </span>-->
+<!--                      <span v-if="!contestID" style="margin-left:5px;">-->
+<!--                        {{ $t('m.OI_Rank_Score') }}：{{-->
+<!--                          calcOIRankScore(-->
+<!--                              problemData.problem.ioScore,-->
+<!--                              problemData.problem.difficulty-->
+<!--                          )-->
+<!--                        }}(0.1*{{ $t('m.Score') }}+2*{{ $t('m.Level') }})-->
+<!--                      </span>-->
+<!--                      <br/>-->
+<!--                    </template>-->
 
                     <template v-if="problemData.problem.author">
                       <span
@@ -331,27 +331,32 @@
                           >
                         </template>
                         <template v-else-if="row.score != null">
-                          <el-tooltip placement="top">
-                            <div slot="content">
-                              {{ $t('m.Problem_Score') }}：{{
-                                row.score != null ? row.score : $t('m.Unknown')
-                              }}<br/>{{ $t('m.OI_Rank_Score') }}：{{
-                                row.oiRankScore != null
-                                    ? row.oiRankScore
-                                    : $t('m.Unknown')
-                              }}<br/>
-                              {{
-                                $t('m.OI_Rank_Calculation_Rule')
-                              }}：(score*0.1+difficulty*2)*(ac_cases/sum_cases)
-                            </div>
-                            <el-tag
-                                :type="JUDGE_STATUS[row.status]['type']"
-                                effect="plain"
-                                size="medium"
-                            >{{ row.score }}
-                            </el-tag
-                            >
-                          </el-tooltip>
+                          <el-tag
+                              :type="JUDGE_STATUS[row.status]['type']"
+                              effect="plain"
+                              size="medium"
+                          >{{ row.score }}
+                          </el-tag>
+<!--                          <el-tooltip placement="top">-->
+<!--                            <div slot="content">-->
+<!--                              {{ $t('m.Problem_Score') }}：{{-->
+<!--                                row.score != null ? row.score : $t('m.Unknown')-->
+<!--                              }}<br/>{{ $t('m.OI_Rank_Score') }}：{{-->
+<!--                                row.oiRankScore != null-->
+<!--                                    ? row.oiRankScore-->
+<!--                                    : $t('m.Unknown')-->
+<!--                              }}<br/>-->
+<!--                              {{-->
+<!--                                $t('m.OI_Rank_Calculation_Rule')-->
+<!--                              }}：(score*0.1+difficulty*2)*(ac_cases/sum_cases)-->
+<!--                            </div>-->
+<!--                            <el-tag-->
+<!--                                :type="JUDGE_STATUS[row.status]['type']"-->
+<!--                                effect="plain"-->
+<!--                                size="medium"-->
+<!--                            >{{ row.score }}-->
+<!--                            </el-tag>-->
+<!--                          </el-tooltip>-->
                         </template>
                         <template
                             v-else-if="
