@@ -16,7 +16,7 @@ const NullComponent = {
 };
 
 export default {
-  name: 'contest-rank',
+  name: 'ContestRank',
   components: {
     ACMContestRank,
     OIContestRank,

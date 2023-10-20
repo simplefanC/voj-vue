@@ -364,7 +364,7 @@ import myMessage from '@/common/message';
 import 'element-ui/lib/theme-chalk/display.css';
 
 export default {
-  name: 'submissionList',
+  name: 'SubmissionList',
   components: {
     Pagination,
   },

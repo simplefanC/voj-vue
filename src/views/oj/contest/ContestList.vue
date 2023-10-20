@@ -276,7 +276,7 @@ const Pagination = () => import('@/components/oj/common/Pagination');
 const limit = 10;
 
 export default {
-  name: 'contest-list',
+  name: 'ContestList',
   components: {
     Pagination,
   },

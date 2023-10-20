@@ -95,7 +95,12 @@ const ojRoutes = [
     path: '/contest',
     name: 'ContestList',
     component: ContestList,
-    meta: {title: 'Contest'}
+    meta: {
+      title: 'Contest',
+      componentName: 'ContestList',
+      keepAlive: true,
+      to: ['ContestProblemList']
+    }
   },
   {
     path: '/contest/acm-scoreboard/:contestID',
@@ -131,7 +136,7 @@ const ojRoutes = [
         name: 'ContestProblemList',
         path: 'problems',
         component: ContestProblemList,
-        meta: {title: 'Contest Problem'}
+        meta: {title: 'Contest Problem', componentName: 'ContestProblemList'}
       },
       {
         name: 'ContestProblemDetails',

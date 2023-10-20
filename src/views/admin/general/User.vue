@@ -553,7 +553,7 @@ import myMessage from '@/common/message';
 import {USER_ROLE, USER_STATUS} from '@/common/constants';
 
 export default {
-  name: 'user',
+  name: 'User',
   data() {
     const CheckTogtFrom = (rule, value, callback) => {
       if (value < this.formGenerateUser.number_from) {

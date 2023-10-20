@@ -21,6 +21,22 @@ VueRouter.prototype.push = function push(location) {
 }
 
 let routes = new Set([...ojRoutes, ...adminRoutes]);
+const routeNameToComponentNameMap = {};
+
+function buildRouteNameToComponentNameMap(routes) {
+  routes.forEach(route => {
+    if (route.name && route.meta && route.meta.componentName) {
+      routeNameToComponentNameMap[route.name] = route.meta.componentName;
+    }
+    if (route.children) {
+      buildRouteNameToComponentNameMap(route.children);
+    }
+  });
+}
+buildRouteNameToComponentNameMap(routes);
+
+console.log(routeNameToComponentNameMap);
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -91,4 +107,7 @@ router.afterEach((to, from, next) => {
 
 sync(store, router)
 
-export default router
+export {
+  router,
+  routeNameToComponentNameMap
+}

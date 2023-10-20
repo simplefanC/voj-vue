@@ -13,8 +13,7 @@
             type="primary"
             @click="openAnnouncementDialog(null)"
         >{{ $t('m.Create') }}
-        </el-button
-        >
+        </el-button>
       </div>
       <div class="list">
         <vxe-table
@@ -123,7 +122,6 @@
 
     <!--编辑公告对话框-->
     <el-dialog
-        :fullscreen="true"
         :title="announcementDialogTitle"
         :visible.sync="showEditAnnouncementDialog"
         @open="onOpenEditDialog"
@@ -156,8 +154,7 @@
         <el-button
             type="danger"
             @click.native="showEditAnnouncementDialog = false"
-        >{{ $t('m.Cancel') }}</el-button
-        >
+        >{{ $t('m.Cancel') }}</el-button>
         <el-button type="primary" @click.native="submitAnnouncement">{{
             $t('m.OK')
           }}</el-button>
@@ -173,7 +170,7 @@ import {mapGetters} from 'vuex';
 
 const Editor = () => import('@/components/admin/Editor.vue');
 export default {
-  name: 'announcement',
+  name: 'Announcement',
   components: {
     Editor,
   },

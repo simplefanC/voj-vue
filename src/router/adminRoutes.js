@@ -98,7 +98,7 @@ const adminRoutes = [
       },
       {
         path: 'problem/batch-operation',
-        name: 'admin-problem_batch_operation',
+        name: 'admin-problem-batch-operation',
         component: ProblemImportAndExport,
         meta: {title: 'Export Import Problem'},
       },
@@ -112,19 +112,24 @@ const adminRoutes = [
         path: 'training',
         name: 'admin-training-list',
         component: TrainingList,
-        meta: {title: 'Training List'}
+        meta: {
+          title: 'Training List',
+          componentName: 'TrainingList',
+          keepAlive: true,
+          to: ['admin-edit-training', 'admin-training-problem-list']
+        }
       },
       {
         path: 'training/:trainingId/edit',
         name: 'admin-edit-training',
         component: Training,
-        meta: {title: 'Edit Training'}
+        meta: {title: 'Edit Training', componentName: 'Training'}
       },
       {
         path: 'training/:trainingId/problems',
         name: 'admin-training-problem-list',
         component: TrainingProblemList,
-        meta: {title: 'Training Problem List'}
+        meta: {title: 'Training Problem List', componentName: 'TrainingProblemList'}
       },
       {
         path: 'training/category',
@@ -142,25 +147,30 @@ const adminRoutes = [
         path: 'contest',
         name: 'admin-contest-list',
         component: ContestList,
-        meta: {title: 'Contest List'}
+        meta: {
+          title: 'Contest List',
+          componentName: 'ContestList',
+          keepAlive: true,
+          to: ['admin-edit-contest', 'admin-contest-problem-list', 'admin-contest-announcement']
+        }
       },
       {
         path: 'contest/:contestId/edit',
         name: 'admin-edit-contest',
         component: Contest,
-        meta: {title: 'Edit Contest'}
+        meta: {title: 'Edit Contest', componentName: 'Contest'}
       },
       {
         path: 'contest/:contestId/announcement',
         name: 'admin-contest-announcement',
         component: Announcement,
-        meta: {title: 'Contest Announcement'}
+        meta: {title: 'Contest Announcement', componentName: 'Announcement'}
       },
       {
         path: 'contest/:contestId/problems',
         name: 'admin-contest-problem-list',
         component: ProblemList,
-        meta: {title: 'Contest Problem List'}
+        meta: {title: 'Contest Problem List', componentName: 'ProblemList'}
       },
       {
         path: 'contest/:contestId/problem/create',

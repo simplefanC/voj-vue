@@ -388,7 +388,7 @@ import myMessage from '@/common/message';
 
 const Editor = () => import('@/components/admin/Editor.vue');
 export default {
-  name: 'CreateContest',
+  name: 'Contest',
   components: {
     Editor,
   },

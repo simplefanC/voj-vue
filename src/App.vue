@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <el-backtop :right="10"></el-backtop>
     <div v-if="!isAdminView">
+      <el-backtop :right="10"></el-backtop>
       <NavBar></NavBar>
       <div id="oj-content">
         <transition name="el-collapse-transition">
@@ -9,78 +9,18 @@
         </transition>
       </div>
       <footer>
-        <!--        <div class="mundb-footer">-->
-        <!--          <el-row>-->
-        <!--            <el-col :md="6" :xs="24">-->
-        <!--              <h1>{{ toUpper(websiteConfig.shortName) }}</h1>-->
-        <!--              <span-->
-        <!--                style="line-height:25px"-->
-        <!--                v-html="websiteConfig.description"-->
-        <!--                v-katex-->
-        <!--                v-highlight-->
-        <!--              >-->
-        <!--              </span>-->
-        <!--            </el-col>-->
-        <!--            <el-col class="hr-none">-->
-        <!--              <el-divider></el-divider>-->
-        <!--            </el-col>-->
-        <!--            <el-col :md="6" :xs="24">-->
-        <!--              <h1>{{ $t('m.Service') }}</h1>-->
-        <!--              <p>-->
-        <!--                <a @click="goRoute('/status')">{{ $t('m.Judging_Queue') }}</a>-->
-        <!--              </p>-->
-        <!--              <p>-->
-        <!--                <a @click="goRoute('/developer')">{{ $t('m.System_Info') }}</a>-->
-        <!--              </p>-->
-        <!--            </el-col>-->
-        <!--            <el-col class="hr-none">-->
-        <!--              <el-divider></el-divider>-->
-        <!--            </el-col>-->
-        <!--            <el-col :md="6" :xs="24">-->
-        <!--              <h1>{{ $t('m.Development') }}</h1>-->
-        <!--              <p class="mb-1">-->
-        <!--                <a :href="websiteConfig.projectUrl" target="_blank">{{-->
-        <!--                  $t('m.Open_Source')-->
-        <!--                }}</a>-->
-        <!--              </p>-->
-        <!--              <p class="mb-1"><a @click="goRoute('/#')">API</a></p>-->
-        <!--            </el-col>-->
-        <!--            <el-col class="hr-none">-->
-        <!--              <el-divider></el-divider>-->
-        <!--            </el-col>-->
-        <!--            <el-col :md="6" :xs="24">-->
-        <!--              <h1>{{ $t('m.Support') }}</h1>-->
-        <!--              <p>-->
-        <!--                <i class="fa fa-info-circle" aria-hidden="true"></i-->
-        <!--                ><a @click="goRoute('/introduction')"> {{ $t('m.Help') }}</a>-->
-        <!--              </p>-->
-        <!--              <p>-->
-        <!--                <i class="fa fa-qq" aria-hidden="true"></i>-->
-        <!--                {{ $t('m.Group') }} 598587305-->
-        <!--              </p>-->
-        <!--            </el-col>-->
-        <!--          </el-row>-->
-        <!--        </div>-->
         <div class="mundb-footer">
           <a
               :href="websiteConfig.recordUrl"
               style="color:#1E9FFF"
               target="_blank"
-          >{{ websiteConfig.recordName }}</a
-          >
-          <!--          Powered by-->
-          <!--          <a-->
-          <!--            :href="websiteConfig.projectUrl"-->
-          <!--            style="color:#1E9FFF"-->
-          <!--            target="_blank"-->
-          <!--            >{{ websiteConfig.projectName }}</a-->
-          <!--          >-->
+          >{{ websiteConfig.recordName }}</a>
           <span style="margin-left:10px">
             <el-dropdown placement="top" @command="changeLanguage">
               <span class="el-dropdown-link">
                 <i aria-hidden="true" class="fa fa-globe">
-                  {{ this.webLanguage == 'zh-CN' ? '简体中文' : 'English' }}</i
-                ><i class="el-icon-arrow-up el-icon--right"></i>
+                  {{ this.webLanguage == 'zh-CN' ? '简体中文' : 'English' }}</i>
+                <i class="el-icon-arrow-up el-icon--right"/>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="zh-CN">简体中文</el-dropdown-item>
@@ -107,13 +47,13 @@ import {mapActions, mapGetters, mapState} from 'vuex';
 import {LOGO, MOTTO} from '@/common/logo';
 
 export default {
-  name: 'app-content',
+  name: 'App',
   components: {
     NavBar,
   },
   data() {
     return {
-      isAdminView: false,
+      isAdminView: false
     };
   },
   methods: {
@@ -133,9 +73,9 @@ export default {
     },
   },
   watch: {
-    $route(newVal, oldVal) {
+    $route(to, from) {
       this.changeDomTitle();
-      if (newVal !== oldVal && newVal.path.split('/')[1] == 'admin') {
+      if (to !== from && to.path.split('/')[1] == 'admin') {
         this.isAdminView = true;
       } else {
         this.isAdminView = false;

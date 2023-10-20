@@ -3,7 +3,7 @@ import App from './App.vue'
 import store from './store'
 import Element from 'element-ui'
 import i18n from '@/i18n'
-import router from './router'
+import {router} from './router'
 
 import "element-ui/lib/theme-chalk/index.css"
 import 'font-awesome/css/font-awesome.min.css'

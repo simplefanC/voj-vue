@@ -239,7 +239,7 @@ import {mapGetters} from 'vuex';
 import utils from '@/common/utils';
 
 export default {
-  name: 'ProblemList',
+  name: 'TrainingProblemList',
   components: {
     AddPublicProblem,
   },

@@ -88,7 +88,7 @@ import myMessage from '@/common/message';
 
 const Editor = () => import('@/components/admin/Editor.vue');
 export default {
-  name: 'CreateTraining',
+  name: 'Training',
   components: {
     Editor,
   },

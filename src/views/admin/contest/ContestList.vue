@@ -245,7 +245,7 @@ export default {
   },
   watch: {
     $route() {
-      let refresh = this.$route.query.refresh == 'true' ? true : false;
+      let refresh = this.$route.query.refresh == 'true';
       if (refresh) {
         this.getContestList(1);
       }

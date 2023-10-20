@@ -163,7 +163,7 @@ import {mapGetters} from 'vuex';
 
 const Editor = () => import('@/components/admin/Editor.vue');
 export default {
-  name: 'notice',
+  name: 'Notice',
   components: {
     Editor,
   },

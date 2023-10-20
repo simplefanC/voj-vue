@@ -255,7 +255,7 @@ import myMessage from '@/common/message';
 import storage from '@/common/storage';
 
 export default {
-  name: '',
+  name: 'Contest',
   data() {
     return {
       route_name: 'contestDetails',
