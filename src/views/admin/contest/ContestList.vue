@@ -84,9 +84,10 @@
         </vxe-table-column>
         <vxe-table-column :title="$t('m.Option')" min-width="150">
           <template v-slot="{ row }">
-            <template v-if="isSuperAdmin || userInfo.uid == row.uid">
+            <template v-if="isSuperAdmin || isProblemAdmin || userInfo.uid == row.uid">
               <div style="margin-bottom:10px">
                 <el-tooltip
+                    v-if="isSuperAdmin || userInfo.uid == row.uid"
                     :content="$t('m.Edit')"
                     effect="dark"
                     placement="top"
@@ -100,6 +101,7 @@
                   </el-button>
                 </el-tooltip>
                 <el-tooltip
+                    v-if="isSuperAdmin || userInfo.uid == row.uid"
                     :content="$t('m.View_Contest_Problem_List')"
                     effect="dark"
                     placement="top"
@@ -115,6 +117,7 @@
               </div>
               <div style="margin-bottom:10px">
                 <el-tooltip
+                    v-if="isSuperAdmin || userInfo.uid == row.uid"
                     :content="$t('m.View_Contest_Announcement_List')"
                     effect="dark"
                     placement="top"
@@ -127,8 +130,8 @@
                   >
                   </el-button>
                 </el-tooltip>
-
                 <el-tooltip
+                    v-if="isSuperAdmin || userInfo.uid == row.uid"
                     :content="$t('m.Download_Contest_Submission')"
                     effect="dark"
                     placement="top"
@@ -144,7 +147,6 @@
               </div>
               <div>
                 <el-tooltip
-                    v-if="isSuperAdmin"
                     :content="$t('m.Clone')"
                     effect="dark"
                     placement="top"
@@ -252,7 +254,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isSuperAdmin', 'userInfo']),
+    ...mapGetters(['isSuperAdmin', 'isProblemAdmin', 'userInfo']),
   },
   methods: {
     // 切换页码回调
