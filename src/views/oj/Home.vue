@@ -384,13 +384,13 @@ export default {
         //   status: true,
         // },
         {
-          url: 'https://www.maxuetang.cn',
+          url: 'https://mxt.cn',
           name: 'MXT',
           logo: require('@/assets/remotejudgelogo/mxt.png'),
           status: true,
         },
         {
-          url: 'https://nanti.jisuanke.com',
+          url: 'https://www.jisuanke.com',
           name: 'JSK',
           logo: require('@/assets/remotejudgelogo/jsk.png'),
           status: true,
