@@ -342,11 +342,15 @@
                   class="userPreview"
               >
                 {{ $t('m.The_allowed_account_will_be') }}
-                {{ formRule.prefix + formRule.number_from + formRule.suffix }},
+                {{
+                  formRule.prefix +
+                  ("" + formRule.number_from).padStart(formRule.number_to.toString().length, "0") +
+                  formRule.suffix
+                }},
                 <span v-if="formRule.number_from + 1 < formRule.number_to">
                   {{
                     formRule.prefix +
-                    (formRule.number_from + 1) +
+                    ("" + formRule.number_from + 1).padStart(formRule.number_to.toString().length, "0") +
                     formRule.suffix +
                     '...'
                   }}

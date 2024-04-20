@@ -414,7 +414,7 @@
             {{ $t('m.The_usernames_will_be') }}
             {{
               formGenerateUser.prefix +
-              formGenerateUser.number_from +
+              ("" + formGenerateUser.number_from).padStart(formGenerateUser.number_to.toString().length, "0") +
               formGenerateUser.suffix
             }},
             <span
@@ -424,7 +424,7 @@
             >
               {{
                 formGenerateUser.prefix +
-                (formGenerateUser.number_from + 1) +
+                ("" + formGenerateUser.number_from + 1).padStart(formGenerateUser.number_to.toString().length, "0") +
                 formGenerateUser.suffix +
                 '...'
               }}
