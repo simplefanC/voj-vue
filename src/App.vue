@@ -10,11 +10,12 @@
       </div>
       <footer>
         <div class="mundb-footer">
-          <a
-              :href="websiteConfig.recordUrl"
-              style="color:#1E9FFF"
-              target="_blank"
-          >{{ websiteConfig.recordName }}</a>
+          <a href="https://beian.mps.gov.cn/#/query/webSearch?code=33102302000376" rel="noreferrer" target="_blank" style="margin-right:10px">
+            <img src="https://beian.mps.gov.cn/img/logo01.dd7ff50e.png" alt="公安备案"
+                 style="vertical-align: middle; width: 20px;">
+            浙公网安备33102302000376
+          </a>
+          <a :href="websiteConfig.recordUrl" target="_blank">{{ websiteConfig.recordName }}</a>
           <span style="margin-left:10px">
             <el-dropdown placement="top" @command="changeLanguage">
               <span class="el-dropdown-link">
